@@ -1,0 +1,17 @@
+syntax = "proto3";
+package babylonclone.babylonclone;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "babylonclone/babylonclone/params.proto";
+
+option go_package = "github.com/amovidhussaini/babylonclone/x/babylonclone/types";
+
+// GenesisState defines the babylonclone module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
