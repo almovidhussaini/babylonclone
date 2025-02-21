@@ -2,11 +2,10 @@ package app
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	storetypes "cosmossdk.io/store/types"
-	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
+
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
@@ -16,12 +15,15 @@ import (
 
 // ExportAppStateAndValidators exports the state of the application for a genesis
 // file.
-func (app *App) ExportAppStateAndValidators(forZeroHeight bool, jailAllowedAddrs, modulesToExport []string) (servertypes.ExportedApp, error) {
+func (app *ybtcApp) ExportAppStateAndValidators(
+	forZeroHeight bool,
+	jailAllowedAddrs []string,
+	modulesToExport []string) (servertypes.ExportedApp, error) {
 	// as if they could withdraw from the start of the next block
-	ctx := app.NewContextLegacy(true, cmtproto.Header{Height: app.LastBlockHeight()})
+	ctx := app.NewContext(true)
 
 	// We export at last height + 1, because that's the height at which
-	// CometBFT will start InitChain.
+	// Comet will start InitChain.
 	height := app.LastBlockHeight() + 1
 	if forZeroHeight {
 		height = 0
@@ -49,9 +51,8 @@ func (app *App) ExportAppStateAndValidators(forZeroHeight bool, jailAllowedAddrs
 
 // prepare for fresh start at zero height
 // NOTE zero height genesis is a temporary feature which will be deprecated
-//
-//	in favor of export at a block height
-func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []string) {
+// in favour of export at a block height
+func (app *ybtcApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []string) {
 	applyAllowedAddrs := false
 
 	// check if there is a allowed address list
@@ -80,7 +81,9 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 		if err != nil {
 			panic(err)
 		}
-		_, _ = app.DistrKeeper.WithdrawValidatorCommission(ctx, valBz)
+		if _, err = app.DistrKeeper.WithdrawValidatorCommission(ctx, valBz); err != nil {
+			panic(err)
+		}
 		return false
 	})
 	if err != nil {
@@ -92,16 +95,19 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 	if err != nil {
 		panic(err)
 	}
-
 	for _, delegation := range dels {
 		valAddr, err := sdk.ValAddressFromBech32(delegation.ValidatorAddress)
 		if err != nil {
 			panic(err)
 		}
 
-		delAddr := sdk.MustAccAddressFromBech32(delegation.DelegatorAddress)
-
-		_, _ = app.DistrKeeper.WithdrawDelegationRewards(ctx, delAddr, valAddr)
+		delAddr, err := sdk.AccAddressFromBech32(delegation.DelegatorAddress)
+		if err != nil {
+			panic(err)
+		}
+		if _, err = app.DistrKeeper.WithdrawDelegationRewards(ctx, delAddr, valAddr); err != nil {
+			panic(err)
+		}
 	}
 
 	// clear validator slash events
@@ -111,8 +117,10 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 	app.DistrKeeper.DeleteAllValidatorHistoricalRewards(ctx)
 
 	// set context height to zero
-	height := ctx.BlockHeight()
-	ctx = ctx.WithBlockHeight(0)
+	height := ctx.HeaderInfo().Height
+	headerInfo := ctx.HeaderInfo()
+	headerInfo.Height = 0
+	ctx = ctx.WithHeaderInfo(headerInfo)
 
 	// reinitialize all validators
 	err = app.StakingKeeper.IterateValidators(ctx, func(_ int64, val stakingtypes.ValidatorI) (stop bool) {
@@ -134,11 +142,14 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 			panic(err)
 		}
 
-		if err := app.DistrKeeper.Hooks().AfterValidatorCreated(ctx, valBz); err != nil {
+		if err := app.DistrKeeper.Hooks().AfterValidatorCreated(ctx, sdk.ValAddress(val.GetOperator())); err != nil {
 			panic(err)
 		}
 		return false
 	})
+	if err != nil {
+		panic(err)
+	}
 
 	// reinitialize all delegations
 	for _, del := range dels {
@@ -147,20 +158,18 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 			panic(err)
 		}
 		delAddr := sdk.MustAccAddressFromBech32(del.DelegatorAddress)
-
 		if err := app.DistrKeeper.Hooks().BeforeDelegationCreated(ctx, delAddr, valAddr); err != nil {
-			// never called as BeforeDelegationCreated always returns nil
-			panic(fmt.Errorf("error while incrementing period: %w", err))
+			panic(err)
 		}
-
 		if err := app.DistrKeeper.Hooks().AfterDelegationModified(ctx, delAddr, valAddr); err != nil {
-			// never called as AfterDelegationModified always returns nil
-			panic(fmt.Errorf("error while creating a new delegation period record: %w", err))
+			panic(err)
 		}
 	}
 
 	// reset context height
-	ctx = ctx.WithBlockHeight(height)
+	headerInfo = ctx.HeaderInfo()
+	headerInfo.Height = height
+	ctx = ctx.WithHeaderInfo(headerInfo)
 
 	/* Handle staking state. */
 
@@ -169,8 +178,7 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 		for i := range red.Entries {
 			red.Entries[i].CreationHeight = 0
 		}
-		err = app.StakingKeeper.SetRedelegation(ctx, red)
-		if err != nil {
+		if err := app.StakingKeeper.SetRedelegation(ctx, red); err != nil {
 			panic(err)
 		}
 		return false
@@ -184,8 +192,7 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 		for i := range ubd.Entries {
 			ubd.Entries[i].CreationHeight = 0
 		}
-		err = app.StakingKeeper.SetUnbondingDelegation(ctx, ubd)
-		if err != nil {
+		if err := app.StakingKeeper.SetUnbondingDelegation(ctx, ubd); err != nil {
 			panic(err)
 		}
 		return false
@@ -198,7 +205,6 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 	// update bond intra-tx counters.
 	store := ctx.KVStore(app.GetKey(stakingtypes.StoreKey))
 	iter := storetypes.KVStoreReversePrefixIterator(store, stakingtypes.ValidatorsKey)
-	counter := int16(0)
 
 	for ; iter.Valid(); iter.Next() {
 		addr := sdk.ValAddress(stakingtypes.AddressFromValidatorsKey(iter.Key()))
@@ -215,7 +221,6 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 		if err := app.StakingKeeper.SetValidator(ctx, validator); err != nil {
 			panic(err)
 		}
-		counter++
 	}
 
 	if err := iter.Close(); err != nil {
@@ -231,15 +236,17 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 	/* Handle slashing state. */
 
 	// reset start height on signing infos
-	if err := app.SlashingKeeper.IterateValidatorSigningInfos(
+	err = app.SlashingKeeper.IterateValidatorSigningInfos(
 		ctx,
 		func(addr sdk.ConsAddress, info slashingtypes.ValidatorSigningInfo) (stop bool) {
 			info.StartHeight = 0
-			_ = app.SlashingKeeper.SetValidatorSigningInfo(ctx, addr, info)
+			if err := app.SlashingKeeper.SetValidatorSigningInfo(ctx, addr, info); err != nil {
+				panic(err)
+			}
 			return false
 		},
-	); err != nil {
-		log.Fatal(err)
+	)
+	if err != nil {
+		panic(err)
 	}
-
 }

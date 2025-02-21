@@ -3,8 +3,8 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/babylonlabs-io/babylon/testutil/keeper"
-	"github.com/babylonlabs-io/babylon/x/btccheckpoint/types"
+	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
+	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
 	"github.com/stretchr/testify/require"
 )
 

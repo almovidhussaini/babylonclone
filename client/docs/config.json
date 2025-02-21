@@ -1,0 +1,85 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ybtc - gRPC Gateway docs",
+    "description": "A REST interface for state queries",
+    "version": "1.0.0"
+  },
+  "apis": [
+    {
+      "url": "./tmp-swagger-gen/ybtc/btccheckpoint/v1/query.swagger.json",
+      "operationIds": {
+        "rename": {
+          "Params": "BtcCheckpointParams"
+        }
+      }
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/btclightclient/v1/query.swagger.json",
+      "operationIds": {
+        "rename": {
+          "Params": "BtcLightClientParams"
+        }
+      }
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/epoching/v1/query.swagger.json",
+      "operationIds": {
+        "rename": {
+          "Params": "EpochingParams"
+        }
+      }
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/btcstaking/v1/query.swagger.json"
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/finality/v1/query.swagger.json",
+      "operationIds": {
+        "rename": {
+          "Params": "FinalityParams"
+        }
+      }
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/mint/v1/query.swagger.json"
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/monitor/v1/query.swagger.json"
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/checkpointing/v1/query.swagger.json",
+      "operationIds": {
+        "rename": {
+          "Params": "CheckpointingParams"
+        }
+      }
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/btcstkconsumer/v1/query.swagger.json",
+      "operationIds": {
+        "rename": {
+          "Params": "BtcStkConsumerParams",
+          "FinalityProviders": "FinalityProvidersConsumer",
+          "FinalityProvider": "FinalityProviderConsumer"
+        }
+      }
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/incentive/query.swagger.json",
+      "operationIds": {
+        "rename": {
+          "Params": "IncentiveParams"
+        }
+      }
+    },
+    {
+      "url": "./tmp-swagger-gen/ybtc/zoneconcierge/v1/query.swagger.json",
+      "operationIds": {
+        "rename": {
+          "Params": "ZoneConciergeParams"
+        }
+      }
+    }
+  ]
+}

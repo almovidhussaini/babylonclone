@@ -6,7 +6,7 @@ import (
 	"math"
 	"math/big"
 
-	txformat "github.com/babylonlabs-io/babylon/btctxformatter"
+	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -25,7 +25,7 @@ func ParseTwoProofs(
 	submitter sdk.AccAddress,
 	proofs []*BTCSpvProof,
 	powLimit *big.Int,
-	expectedTag txformat.BabylonTag) (*RawCheckpointSubmission, error) {
+	expectedTag txformat.ybtcTag) (*RawCheckpointSubmission, error) {
 	// Expecting as many proofs as many parts our checkpoint is composed of
 	if len(proofs) != txformat.NumberOfParts {
 		return nil, fmt.Errorf("expected at exactly valid op return transactions")
@@ -70,7 +70,7 @@ func ParseTwoProofs(
 		checkpointData = append(checkpointData, data)
 	}
 
-	// at this point we know we have two correctly formated babylon op return transactions
+	// at this point we know we have two correctly formated ybtc op return transactions
 	// we need to check if parts match
 	rawCkptData, err := txformat.ConnectParts(txformat.CurrentVersion, checkpointData[0], checkpointData[1])
 
@@ -92,7 +92,7 @@ func ParseTwoProofs(
 func ParseSubmission(
 	m *MsgInsertBTCSpvProof,
 	powLimit *big.Int,
-	expectedTag txformat.BabylonTag) (*RawCheckpointSubmission, error) {
+	expectedTag txformat.ybtcTag) (*RawCheckpointSubmission, error) {
 	if m == nil {
 		return nil, errors.New("msgInsertBTCSpvProof can't nil")
 	}

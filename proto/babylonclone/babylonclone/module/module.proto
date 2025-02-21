@@ -1,12 +1,12 @@
 syntax = "proto3";
-package babylonclone.babylonclone.module;
+package ybtcclone.ybtcclone.module;
 
 import "cosmos/app/v1alpha1/module.proto";
 
 // Module is the config object for the module.
 message Module {
   option (cosmos.app.v1alpha1.module) = {
-    go_import: "github.com/amovidhussaini/babylonclone/x/babylonclone"
+    go_import: "github.com/amovidhussaini/ybtcclone/x/ybtcclone"
   };
 
   // authority defines the custom module authority. If not set, defaults to the governance module.

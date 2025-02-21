@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/babylonlabs-io/babylon/x/btccheckpoint/types"
+	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
 	"github.com/stretchr/testify/require"
 )
 

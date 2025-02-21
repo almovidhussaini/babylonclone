@@ -1,14 +1,14 @@
 syntax = "proto3";
-package babylonclone.babylonclone;
+package ybtcclone.ybtcclone;
 
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/amovidhussaini/babylonclone/x/babylonclone/types";
+option go_package = "github.com/amovidhussaini/ybtcclone/x/ybtcclone/types";
 
 // Params defines the parameters for the module.
 message Params {
-  option (amino.name) = "babylonclone/x/babylonclone/Params";
+  option (amino.name) = "ybtcclone/x/ybtcclone/Params";
   option (gogoproto.equal) = true;
 
   

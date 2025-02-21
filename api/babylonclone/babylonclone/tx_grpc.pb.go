@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: babylonclone/babylonclone/tx.proto
+// source: ybtcclone/ybtcclone/tx.proto
 
-package babylonclone
+package ybtcclone
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName = "/babylonclone.babylonclone.Msg/UpdateParams"
+	Msg_UpdateParams_FullMethodName = "/ybtcclone.ybtcclone.Msg/UpdateParams"
 )
 
 // MsgClient is the client API for Msg service.
@@ -100,7 +100,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Msg_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "babylonclone.babylonclone.Msg",
+	ServiceName: "ybtcclone.ybtcclone.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -109,5 +109,5 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "babylonclone/babylonclone/tx.proto",
+	Metadata: "ybtcclone/ybtcclone/tx.proto",
 }

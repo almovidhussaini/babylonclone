@@ -1,19 +1,19 @@
 syntax = "proto3";
-package babylonclone.babylonclone;
+package ybtcclone.ybtcclone;
 
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "babylonclone/babylonclone/params.proto";
+import "ybtcclone/ybtcclone/params.proto";
 
-option go_package = "github.com/amovidhussaini/babylonclone/x/babylonclone/types";
+option go_package = "github.com/amovidhussaini/ybtcclone/x/ybtcclone/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/amovidhussaini/babylonclone/babylonclone/params";
+    option (google.api.http).get = "/amovidhussaini/ybtcclone/ybtcclone/params";
   }
 }
 

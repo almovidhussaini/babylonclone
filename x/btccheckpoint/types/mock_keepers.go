@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	txformat "github.com/babylonlabs-io/babylon/btctxformatter"
-	bbn "github.com/babylonlabs-io/babylon/types"
+	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
+	bbn "github.com/amovidhussaini/ybtcclone/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

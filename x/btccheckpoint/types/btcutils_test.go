@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/babylonlabs-io/babylon/testutil/datagen"
-	bbn "github.com/babylonlabs-io/babylon/types"
-	btcctypes "github.com/babylonlabs-io/babylon/x/btccheckpoint/types"
+	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	bbn "github.com/amovidhussaini/ybtcclone/types"
+	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
 	"github.com/btcsuite/btcd/btcutil"
 	btcchaincfg "github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"

@@ -9,8 +9,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	dg "github.com/babylonlabs-io/babylon/testutil/datagen"
-	"github.com/babylonlabs-io/babylon/x/btccheckpoint/types"
+	dg "github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
 )
 
 func TestBtcCheckpointInfo(t *testing.T) {
@@ -18,9 +18,9 @@ func TestBtcCheckpointInfo(t *testing.T) {
 	epoch := uint64(1)
 	raw, btcRaw := dg.RandomRawCheckpointDataForEpoch(r, epoch)
 
-	blck1BabylonOpReturnIdx, blck2BabylonOpReturnIdx := uint32(7), uint32(3)
-	blck1 := dg.CreateBlock(r, 1, 7, blck1BabylonOpReturnIdx, raw.FirstPart)
-	blck2 := dg.CreateBlock(r, 2, 14, blck2BabylonOpReturnIdx, raw.SecondPart)
+	blck1ybtcOpReturnIdx, blck2ybtcOpReturnIdx := uint32(7), uint32(3)
+	blck1 := dg.CreateBlock(r, 1, 7, blck1ybtcOpReturnIdx, raw.FirstPart)
+	blck2 := dg.CreateBlock(r, 2, 14, blck2ybtcOpReturnIdx, raw.SecondPart)
 
 	tk := InitTestKeepers(t)
 
@@ -54,15 +54,15 @@ func TestBtcCheckpointInfo(t *testing.T) {
 
 	require.Equal(t, len(btcInfo.BestSubmissionTransactions), 2)
 	tx0 := btcInfo.BestSubmissionTransactions[0]
-	require.Equal(t, tx0.Index, blck1BabylonOpReturnIdx)
+	require.Equal(t, tx0.Index, blck1ybtcOpReturnIdx)
 	require.Equal(t, tx0.Hash, blk1.MarshalHex())
-	require.Equal(t, tx0.Transaction, blck1.Transactions[blck1BabylonOpReturnIdx])
+	require.Equal(t, tx0.Transaction, blck1.Transactions[blck1ybtcOpReturnIdx])
 	require.Equal(t, tx0.Proof, hex.EncodeToString(proofs[0].MerkleNodes))
 
 	tx1 := btcInfo.BestSubmissionTransactions[1]
-	require.Equal(t, tx1.Index, blck2BabylonOpReturnIdx)
+	require.Equal(t, tx1.Index, blck2ybtcOpReturnIdx)
 	require.Equal(t, tx1.Hash, blk2.MarshalHex())
-	require.Equal(t, tx1.Transaction, blck2.Transactions[blck2BabylonOpReturnIdx])
+	require.Equal(t, tx1.Transaction, blck2.Transactions[blck2ybtcOpReturnIdx])
 	require.Equal(t, tx1.Proof, hex.EncodeToString(proofs[1].MerkleNodes))
 
 	require.Equal(t, len(btcInfo.BestSubmissionVigilanteAddressList), 1)

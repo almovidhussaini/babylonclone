@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
-	"github.com/babylonlabs-io/babylon/x/btccheckpoint/types"
+	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
 )
 
 var _ types.MsgServer = msgServer{}

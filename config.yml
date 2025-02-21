@@ -1,28 +1,17 @@
 version: 1
-validation: sovereign
-accounts: 
-- name: alice
-  coins:
-  - 20000token
-  - 200000000stake
-- name: bob
-  coins:
-  - 10000token
-  - 100000000stake
+accounts:
+  - name: alice
+    coins: ["1000000000stake", "1000000000token"]
+  - name: bob
+    coins: ["500000000stake", "500000000token"]
+validator:
+  name: alice
+  staked: "100000000stake"
 client:
   openapi:
-    path: docs/static/openapi.yml
+    path: "docs/static/openapi.yml"
 faucet:
   name: bob
-  coins:
-  - 5token
-  - 100000stake
-validators:
-- name: alice
-  bonded: 100000000stake
-- name: validator1
-  bonded: 100000000stake
-- name: validator2
-  bonded: 200000000stake
-- name: validator3
-  bonded: 300000000stake
+  coins: ["5token", "100000stake"]
+genesis:
+  chain_id: "ybtcclone-1"

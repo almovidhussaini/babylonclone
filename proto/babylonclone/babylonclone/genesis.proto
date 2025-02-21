@@ -1,13 +1,13 @@
 syntax = "proto3";
-package babylonclone.babylonclone;
+package ybtcclone.ybtcclone;
 
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
-import "babylonclone/babylonclone/params.proto";
+import "ybtcclone/ybtcclone/params.proto";
 
-option go_package = "github.com/amovidhussaini/babylonclone/x/babylonclone/types";
+option go_package = "github.com/amovidhussaini/ybtcclone/x/ybtcclone/types";
 
-// GenesisState defines the babylonclone module's genesis state.
+// GenesisState defines the ybtcclone module's genesis state.
 message GenesisState {
   // params defines all the parameters of the module.
   Params params = 1 [

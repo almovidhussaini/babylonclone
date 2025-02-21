@@ -2,7 +2,7 @@ package btccheckpoint
 
 import (
 	"context"
-	"github.com/babylonlabs-io/babylon/x/btccheckpoint/keeper"
+	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/keeper"
 )
 
 // EndBlocker checks if during block execution btc light client head had been
