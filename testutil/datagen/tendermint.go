@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"cosmossdk.io/core/header"
-	zctypes "github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	zctypes "github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ibctmtypes "github.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint"

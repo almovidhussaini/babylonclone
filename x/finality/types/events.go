@@ -1,6 +1,6 @@
 package types
 
-import "github.com/amovidhussaini/ybtcclone/types"
+import "github.com/almovidhussaini/babylonclone/types"
 
 func NewEventSlashedFinalityProvider(evidence *Evidence) *EventSlashedFinalityProvider {
 	return &EventSlashedFinalityProvider{

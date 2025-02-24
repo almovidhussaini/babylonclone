@@ -12,22 +12,22 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/btctxformatter"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btckckpttypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	ckpttypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	et "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/btctxformatter"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btckckpttypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	ckpttypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	et "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
 
 	"cosmossdk.io/log"
 	"cosmossdk.io/math"
-	"github.com/amovidhussaini/ybtcclone/app"
-	ybtcApp "github.com/amovidhussaini/ybtcclone/app"
-	appsigner "github.com/amovidhussaini/ybtcclone/app/signer"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	btclighttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	babylonApp "github.com/almovidhussaini/babylonclone/app"
+	appsigner "github.com/almovidhussaini/babylonclone/app/signer"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	btclighttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/wire"
@@ -136,8 +136,8 @@ type FinalizedBlock struct {
 	Block  *cmttypes.Block
 }
 
-type ybtcAppDriver struct {
-	App                  *app.ybtcApp
+type BabylonAppDriver struct {
+	App                  *app.BabylonApp
 	PrivSigner           *appsigner.PrivSigner
 	DriverAccountPrivKey cryptotypes.PrivKey
 	DriverAccountSeqNr   uint64
@@ -151,12 +151,12 @@ type ybtcAppDriver struct {
 	LastState            sm.State
 }
 
-// Inititializes ybtc driver for block creation
-func NewybtcAppDriver(
+// Inititializes Babylon driver for block creation
+func NewBabylonAppDriver(
 	t *testing.T,
 	dir string,
 	copyDir string,
-) *ybtcAppDriver {
+) *BabylonAppDriver {
 	chain, err := initialization.InitChain(
 		chainID,
 		dir,
@@ -202,7 +202,7 @@ func NewybtcAppDriver(
 
 	appOptions := NewAppOptionsWithFlagHome(chain.Nodes[0].ConfigDir)
 	baseAppOptions := server.DefaultBaseappOptions(appOptions)
-	tmpApp := ybtcApp.NewybtcApp(
+	tmpApp := babylonApp.NewBabylonApp(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
 		nil,
@@ -211,7 +211,7 @@ func NewybtcAppDriver(
 		0,
 		signer,
 		appOptions,
-		ybtcApp.EmptyWasmOpts,
+		babylonApp.EmptyWasmOpts,
 		baseAppOptions...,
 	)
 
@@ -256,7 +256,7 @@ func NewybtcAppDriver(
 		Key: chain.Nodes[0].PrivateKey,
 	}
 
-	return &ybtcAppDriver{
+	return &BabylonAppDriver{
 		App:                  tmpApp,
 		PrivSigner:           signer,
 		DriverAccountPrivKey: &validatorPrivKey,
@@ -274,7 +274,7 @@ func NewybtcAppDriver(
 	}
 }
 
-func (d *ybtcAppDriver) GetLastFinalizedBlock() *FinalizedBlock {
+func (d *BabylonAppDriver) GetLastFinalizedBlock() *FinalizedBlock {
 	if len(d.FinalizedBlocks) == 0 {
 		return nil
 	}
@@ -282,7 +282,7 @@ func (d *ybtcAppDriver) GetLastFinalizedBlock() *FinalizedBlock {
 	return &d.FinalizedBlocks[len(d.FinalizedBlocks)-1]
 }
 
-func (d *ybtcAppDriver) GetContextForLastFinalizedBlock() sdk.Context {
+func (d *BabylonAppDriver) GetContextForLastFinalizedBlock() sdk.Context {
 	lastFinalizedBlock := d.GetLastFinalizedBlock()
 	return d.App.NewUncachedContext(false, *lastFinalizedBlock.Block.Header.ToProto())
 }
@@ -345,7 +345,7 @@ func createTx(
 	return txBytes
 }
 
-func (d *ybtcAppDriver) CreateTx(
+func (d *BabylonAppDriver) CreateTx(
 	t *testing.T,
 	senderInfo *senderInfo,
 	gas uint64,
@@ -357,7 +357,7 @@ func (d *ybtcAppDriver) CreateTx(
 
 // SendTxWithMessagesSuccess sends tx with msgs to the mempool and asserts that
 // execution was successful
-func (d *ybtcAppDriver) SendTxWithMessagesSuccess(
+func (d *BabylonAppDriver) SendTxWithMessagesSuccess(
 	t *testing.T,
 	senderInfo *senderInfo,
 	gas uint64,
@@ -397,7 +397,7 @@ func signVoteExtension(
 	return extensionSig
 }
 
-func (d *ybtcAppDriver) GenerateNewBlock(t *testing.T) *abci.ResponseFinalizeBlock {
+func (d *BabylonAppDriver) GenerateNewBlock(t *testing.T) *abci.ResponseFinalizeBlock {
 	if len(d.FinalizedBlocks) == 0 {
 		extCommitFirsBlock := &cmttypes.ExtendedCommit{}
 		block1, err := d.BlockExec.CreateProposalBlock(
@@ -490,7 +490,7 @@ func (d *ybtcAppDriver) GenerateNewBlock(t *testing.T) *abci.ResponseFinalizeBlo
 		require.NoError(t, err)
 		require.NotNil(t, block1)
 
-		// it is here as it is good sanity check for all ybtc custom validations
+		// it is here as it is good sanity check for all babylon custom validations
 		accepted, err := d.BlockExec.ProcessProposal(block1, d.LastState)
 		require.NoError(t, err)
 		require.True(t, accepted)
@@ -514,7 +514,7 @@ func (d *ybtcAppDriver) GenerateNewBlock(t *testing.T) *abci.ResponseFinalizeBlo
 	}
 }
 
-func (d *ybtcAppDriver) GenerateNewBlockAssertExecutionSuccess(
+func (d *BabylonAppDriver) GenerateNewBlockAssertExecutionSuccess(
 	t *testing.T,
 ) {
 	response := d.GenerateNewBlock(t)
@@ -524,11 +524,11 @@ func (d *ybtcAppDriver) GenerateNewBlockAssertExecutionSuccess(
 	}
 }
 
-func (d *ybtcAppDriver) GetDriverAccountAddress() sdk.AccAddress {
+func (d *BabylonAppDriver) GetDriverAccountAddress() sdk.AccAddress {
 	return sdk.AccAddress(d.DriverAccountPrivKey.PubKey().Address())
 }
 
-func (d *ybtcAppDriver) GetDriverAccountSenderInfo() *senderInfo {
+func (d *BabylonAppDriver) GetDriverAccountSenderInfo() *senderInfo {
 	return &senderInfo{
 		privKey:        d.DriverAccountPrivKey,
 		sequenceNumber: d.DriverAccountSeqNr,
@@ -536,7 +536,7 @@ func (d *ybtcAppDriver) GetDriverAccountSenderInfo() *senderInfo {
 	}
 }
 
-func (d *ybtcAppDriver) GetBTCLCTip() (*wire.BlockHeader, uint32) {
+func (d *BabylonAppDriver) GetBTCLCTip() (*wire.BlockHeader, uint32) {
 	tipInfo := d.App.BTCLightClientKeeper.GetTipInfo(d.GetContextForLastFinalizedBlock())
 	return tipInfo.Header.ToBlockHeader(), tipInfo.Height
 }
@@ -549,7 +549,7 @@ func blocksWithProofsToHeaderBytes(blocks []*datagen.BlockWithProofs) []bbn.BTCH
 	return headerBytes
 }
 
-func (d *ybtcAppDriver) ExtendBTCLcWithNEmptyBlocks(
+func (d *BabylonAppDriver) ExtendBTCLcWithNEmptyBlocks(
 	r *rand.Rand,
 	t *testing.T,
 	n uint32,
@@ -567,7 +567,7 @@ func (d *ybtcAppDriver) ExtendBTCLcWithNEmptyBlocks(
 	return newTip, newTipHeight
 }
 
-func (d *ybtcAppDriver) GenBlockWithTransactions(
+func (d *BabylonAppDriver) GenBlockWithTransactions(
 	r *rand.Rand,
 	t *testing.T,
 	txs []*wire.MsgTx,
@@ -584,7 +584,7 @@ func (d *ybtcAppDriver) GenBlockWithTransactions(
 	return block
 }
 
-func (d *ybtcAppDriver) getDelegationWithStatus(t *testing.T, status bstypes.BTCDelegationStatus) []*bstypes.BTCDelegationResponse {
+func (d *BabylonAppDriver) getDelegationWithStatus(t *testing.T, status bstypes.BTCDelegationStatus) []*bstypes.BTCDelegationResponse {
 	pagination := &query.PageRequest{}
 	pagination.Limit = goMath.MaxUint32
 
@@ -596,32 +596,32 @@ func (d *ybtcAppDriver) getDelegationWithStatus(t *testing.T, status bstypes.BTC
 	return delegations.BtcDelegations
 }
 
-func (d *ybtcAppDriver) GetAllBTCDelegations(t *testing.T) []*bstypes.BTCDelegationResponse {
+func (d *BabylonAppDriver) GetAllBTCDelegations(t *testing.T) []*bstypes.BTCDelegationResponse {
 	return d.getDelegationWithStatus(t, bstypes.BTCDelegationStatus_ANY)
 }
 
-func (d *ybtcAppDriver) GetVerifiedBTCDelegations(t *testing.T) []*bstypes.BTCDelegationResponse {
+func (d *BabylonAppDriver) GetVerifiedBTCDelegations(t *testing.T) []*bstypes.BTCDelegationResponse {
 	return d.getDelegationWithStatus(t, bstypes.BTCDelegationStatus_VERIFIED)
 }
 
-func (d *ybtcAppDriver) GetActiveBTCDelegations(t *testing.T) []*bstypes.BTCDelegationResponse {
+func (d *BabylonAppDriver) GetActiveBTCDelegations(t *testing.T) []*bstypes.BTCDelegationResponse {
 	return d.getDelegationWithStatus(t, bstypes.BTCDelegationStatus_ACTIVE)
 }
 
-func (d *ybtcAppDriver) GetBTCStakingParams(t *testing.T) *bstypes.Params {
+func (d *BabylonAppDriver) GetBTCStakingParams(t *testing.T) *bstypes.Params {
 	params := d.App.BTCStakingKeeper.GetParams(d.GetContextForLastFinalizedBlock())
 	return &params
 }
 
-func (d *ybtcAppDriver) GetEpochingParams() et.Params {
+func (d *BabylonAppDriver) GetEpochingParams() et.Params {
 	return d.App.EpochingKeeper.GetParams(d.GetContextForLastFinalizedBlock())
 }
 
-func (d *ybtcAppDriver) GetEpoch() *et.Epoch {
+func (d *BabylonAppDriver) GetEpoch() *et.Epoch {
 	return d.App.EpochingKeeper.GetEpoch(d.GetContextForLastFinalizedBlock())
 }
 
-func (d *ybtcAppDriver) GetCheckpoint(
+func (d *BabylonAppDriver) GetCheckpoint(
 	t *testing.T,
 	epochNumber uint64,
 ) *ckpttypes.RawCheckpointWithMeta {
@@ -630,11 +630,11 @@ func (d *ybtcAppDriver) GetCheckpoint(
 	return checkpoint
 }
 
-func (d *ybtcAppDriver) GetLastFinalizedEpoch() uint64 {
+func (d *BabylonAppDriver) GetLastFinalizedEpoch() uint64 {
 	return d.App.CheckpointingKeeper.GetLastFinalizedEpoch(d.GetContextForLastFinalizedBlock())
 }
 
-func (d *ybtcAppDriver) GenCkptForEpoch(r *rand.Rand, t *testing.T, epochNumber uint64) {
+func (d *BabylonAppDriver) GenCkptForEpoch(r *rand.Rand, t *testing.T, epochNumber uint64) {
 	ckptWithMeta := d.GetCheckpoint(t, epochNumber)
 	subAddress := d.GetDriverAccountAddress()
 	subAddressBytes := subAddress.Bytes()
@@ -642,11 +642,11 @@ func (d *ybtcAppDriver) GenCkptForEpoch(r *rand.Rand, t *testing.T, epochNumber 
 	rawCkpt, err := ckpttypes.FromRawCkptToBTCCkpt(ckptWithMeta.Ckpt, subAddressBytes)
 	require.NoError(t, err)
 
-	tagBytes, err := hex.DecodeString(initialization.ybtcOpReturnTag)
+	tagBytes, err := hex.DecodeString(initialization.BabylonOpReturnTag)
 	require.NoError(t, err)
 
 	data1, data2 := btctxformatter.MustEncodeCheckpointData(
-		btctxformatter.ybtcTag(tagBytes),
+		btctxformatter.BabylonTag(tagBytes),
 		btctxformatter.CurrentVersion,
 		rawCkpt,
 	)
@@ -664,7 +664,7 @@ func (d *ybtcAppDriver) GenCkptForEpoch(r *rand.Rand, t *testing.T, epochNumber 
 	d.SendTxWithMsgsFromDriverAccount(t, &msg)
 }
 
-func (d *ybtcAppDriver) FinializeCkptForEpoch(r *rand.Rand, t *testing.T, epochNumber uint64) {
+func (d *BabylonAppDriver) FinializeCkptForEpoch(r *rand.Rand, t *testing.T, epochNumber uint64) {
 	lastFinalizedEpoch := d.GetLastFinalizedEpoch()
 	require.Equal(t, lastFinalizedEpoch+1, epochNumber)
 
@@ -677,11 +677,11 @@ func (d *ybtcAppDriver) FinializeCkptForEpoch(r *rand.Rand, t *testing.T, epochN
 	require.Equal(t, lastFinalizedEpoch, epochNumber)
 }
 
-func (d *ybtcAppDriver) GetBTCCkptParams(t *testing.T) btckckpttypes.Params {
+func (d *BabylonAppDriver) GetBTCCkptParams(t *testing.T) btckckpttypes.Params {
 	return d.App.BtcCheckpointKeeper.GetParams(d.GetContextForLastFinalizedBlock())
 }
 
-func (d *ybtcAppDriver) ProgressTillFirstBlockTheNextEpoch(t *testing.T) {
+func (d *BabylonAppDriver) ProgressTillFirstBlockTheNextEpoch(t *testing.T) {
 	currnetEpochNunber := d.GetEpoch().EpochNumber
 	nextEpochNumber := currnetEpochNunber + 1
 
@@ -691,7 +691,7 @@ func (d *ybtcAppDriver) ProgressTillFirstBlockTheNextEpoch(t *testing.T) {
 	}
 }
 
-func (d *ybtcAppDriver) GetActiveFpsAtHeight(t *testing.T, height uint64) []*ftypes.ActiveFinalityProvidersAtHeightResponse {
+func (d *BabylonAppDriver) GetActiveFpsAtHeight(t *testing.T, height uint64) []*ftypes.ActiveFinalityProvidersAtHeightResponse {
 	res, err := d.App.FinalityKeeper.ActiveFinalityProvidersAtHeight(
 		d.GetContextForLastFinalizedBlock(),
 		&ftypes.QueryActiveFinalityProvidersAtHeightRequest{
@@ -703,11 +703,11 @@ func (d *ybtcAppDriver) GetActiveFpsAtHeight(t *testing.T, height uint64) []*fty
 	return res.FinalityProviders
 }
 
-func (d *ybtcAppDriver) GetActiveFpsAtCurrentHeight(t *testing.T) []*ftypes.ActiveFinalityProvidersAtHeightResponse {
+func (d *BabylonAppDriver) GetActiveFpsAtCurrentHeight(t *testing.T) []*ftypes.ActiveFinalityProvidersAtHeightResponse {
 	return d.GetActiveFpsAtHeight(t, d.GetLastFinalizedBlock().Height)
 }
 
-func (d *ybtcAppDriver) WaitTillAllFpsJailed(t *testing.T) {
+func (d *BabylonAppDriver) WaitTillAllFpsJailed(t *testing.T) {
 	for {
 		activeFps := d.GetActiveFpsAtCurrentHeight(t)
 		if len(activeFps) == 0 {
@@ -719,7 +719,7 @@ func (d *ybtcAppDriver) WaitTillAllFpsJailed(t *testing.T) {
 
 // SendTxWithMsgsFromDriverAccount sends tx with msgs from driver account and asserts that
 // execution was successful. It assumes that there will only be one tx in the block.
-func (d *ybtcAppDriver) SendTxWithMsgsFromDriverAccount(
+func (d *BabylonAppDriver) SendTxWithMsgsFromDriverAccount(
 	t *testing.T,
 	msgs ...sdk.Msg) {
 	d.SendTxWithMessagesSuccess(
@@ -776,7 +776,7 @@ func NewBlockReplayer(t *testing.T, nodeDir string) *BlockReplayer {
 
 	appOptions := NewAppOptionsWithFlagHome(nodeDir)
 	baseAppOptions := server.DefaultBaseappOptions(appOptions)
-	tmpApp := ybtcApp.NewybtcApp(
+	tmpApp := babylonApp.NewBabylonApp(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
 		nil,
@@ -785,7 +785,7 @@ func NewBlockReplayer(t *testing.T, nodeDir string) *BlockReplayer {
 		0,
 		signer,
 		appOptions,
-		ybtcApp.EmptyWasmOpts,
+		babylonApp.EmptyWasmOpts,
 		baseAppOptions...,
 	)
 
@@ -844,7 +844,7 @@ func (r *BlockReplayer) ReplayBlocks(t *testing.T, blocks []FinalizedBlock) {
 type FinalityProviderInfo struct {
 	MsgCreateFinalityProvider *bstypes.MsgCreateFinalityProvider
 	BTCPrivateKey             *btcec.PrivateKey
-	ybtcAddress            sdk.AccAddress
+	BabylonAddress            sdk.AccAddress
 }
 
 func GenerateNFinalityProviders(
@@ -857,7 +857,7 @@ func GenerateNFinalityProviders(
 	for i := uint32(0); i < n; i++ {
 		prv, _, err := datagen.GenRandomBTCKeyPair(r)
 		require.NoError(t, err)
-		msg, err := datagen.GenRandomCreateFinalityProviderMsgWithBTCybtcSKs(
+		msg, err := datagen.GenRandomCreateFinalityProviderMsgWithBTCBabylonSKs(
 			r,
 			prv,
 			senderAddress,
@@ -867,7 +867,7 @@ func GenerateNFinalityProviders(
 		infos = append(infos, &FinalityProviderInfo{
 			MsgCreateFinalityProvider: msg,
 			BTCPrivateKey:             prv,
-			ybtcAddress:            senderAddress,
+			BabylonAddress:            senderAddress,
 		})
 	}
 

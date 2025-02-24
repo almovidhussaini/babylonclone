@@ -8,7 +8,7 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 func (k Keeper) setChainInfo(ctx context.Context, chainInfo *types.ChainInfo) {
@@ -119,7 +119,7 @@ func (k Keeper) tryToUpdateLatestForkHeader(ctx context.Context, consumerId stri
 	return nil
 }
 
-// GetAllConsumerIDs gets IDs of all consumer that integrate ybtc
+// GetAllConsumerIDs gets IDs of all consumer that integrate Babylon
 func (k Keeper) GetAllConsumerIDs(ctx context.Context) []string {
 	consumerIds := []string{}
 	iter := k.chainInfoStore(ctx).Iterator(nil, nil)

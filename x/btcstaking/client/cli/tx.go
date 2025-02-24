@@ -12,9 +12,9 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/spf13/cobra"
 
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 const (
@@ -56,7 +56,7 @@ func NewCreateFinalityProviderCmd() *cobra.Command {
 		Args:  cobra.ExactArgs(2),
 		Short: "Create a finality provider",
 		Long: strings.TrimSpace(
-			`Creates a finality provider for ybtc or a Consumer chain.`, // TODO: example
+			`Creates a finality provider for Babylon or a Consumer chain.`, // TODO: example
 		),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -330,7 +330,7 @@ func NewAddBTCDelegationInclusionProofCmd() *cobra.Command {
 		Args:  cobra.ExactArgs(2),
 		Short: "Add a signature on the unbonding tx of a BTC delegation identified by a given staking tx hash. ",
 		Long: strings.TrimSpace(
-			`Add a signature on the unbonding tx of a BTC delegation identified by a given staking tx hash signed by the delegator. The signature proves that delegator wants to unbond, and ybtc will consider the BTC delegation unbonded.`, // TODO: example
+			`Add a signature on the unbonding tx of a BTC delegation identified by a given staking tx hash signed by the delegator. The signature proves that delegator wants to unbond, and Babylon will consider the BTC delegation unbonded.`, // TODO: example
 		),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)

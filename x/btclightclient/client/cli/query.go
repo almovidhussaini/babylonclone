@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"

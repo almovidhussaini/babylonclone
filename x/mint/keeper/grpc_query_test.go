@@ -6,9 +6,9 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/testutil/helper"
-	"github.com/amovidhussaini/ybtcclone/x/mint/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/testutil/helper"
+	"github.com/almovidhussaini/babylonclone/x/mint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -16,7 +16,7 @@ import (
 type MintTestSuite struct {
 	suite.Suite
 
-	app         *app.ybtcApp
+	app         *app.BabylonApp
 	ctx         sdk.Context
 	queryClient types.QueryClient
 }

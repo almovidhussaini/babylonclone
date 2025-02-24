@@ -10,12 +10,12 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	testutil "github.com/amovidhussaini/ybtcclone/testutil/btcstaking-helper"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	testutil "github.com/almovidhussaini/babylonclone/testutil/btcstaking-helper"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 func FuzzHandleLiveness(f *testing.F) {

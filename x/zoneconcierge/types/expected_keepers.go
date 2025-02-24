@@ -3,13 +3,13 @@ package types
 import (
 	"context"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	btcstkconsumertypes "github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	btcstkconsumertypes "github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
 	clienttypes "github.com/cosmos/ibc-go/v8/modules/core/02-client/types" //nolint:staticcheck

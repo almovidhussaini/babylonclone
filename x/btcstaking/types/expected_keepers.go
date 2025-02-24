@@ -3,9 +3,9 @@ package types
 import (
 	"context"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

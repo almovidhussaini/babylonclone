@@ -4,8 +4,8 @@ import (
 	"math/rand"
 	"testing"
 
-	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	testkeeper "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -7,8 +7,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 
 	"cosmossdk.io/store/prefix"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

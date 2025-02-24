@@ -17,9 +17,9 @@ import (
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	mintkeeper "github.com/amovidhussaini/ybtcclone/x/mint/keeper"
-	minttypes "github.com/amovidhussaini/ybtcclone/x/mint/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge"
+	mintkeeper "github.com/almovidhussaini/babylonclone/x/mint/keeper"
+	minttypes "github.com/almovidhussaini/babylonclone/x/mint/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/runtime"
@@ -61,30 +61,30 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/app/signer"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	owasm "github.com/amovidhussaini/ybtcclone/wasmbinding"
-	btccheckpointkeeper "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/keeper"
-	btccheckpointtypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	btclightclientkeeper "github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	btclightclienttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	btcstakingkeeper "github.com/amovidhussaini/ybtcclone/x/btcstaking/keeper"
-	btcstakingtypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	bsckeeper "github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/keeper"
-	bsctypes "github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
-	checkpointingkeeper "github.com/amovidhussaini/ybtcclone/x/checkpointing/keeper"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	epochingkeeper "github.com/amovidhussaini/ybtcclone/x/epoching/keeper"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	finalitykeeper "github.com/amovidhussaini/ybtcclone/x/finality/keeper"
-	finalitytypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
-	incentivekeeper "github.com/amovidhussaini/ybtcclone/x/incentive/keeper"
-	incentivetypes "github.com/amovidhussaini/ybtcclone/x/incentive/types"
-	monitorkeeper "github.com/amovidhussaini/ybtcclone/x/monitor/keeper"
-	monitortypes "github.com/amovidhussaini/ybtcclone/x/monitor/types"
-	zckeeper "github.com/amovidhussaini/ybtcclone/x/zoneconcierge/keeper"
-	zctypes "github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/app/signer"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	owasm "github.com/almovidhussaini/babylonclone/wasmbinding"
+	btccheckpointkeeper "github.com/almovidhussaini/babylonclone/x/btccheckpoint/keeper"
+	btccheckpointtypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	btclightclientkeeper "github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	btclightclienttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	btcstakingkeeper "github.com/almovidhussaini/babylonclone/x/btcstaking/keeper"
+	btcstakingtypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	bsckeeper "github.com/almovidhussaini/babylonclone/x/btcstkconsumer/keeper"
+	bsctypes "github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
+	checkpointingkeeper "github.com/almovidhussaini/babylonclone/x/checkpointing/keeper"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	epochingkeeper "github.com/almovidhussaini/babylonclone/x/epoching/keeper"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	finalitykeeper "github.com/almovidhussaini/babylonclone/x/finality/keeper"
+	finalitytypes "github.com/almovidhussaini/babylonclone/x/finality/types"
+	incentivekeeper "github.com/almovidhussaini/babylonclone/x/incentive/keeper"
+	incentivetypes "github.com/almovidhussaini/babylonclone/x/incentive/types"
+	monitorkeeper "github.com/almovidhussaini/babylonclone/x/monitor/keeper"
+	monitortypes "github.com/almovidhussaini/babylonclone/x/monitor/types"
+	zckeeper "github.com/almovidhussaini/babylonclone/x/zoneconcierge/keeper"
+	zctypes "github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 // Capabilities of the IBC wasm contracts
@@ -100,7 +100,7 @@ func WasmCapabilities() []string {
 		"cosmwasm_1_3",
 		"cosmwasm_1_4",
 		"cosmwasm_2_0",
-		"ybtc",
+		"babylon",
 	}
 }
 
@@ -123,7 +123,7 @@ type AppKeepers struct {
 	ConsensusParamsKeeper consensusparamkeeper.Keeper
 	CircuitKeeper         circuitkeeper.Keeper
 
-	// ybtc modules
+	// Babylon modules
 	EpochingKeeper       epochingkeeper.Keeper
 	BTCLightClientKeeper btclightclientkeeper.Keeper
 	BtcCheckpointKeeper  btccheckpointkeeper.Keeper
@@ -192,7 +192,7 @@ func (ak *AppKeepers) InitKeepers(
 		govtypes.StoreKey, paramstypes.StoreKey, consensusparamtypes.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey,
 		evidencetypes.StoreKey, circuittypes.StoreKey, capabilitytypes.StoreKey,
 		authzkeeper.StoreKey,
-		// ybtc modules
+		// Babylon modules
 		epochingtypes.StoreKey,
 		btclightclienttypes.StoreKey,
 		btccheckpointtypes.StoreKey,

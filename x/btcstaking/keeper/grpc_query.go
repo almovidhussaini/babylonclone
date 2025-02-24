@@ -11,13 +11,13 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 var _ types.QueryServer = Keeper{}
 
-// FinalityProviders returns a paginated list of all ybtc maintained finality providers
+// FinalityProviders returns a paginated list of all Babylon maintained finality providers
 func (k Keeper) FinalityProviders(c context.Context, req *types.QueryFinalityProvidersRequest) (*types.QueryFinalityProvidersResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "empty request")
@@ -157,7 +157,7 @@ func (k Keeper) FinalityProviderDelegations(ctx context.Context, req *types.Quer
 	)
 	switch {
 	case k.HasFinalityProvider(ctx, *fpPK):
-		// this is a ybtc finality provider
+		// this is a Babylon finality provider
 		btcDelStore := k.btcDelegatorFpStore(sdkCtx, fpPK)
 		pageRes, err = query.Paginate(btcDelStore, req.Pagination, func(key, value []byte) error {
 			delBTCPK, err := bbn.NewBIP340PubKey(key)

@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"cosmossdk.io/log"
-	"github.com/amovidhussaini/ybtcclone/testutil/signer"
+	"github.com/almovidhussaini/babylonclone/testutil/signer"
 	abci "github.com/cometbft/cometbft/abci/types"
 	dbm "github.com/cosmos/cosmos-db"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -13,12 +13,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestybtcBlockedAddrs(t *testing.T) {
+func TestBabylonBlockedAddrs(t *testing.T) {
 	db := dbm.NewMemDB()
 	signer, _ := signer.SetupTestPrivSigner()
 	logger := log.NewTestLogger(t)
 
-	app := NewybtcAppWithCustomOptions(t, false, signer, SetupOptions{
+	app := NewBabylonAppWithCustomOptions(t, false, signer, SetupOptions{
 		Logger:             logger,
 		DB:                 db,
 		InvCheckPeriod:     0,
@@ -50,7 +50,7 @@ func TestybtcBlockedAddrs(t *testing.T) {
 
 	logger2 := log.NewTestLogger(t)
 	// Making a new app object with the db, so that initchain hasn't been called
-	app2 := NewybtcApp(
+	app2 := NewBabylonApp(
 		logger2,
 		db,
 		nil,
@@ -76,7 +76,7 @@ func TestUpgradeStateOnGenesis(t *testing.T) {
 	require.NoError(t, err)
 	logger := log.NewTestLogger(t)
 
-	app := NewybtcAppWithCustomOptions(t, false, privSigner, SetupOptions{
+	app := NewBabylonAppWithCustomOptions(t, false, privSigner, SetupOptions{
 		Logger:             logger,
 		DB:                 db,
 		InvCheckPeriod:     0,

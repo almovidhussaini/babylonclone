@@ -4,8 +4,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/stretchr/testify/require"
 )
 
@@ -15,9 +15,9 @@ func FuzzForkIndexer(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		ctx := babylonApp.NewContext(false)
 
 		// invoke the hook a random number of times to simulate a random number of blocks
 		numHeaders := datagen.RandomInt(r, 100) + 1

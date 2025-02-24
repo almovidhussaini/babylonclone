@@ -12,9 +12,9 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/client/cli"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/client/cli"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/keeper"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

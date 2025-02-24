@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 // TallyBlocks tries to finalise all blocks that are non-finalised AND have a non-nil

@@ -4,8 +4,8 @@ import (
 	"github.com/cometbft/cometbft/crypto"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 type BlsSigner interface {

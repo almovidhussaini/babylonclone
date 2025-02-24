@@ -5,8 +5,8 @@ import (
 
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"

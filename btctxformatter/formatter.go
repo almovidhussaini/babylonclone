@@ -8,17 +8,17 @@ import (
 	"fmt"
 )
 
-type ybtcTag []byte
+type BabylonTag []byte
 
 type FormatVersion uint8
 
 type formatHeader struct {
-	tag     ybtcTag
+	tag     BabylonTag
 	version FormatVersion
 	part    uint8
 }
 
-type ybtcData struct {
+type BabylonData struct {
 	Data  []byte
 	Index uint8
 }
@@ -81,7 +81,7 @@ func getVerHalf(version FormatVersion, halfNumber uint8) uint8 {
 	return verHalf
 }
 
-func encodeHeader(tag ybtcTag, version FormatVersion, halfNumber uint8) []byte {
+func encodeHeader(tag BabylonTag, version FormatVersion, halfNumber uint8) []byte {
 	var data = []byte(tag)
 	data = append(data, getVerHalf(version, halfNumber))
 	return data
@@ -96,7 +96,7 @@ func U64ToBEBytes(u uint64) []byte {
 }
 
 func encodeFirstOpRetrun(
-	tag ybtcTag,
+	tag BabylonTag,
 	version FormatVersion,
 	epoch uint64,
 	appHash []byte,
@@ -124,7 +124,7 @@ func getCheckSum(firstTxBytes []byte) []byte {
 }
 
 func encodeSecondOpReturn(
-	tag ybtcTag,
+	tag BabylonTag,
 	version FormatVersion,
 	firstOpReturnBytes []byte,
 	blsSig []byte,
@@ -143,7 +143,7 @@ func encodeSecondOpReturn(
 }
 
 func EncodeCheckpointData(
-	tag ybtcTag,
+	tag BabylonTag,
 	version FormatVersion,
 	rawBTCCheckpoint *RawBtcCheckpoint,
 ) ([]byte, []byte, error) {
@@ -191,7 +191,7 @@ func EncodeCheckpointData(
 }
 
 func MustEncodeCheckpointData(
-	tag ybtcTag,
+	tag BabylonTag,
 	version FormatVersion,
 	rawBTCCheckpoint *RawBtcCheckpoint,
 ) ([]byte, []byte) {
@@ -211,7 +211,7 @@ func parseHeader(
 	verHalf := data[TagLength]
 
 	header := formatHeader{
-		tag:     ybtcTag(tagBytes),
+		tag:     BabylonTag(tagBytes),
 		version: FormatVersion(verHalf & 0xf),
 		part:    verHalf >> 4,
 	}
@@ -220,7 +220,7 @@ func parseHeader(
 }
 
 func (header *formatHeader) validateHeader(
-	expectedTag ybtcTag,
+	expectedTag BabylonTag,
 	_ FormatVersion,
 	expectedPart uint8,
 ) error {
@@ -240,7 +240,7 @@ func (header *formatHeader) validateHeader(
 }
 
 func GetCheckpointData(
-	tag ybtcTag,
+	tag BabylonTag,
 	version FormatVersion,
 	partIndex uint8,
 	data []byte,
@@ -269,7 +269,7 @@ func GetCheckpointData(
 		return nil, err
 	}
 
-	// At this point this is probable ybtc data, strip the header and return data
+	// At this point this is probable babylon data, strip the header and return data
 	// to the caller
 	dataWithoutHeader := data[headerLength:]
 
@@ -280,27 +280,27 @@ func GetCheckpointData(
 	return dataNoHeader, nil
 }
 
-// IsybtcCheckpointData Checks if given bytearray is potential ybtc data,
+// IsBabylonCheckpointData Checks if given bytearray is potential babylon data,
 // if it is then returns index of data along side with data itself
-func IsybtcCheckpointData(
-	tag ybtcTag,
+func IsBabylonCheckpointData(
+	tag BabylonTag,
 	version FormatVersion,
 	data []byte,
-) (*ybtcData, error) {
+) (*BabylonData, error) {
 	var idx uint8 = 0
 
 	for idx < NumberOfParts {
 		data, err := GetCheckpointData(tag, version, idx, data)
 
 		if err == nil {
-			bd := ybtcData{Data: data, Index: idx}
+			bd := BabylonData{Data: data, Index: idx}
 			return &bd, nil
 		}
 
 		idx++
 	}
 
-	return nil, errors.New("not valid ybtc data")
+	return nil, errors.New("not valid babylon data")
 }
 
 // DecodeRawCheckpoint extracts epoch, appHash, bitmap, and blsSig from a

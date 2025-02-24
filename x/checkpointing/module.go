@@ -13,9 +13,9 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/client/cli"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/client/cli"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/keeper"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

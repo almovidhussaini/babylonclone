@@ -8,8 +8,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/finality/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/keeper"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 func BeginBlocker(ctx context.Context, k keeper.Keeper) error {

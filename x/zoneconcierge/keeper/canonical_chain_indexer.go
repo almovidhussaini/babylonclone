@@ -8,7 +8,7 @@ import (
 
 	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

@@ -8,7 +8,7 @@ import (
 
 	sdkmath "cosmossdk.io/math"
 
-	minttypes "github.com/amovidhussaini/ybtcclone/x/mint/types"
+	minttypes "github.com/almovidhussaini/babylonclone/x/mint/types"
 	cryptocodec "github.com/cosmos/cosmos-sdk/crypto/codec"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 	"github.com/cosmos/cosmos-sdk/server"
@@ -23,15 +23,15 @@ import (
 	staketypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/cosmos/gogoproto/proto"
 
-	"github.com/amovidhussaini/ybtcclone/privval"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btccheckpointtypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	blctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	btclighttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	finalitytypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/privval"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btccheckpointtypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	blctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	btclighttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	finalitytypes "github.com/almovidhussaini/babylonclone/x/finality/types"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
 )
 
 // NodeConfig is a configuration for the node supplied from the test runner
@@ -51,31 +51,31 @@ type NodeConfig struct {
 
 const (
 	// common
-	ybtcDenom        = "ubbn"
+	BabylonDenom        = "ubbn"
 	MinGasPrice         = "0.002"
 	ValidatorWalletName = "val"
-	ybtcOpReturnTag  = "01020304"
+	BabylonOpReturnTag  = "01020304"
 
-	ybtcBtcConfirmationPeriod = 2
-	ybtcBtcFinalizationPeriod = 4
+	BabylonBtcConfirmationPeriod = 2
+	BabylonBtcFinalizationPeriod = 4
 	// chainA
 	ChainAID        = "bbn-test-a"
-	ybtcBalanceA = 3000000000000
+	BabylonBalanceA = 3000000000000
 	StakeAmountA    = 100000000000
 	// chainB
 	ChainBID        = "bbn-test-b"
-	ybtcBalanceB = 5000000000000
+	BabylonBalanceB = 5000000000000
 	StakeAmountB    = 400000000000
 )
 
 var (
 	StakeAmountIntA  = sdkmath.NewInt(StakeAmountA)
-	StakeAmountCoinA = sdk.NewCoin(ybtcDenom, StakeAmountIntA)
+	StakeAmountCoinA = sdk.NewCoin(BabylonDenom, StakeAmountIntA)
 	StakeAmountIntB  = sdkmath.NewInt(StakeAmountB)
-	StakeAmountCoinB = sdk.NewCoin(ybtcDenom, StakeAmountIntB)
+	StakeAmountCoinB = sdk.NewCoin(BabylonDenom, StakeAmountIntB)
 
-	InitBalanceStrA = fmt.Sprintf("%d%s", ybtcBalanceA, ybtcDenom)
-	InitBalanceStrB = fmt.Sprintf("%d%s", ybtcBalanceB, ybtcDenom)
+	InitBalanceStrA = fmt.Sprintf("%d%s", BabylonBalanceA, BabylonDenom)
+	InitBalanceStrB = fmt.Sprintf("%d%s", BabylonBalanceB, BabylonDenom)
 )
 
 func addAccount(path, moniker, amountStr string, accAddr sdk.AccAddress, forkHeight int) error {
@@ -291,13 +291,13 @@ func initGenesis(
 func updateBankGenesis(bankGenState *banktypes.GenesisState) {
 	bankGenState.DenomMetadata = append(bankGenState.DenomMetadata, banktypes.Metadata{
 		Description: "An example stable token",
-		Display:     ybtcDenom,
-		Base:        ybtcDenom,
-		Symbol:      ybtcDenom,
-		Name:        ybtcDenom,
+		Display:     BabylonDenom,
+		Base:        BabylonDenom,
+		Symbol:      BabylonDenom,
+		Name:        BabylonDenom,
 		DenomUnits: []*banktypes.DenomUnit{
 			{
-				Denom:    ybtcDenom,
+				Denom:    BabylonDenom,
 				Exponent: 0,
 			},
 		},
@@ -306,19 +306,19 @@ func updateBankGenesis(bankGenState *banktypes.GenesisState) {
 
 func updateGovGenesis(votingPeriod, expeditedVotingPeriod time.Duration) func(govGenState *govv1.GenesisState) {
 	return func(govGenState *govv1.GenesisState) {
-		govGenState.Params.MinDeposit = sdk.NewCoins(sdk.NewCoin(ybtcDenom, sdkmath.NewInt(100)))
+		govGenState.Params.MinDeposit = sdk.NewCoins(sdk.NewCoin(BabylonDenom, sdkmath.NewInt(100)))
 		govGenState.Params.VotingPeriod = &votingPeriod
 		govGenState.Params.ExpeditedVotingPeriod = &expeditedVotingPeriod
 	}
 }
 
 func updateMintGenesis(mintGenState *minttypes.GenesisState) {
-	mintGenState.BondDenom = ybtcDenom
+	mintGenState.BondDenom = BabylonDenom
 }
 
 func updateStakeGenesis(stakeGenState *staketypes.GenesisState) {
 	stakeGenState.Params = staketypes.Params{
-		BondDenom:         ybtcDenom,
+		BondDenom:         BabylonDenom,
 		MaxValidators:     100,
 		MaxEntries:        7,
 		HistoricalEntries: 10000,
@@ -328,7 +328,7 @@ func updateStakeGenesis(stakeGenState *staketypes.GenesisState) {
 }
 
 func updateCrisisGenesis(crisisGenState *crisistypes.GenesisState) {
-	crisisGenState.ConstantFee.Denom = ybtcDenom
+	crisisGenState.ConstantFee.Denom = BabylonDenom
 }
 
 func updateBtcLightClientGenesis(btcHeaders []*btclighttypes.BTCHeaderInfo) func(blcGenState *blctypes.GenesisState) {
@@ -350,9 +350,9 @@ func updateBtcLightClientGenesis(btcHeaders []*btclighttypes.BTCHeaderInfo) func
 
 func updateBtccheckpointGenesis(btccheckpointGenState *btccheckpointtypes.GenesisState) {
 	btccheckpointGenState.Params = btccheckpointtypes.DefaultParams()
-	btccheckpointGenState.Params.BtcConfirmationDepth = ybtcBtcConfirmationPeriod
-	btccheckpointGenState.Params.CheckpointFinalizationTimeout = ybtcBtcFinalizationPeriod
-	btccheckpointGenState.Params.CheckpointTag = ybtcOpReturnTag
+	btccheckpointGenState.Params.BtcConfirmationDepth = BabylonBtcConfirmationPeriod
+	btccheckpointGenState.Params.CheckpointFinalizationTimeout = BabylonBtcFinalizationPeriod
+	btccheckpointGenState.Params.CheckpointTag = BabylonOpReturnTag
 }
 
 func updateFinalityGenesis(finalityGenState *finalitytypes.GenesisState) {

@@ -12,15 +12,15 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 var _ types.QueryServer = Keeper{}
 
 // FinalityProviderPowerAtHeight returns the voting power of the specified finality provider
-// at the provided ybtc height
+// at the provided Babylon height
 func (k Keeper) FinalityProviderPowerAtHeight(ctx context.Context, req *types.QueryFinalityProviderPowerAtHeightRequest) (*types.QueryFinalityProviderPowerAtHeightResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "empty request")
@@ -88,7 +88,7 @@ func (k Keeper) ActiveFinalityProvidersAtHeight(ctx context.Context, req *types.
 				BtcPk:                finalityProvider.BtcPk,
 				Height:               req.Height,
 				VotingPower:          votingPower,
-				SlashedybtcHeight: finalityProvider.SlashedybtcHeight,
+				SlashedBabylonHeight: finalityProvider.SlashedBabylonHeight,
 				SlashedBtcHeight:     finalityProvider.SlashedBtcHeight,
 				HighestVotedHeight:   finalityProvider.HighestVotedHeight,
 			}
@@ -104,7 +104,7 @@ func (k Keeper) ActiveFinalityProvidersAtHeight(ctx context.Context, req *types.
 	return &types.QueryActiveFinalityProvidersAtHeightResponse{FinalityProviders: convertToActiveFinalityProvidersAtHeightResponse(finalityProvidersWithMeta), Pagination: pageRes}, nil
 }
 
-// ActivatedHeight returns the ybtc height in which the BTC Staking protocol was enabled
+// ActivatedHeight returns the Babylon height in which the BTC Staking protocol was enabled
 func (k Keeper) ActivatedHeight(ctx context.Context, req *types.QueryActivatedHeightRequest) (*types.QueryActivatedHeightResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "empty request")
@@ -234,7 +234,7 @@ func (k Keeper) ListBlocks(ctx context.Context, req *types.QueryListBlocksReques
 	return resp, nil
 }
 
-// VotesAtHeight returns the set of votes at a given ybtc height
+// VotesAtHeight returns the set of votes at a given Babylon height
 func (k Keeper) VotesAtHeight(ctx context.Context, req *types.QueryVotesAtHeightRequest) (*types.QueryVotesAtHeightResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "empty request")
@@ -242,7 +242,7 @@ func (k Keeper) VotesAtHeight(ctx context.Context, req *types.QueryVotesAtHeight
 
 	sdkCtx := sdk.UnwrapSDKContext(ctx)
 
-	// get the sig set of ybtc block at given height
+	// get the sig set of babylon block at given height
 	btcPks := []bbn.BIP340PubKey{}
 	sigSet := k.GetSigSet(sdkCtx, req.Height)
 	for pkHex := range sigSet {
@@ -418,7 +418,7 @@ func convertToActiveFinalityProvidersAtHeightResponse(finalityProvidersWithMeta 
 			BtcPkHex:             fpWithMeta.BtcPk,
 			Height:               fpWithMeta.Height,
 			VotingPower:          fpWithMeta.VotingPower,
-			SlashedybtcHeight: fpWithMeta.SlashedybtcHeight,
+			SlashedBabylonHeight: fpWithMeta.SlashedBabylonHeight,
 			SlashedBtcHeight:     fpWithMeta.SlashedBtcHeight,
 			Jailed:               fpWithMeta.Jailed,
 			HighestVotedHeight:   fpWithMeta.HighestVotedHeight,

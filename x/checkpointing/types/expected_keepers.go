@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 // EpochingKeeper defines the expected interface needed to retrieve epoch info

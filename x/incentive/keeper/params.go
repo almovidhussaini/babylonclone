@@ -2,7 +2,8 @@ package keeper
 
 import (
 	"context"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 // SetParams sets the x/incentive module parameters.

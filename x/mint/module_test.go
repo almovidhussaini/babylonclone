@@ -3,9 +3,9 @@ package mint_test
 import (
 	"testing"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/testutil/helper"
-	"github.com/amovidhussaini/ybtcclone/x/mint/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/testutil/helper"
+	"github.com/almovidhussaini/babylonclone/x/mint/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/stretchr/testify/require"
 )

@@ -5,8 +5,8 @@ ARG E2E_SCRIPT_NAME
 ARG VERSION
 
 # Copy All
-WORKDIR /go/src/github.com/amovidhussaini/ybtcclone
-COPY ./ /go/src/github.com/amovidhussaini/ybtcclone/
+WORKDIR /go/src/github.com/almovidhussaini/babylonclone
+COPY ./ /go/src/github.com/almovidhussaini/babylonclone/
 
 # Handle if version is set
 RUN if [ -n "${VERSION}" ]; then \
@@ -21,15 +21,15 @@ FROM debian:bookworm-slim AS wasm-link
 ARG VERSION
 
 # Create a user
-RUN addgroup --gid 1137 --system ybtc && adduser --uid 1137 --gid 1137 --system --home /home/ybtc ybtc
+RUN addgroup --gid 1137 --system babylon && adduser --uid 1137 --gid 1137 --system --home /home/babylon babylon
 RUN apt-get update && apt-get install -y bash curl jq wget
 
 # Label should match your github repo
-LABEL org.opencontainers.image.source="https://github.com/amovidhussaini/ybtccloned:${VERSION}"
+LABEL org.opencontainers.image.source="https://github.com/almovidhussaini/babyloncloned:${VERSION}"
 
 # Install libraries
 # Cosmwasm - Download correct libwasmvm version
-COPY --from=build-env /go/src/github.com/amovidhussaini/ybtcclone/go.mod /tmp
+COPY --from=build-env /go/src/github.com/almovidhussaini/babylonclone/go.mod /tmp
 RUN WASMVM_VERSION=$(grep github.com/CosmWasm/wasmvm /tmp/go.mod | cut -d' ' -f2) && \
     wget https://github.com/CosmWasm/wasmvm/releases/download/$WASMVM_VERSION/libwasmvm.$(uname -m).so \
     -O /lib/libwasmvm.$(uname -m).so && \
@@ -41,7 +41,7 @@ RUN rm -f /tmp/go.mod
 # Args only last for a single build stage - renew
 ARG E2E_SCRIPT_NAME
 
-COPY --from=build-env /go/src/github.com/amovidhussaini/ybtcclone/build/${E2E_SCRIPT_NAME} /bin/${E2E_SCRIPT_NAME}
+COPY --from=build-env /go/src/github.com/almovidhussaini/babylonclone/build/${E2E_SCRIPT_NAME} /bin/${E2E_SCRIPT_NAME}
 # Docker ARGs are not expanded in ENTRYPOINT in the exec mode. At the same time,
 # it is impossible to add CMD arguments when running a container in the shell mode.
 # As a workaround, we create the entrypoint.sh script to bypass these issues.

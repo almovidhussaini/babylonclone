@@ -7,16 +7,16 @@ import (
 	wasmapp "github.com/CosmWasm/wasmd/app"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcckeeper "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/keeper"
-	epochingkeeper "github.com/amovidhussaini/ybtcclone/x/epoching/keeper"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcckeeper "github.com/almovidhussaini/babylonclone/x/btccheckpoint/keeper"
+	epochingkeeper "github.com/almovidhussaini/babylonclone/x/epoching/keeper"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authante "github.com/cosmos/cosmos-sdk/x/auth/ante"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 )
 
-// NewAnteHandler creates a new AnteHandler for the ybtc chain.
+// NewAnteHandler creates a new AnteHandler for the Babylon chain.
 func NewAnteHandler(
 	accountKeeper authante.AccountKeeper,
 	bankKeeper authtypes.BankKeeper,
@@ -34,7 +34,7 @@ func NewAnteHandler(
 	// initialize AnteHandler, which includes
 	// - authAnteHandler
 	// - custom wasm ante handler NewLimitSimulationGasDecorator and NewCountTXDecorator
-	// - Extra decorators introduced in ybtc, such as DropValidatorMsgDecorator that delays validator-related messages
+	// - Extra decorators introduced in Babylon, such as DropValidatorMsgDecorator that delays validator-related messages
 	//
 	// We are using constructor from wasmapp as it introduces custom wasm ante handle decorators
 	// early in chain of ante handlers.

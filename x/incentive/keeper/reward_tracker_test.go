@@ -6,10 +6,10 @@ import (
 	"testing"
 
 	"cosmossdk.io/math"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/testutil/coins"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/testutil/coins"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )

@@ -4,18 +4,18 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	btclightclienttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	btclightclienttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	ibctmtypes "github.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	zctypes "github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testkeeper "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	zctypes "github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 type chainInfo struct {
@@ -31,9 +31,9 @@ func FuzzChainList(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		ctx := babylonApp.NewContext(false)
 
 		// invoke the hook a random number of times with random chain IDs
 		numHeaders := datagen.RandomInt(r, 100) + 1
@@ -76,9 +76,9 @@ func FuzzChainsInfo(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		ctx := babylonApp.NewContext(false)
 
 		var (
 			chainsInfo  []chainInfo
@@ -118,9 +118,9 @@ func FuzzHeader(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		ctx := babylonApp.NewContext(false)
 
 		// invoke the hook a random number of times to simulate a random number of blocks
 		numHeaders := datagen.RandomInt(r, 100) + 2
@@ -151,9 +151,9 @@ func FuzzEpochChainsInfo(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		ctx := babylonApp.NewContext(false)
 
 		hooks := zcKeeper.Hooks()
 
@@ -248,9 +248,9 @@ func FuzzListHeaders(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		ctx := babylonApp.NewContext(false)
 
 		// invoke the hook a random number of times to simulate a random number of blocks
 		numHeaders := datagen.RandomInt(r, 100) + 1
@@ -280,10 +280,10 @@ func FuzzListEpochHeaders(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		epochingKeeper := ybtcApp.EpochingKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		epochingKeeper := babylonApp.EpochingKeeper
+		ctx := babylonApp.NewContext(false)
 
 		hooks := zcKeeper.Hooks()
 

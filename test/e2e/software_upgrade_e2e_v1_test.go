@@ -8,18 +8,18 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	v1 "github.com/amovidhussaini/ybtcclone/app/upgrades/v1"
-	"github.com/amovidhussaini/ybtcclone/app/upgrades/v1/testnet"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/testutil/sample"
-	btclighttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	v1 "github.com/almovidhussaini/babylonclone/app/upgrades/v1"
+	"github.com/almovidhussaini/babylonclone/app/upgrades/v1/testnet"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/sample"
+	btclighttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/chain"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/config"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/chain"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/config"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
 )
 
 type SoftwareUpgradeV1TestnetTestSuite struct {
@@ -118,7 +118,7 @@ func (s *SoftwareUpgradeV1TestnetTestSuite) TestUpgradeV1() {
 		n,
 	)
 
-	bbnApp := app.NewTmpybtcApp()
+	bbnApp := app.NewTmpBabylonApp()
 
 	// makes sure that the upgrade was actually executed
 	expectedUpgradeHeight := govProp.Plan.Height

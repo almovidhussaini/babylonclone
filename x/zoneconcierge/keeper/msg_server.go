@@ -4,7 +4,7 @@ import (
 	"context"
 
 	errorsmod "cosmossdk.io/errors"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 )

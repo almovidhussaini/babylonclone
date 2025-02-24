@@ -3,8 +3,8 @@ package checkpointing
 import (
 	"context"
 
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/keeper"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

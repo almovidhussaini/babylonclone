@@ -7,7 +7,7 @@ package mocks
 import (
 	reflect "reflect"
 
-	bls12381 "github.com/amovidhussaini/ybtcclone/crypto/bls12381"
+	bls12381 "github.com/almovidhussaini/babylonclone/crypto/bls12381"
 	crypto "github.com/cometbft/cometbft/crypto"
 	types "github.com/cosmos/cosmos-sdk/types"
 	gomock "github.com/golang/mock/gomock"

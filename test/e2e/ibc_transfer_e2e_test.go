@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/suite"
 )
@@ -64,33 +64,33 @@ func (s *IBCTransferTestSuite) Test1IBCTransfer() {
 	bbnChainA := s.configurer.GetChainConfig(0)
 	bbnChainB := s.configurer.GetChainConfig(1)
 
-	ybtcNodeA, err := bbnChainA.GetNodeAtIndex(2)
+	babylonNodeA, err := bbnChainA.GetNodeAtIndex(2)
 	s.NoError(err)
-	ybtcNodeB, err := bbnChainB.GetNodeAtIndex(2)
+	babylonNodeB, err := bbnChainB.GetNodeAtIndex(2)
 	s.NoError(err)
 
 	val := initialization.ValidatorWalletName
 
 	// Check balance of val in chain-A (Node 3)
-	addrA := ybtcNodeA.GetWallet(val)
-	balanceA, err := ybtcNodeA.QueryBalances(addrA)
+	addrA := babylonNodeA.GetWallet(val)
+	balanceA, err := babylonNodeA.QueryBalances(addrA)
 	s.Require().NoError(err)
 	// Confirm val on A has enough funds
 	s.Assert().GreaterOrEqual(balanceA.AmountOf(denom).Int64(), amount)
 
-	addrB := ybtcNodeB.GetWallet(val)
-	balanceB, err := ybtcNodeB.QueryBalances(addrB)
+	addrB := babylonNodeB.GetWallet(val)
+	balanceB, err := babylonNodeB.QueryBalances(addrB)
 	s.Require().NoError(err)
 	// Only one denom in B
 	s.Require().Len(balanceB, 1)
 
 	// Send transfer from val in chain-A (Node 3) to val in chain-B (Node 3)
-	ybtcNodeA.SendIBCTransfer(val, addrB, "transfer", transferCoin)
+	babylonNodeA.SendIBCTransfer(val, addrB, "transfer", transferCoin)
 
 	s.Require().Eventually(func() bool {
 		// Check that the transfer is successful.
 		// Amounts have been discounted from val in chain-A and added (as a wrapped denom) to val in chain-B
-		balanceA2, err := ybtcNodeA.QueryBalances(addrA)
+		balanceA2, err := babylonNodeA.QueryBalances(addrA)
 		if err != nil {
 			return false
 		}
@@ -99,7 +99,7 @@ func (s *IBCTransferTestSuite) Test1IBCTransfer() {
 	}, 1*time.Minute, 1*time.Second, "Transfer was not successful")
 
 	s.Require().Eventually(func() bool {
-		balanceB2, err := ybtcNodeB.QueryBalances(addrB)
+		balanceB2, err := babylonNodeB.QueryBalances(addrB)
 		if err != nil {
 			return false
 		}
@@ -121,15 +121,15 @@ func (s *IBCTransferTestSuite) Test2IBCTransferBack() {
 	bbnChainA := s.configurer.GetChainConfig(0)
 	bbnChainB := s.configurer.GetChainConfig(1)
 
-	ybtcNodeA, err := bbnChainA.GetNodeAtIndex(0)
+	babylonNodeA, err := bbnChainA.GetNodeAtIndex(0)
 	s.NoError(err)
-	ybtcNodeB, err := bbnChainB.GetNodeAtIndex(2)
+	babylonNodeB, err := bbnChainB.GetNodeAtIndex(2)
 	s.NoError(err)
 
 	val := initialization.ValidatorWalletName
 
-	addrB := ybtcNodeB.GetWallet(val)
-	balanceB, err := ybtcNodeB.QueryBalances(addrB)
+	addrB := babylonNodeB.GetWallet(val)
+	balanceB, err := babylonNodeB.QueryBalances(addrB)
 	s.Require().NoError(err)
 	// Two denoms in B
 	s.Require().Len(balanceB, 2)
@@ -140,14 +140,14 @@ func (s *IBCTransferTestSuite) Test2IBCTransferBack() {
 	transferCoin := sdk.NewInt64Coin(denom, amount)
 
 	// Send transfer from val in chain-B (Node 3) to val in chain-A (Node 1)
-	addrA := ybtcNodeA.GetWallet(val)
-	balanceA, err := ybtcNodeA.QueryBalances(addrA)
+	addrA := babylonNodeA.GetWallet(val)
+	balanceA, err := babylonNodeA.QueryBalances(addrA)
 	s.Require().NoError(err)
 
-	ybtcNodeB.SendIBCTransfer(val, addrA, "transfer back", transferCoin)
+	babylonNodeB.SendIBCTransfer(val, addrA, "transfer back", transferCoin)
 
 	s.Require().Eventually(func() bool {
-		balanceB2, err := ybtcNodeB.QueryBalances(addrB)
+		balanceB2, err := babylonNodeB.QueryBalances(addrB)
 		if err != nil {
 			return false
 		}
@@ -157,7 +157,7 @@ func (s *IBCTransferTestSuite) Test2IBCTransferBack() {
 
 	nativeCoin := sdk.NewInt64Coin(nativeDenom, amount)
 	s.Require().Eventually(func() bool {
-		balanceA2, err := ybtcNodeA.QueryBalances(addrA)
+		balanceA2, err := babylonNodeA.QueryBalances(addrA)
 		if err != nil {
 			return false
 		}

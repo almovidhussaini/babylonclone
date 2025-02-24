@@ -2,13 +2,14 @@ package incentive
 
 import (
 	"context"
-	"cosmossdk.io/core/appmodule"
 	"encoding/json"
 	"fmt"
 
-	"github.com/amovidhussaini/ybtcclone/x/incentive/client/cli"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"cosmossdk.io/core/appmodule"
+
+	"github.com/almovidhussaini/babylonclone/x/incentive/client/cli"
+	"github.com/almovidhussaini/babylonclone/x/incentive/keeper"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"

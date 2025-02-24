@@ -3,7 +3,7 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )

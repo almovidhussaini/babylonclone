@@ -3,7 +3,7 @@ package datagen
 import (
 	"math/rand"
 
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 // getFirstBlockHeight returns the height of the first block of a given epoch and epoch interval

@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/chain"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/containers"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/chain"
+	"github.com/almovidhussaini/babylonclone/test/e2e/containers"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 )
@@ -96,7 +96,7 @@ func (bc *baseConfigurer) RunCosmosRelayerIBC() error {
 			}
 		}
 	}
-	// Launches a relayer between chain A (ybtcd) and chain B (wasmd)
+	// Launches a relayer between chain A (babylond) and chain B (wasmd)
 	return nil
 }
 

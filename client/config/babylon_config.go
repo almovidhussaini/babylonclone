@@ -7,12 +7,12 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/client/ybtcclient"
+	"github.com/almovidhussaini/babylonclone/client/babylonclient"
 )
 
-// ybtcConfig defines configuration for the ybtc client
+// BabylonConfig defines configuration for the Babylon client
 // adapted from https://github.com/strangelove-ventures/lens/blob/v0.5.1/client/config.go
-type ybtcConfig struct {
+type BabylonConfig struct {
 	Key              string        `mapstructure:"key"`
 	ChainID          string        `mapstructure:"chain-id"`
 	RPCAddr          string        `mapstructure:"rpc-addr"`
@@ -30,7 +30,7 @@ type ybtcConfig struct {
 	SubmitterAddress string        `mapstructure:"submitter-address"`
 }
 
-func (cfg *ybtcConfig) Validate() error {
+func (cfg *BabylonConfig) Validate() error {
 	if _, err := url.Parse(cfg.RPCAddr); err != nil {
 		return fmt.Errorf("rpc-addr is not correctly formatted: %w", err)
 	}
@@ -43,8 +43,8 @@ func (cfg *ybtcConfig) Validate() error {
 	return nil
 }
 
-func (cfg *ybtcConfig) ToCosmosProviderConfig() ybtcclient.CosmosProviderConfig {
-	return ybtcclient.CosmosProviderConfig{
+func (cfg *BabylonConfig) ToCosmosProviderConfig() babylonclient.CosmosProviderConfig {
+	return babylonclient.CosmosProviderConfig{
 		Key:            cfg.Key,
 		ChainID:        cfg.ChainID,
 		RPCAddr:        cfg.RPCAddr,
@@ -61,36 +61,36 @@ func (cfg *ybtcConfig) ToCosmosProviderConfig() ybtcclient.CosmosProviderConfig 
 	}
 }
 
-func DefaultybtcConfig() ybtcConfig {
-	return ybtcConfig{
+func DefaultBabylonConfig() BabylonConfig {
+	return BabylonConfig{
 		Key:     "node0",
 		ChainID: "chain-test",
 		// see https://docs.cosmos.network/master/core/grpc_rest.html for default ports
-		// TODO: configure HTTPS for ybtc's RPC server
+		// TODO: configure HTTPS for Babylon's RPC server
 		// TODO: how to use Cosmos SDK's RPC server (port 1317) rather than Tendermint's RPC server (port 26657)?
 		RPCAddr: "http://localhost:26657",
-		// TODO: how to support GRPC in the ybtc client?
+		// TODO: how to support GRPC in the Babylon client?
 		GRPCAddr:         "https://localhost:9090",
 		AccountPrefix:    "bbn",
 		KeyringBackend:   "test",
 		GasAdjustment:    1.2,
 		GasPrices:        "0.01ubbn",
-		KeyDirectory:     defaultybtcHome(),
+		KeyDirectory:     defaultBabylonHome(),
 		Debug:            true,
 		Timeout:          20 * time.Second,
 		OutputFormat:     "json",
 		SignModeStr:      "direct",
-		SubmitterAddress: "bbn1v6k7k9s8md3k29cu9runasstq5zaa0lpznk27w", // this is currently a placeholder, will not recognized by ybtc
+		SubmitterAddress: "bbn1v6k7k9s8md3k29cu9runasstq5zaa0lpznk27w", // this is currently a placeholder, will not recognized by Babylon
 	}
 }
 
-// defaultybtcHome returns the default ybtc node directory, which is $HOME/.ybtcd
-// copied from https://github.com/amovidhussaini/ybtcclone/blob/648b804bc492ded2cb826ba261d7164b4614d78a/app/app.go#L205-L210
-func defaultybtcHome() string {
+// defaultBabylonHome returns the default Babylon node directory, which is $HOME/.babylond
+// copied from https://github.com/almovidhussaini/babylonclone/blob/648b804bc492ded2cb826ba261d7164b4614d78a/app/app.go#L205-L210
+func defaultBabylonHome() string {
 	userHomeDir, err := os.UserHomeDir()
 	if err != nil {
 		panic(err)
 	}
 
-	return filepath.Join(userHomeDir, ".ybtcd")
+	return filepath.Join(userHomeDir, ".babylond")
 }

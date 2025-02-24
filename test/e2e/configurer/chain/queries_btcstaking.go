@@ -6,14 +6,14 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 func (n *NodeConfig) QueryBTCStakingParams() *bstypes.Params {
-	bz, err := n.QueryGRPCGateway("/ybtc/btcstaking/v1/params", url.Values{})
+	bz, err := n.QueryGRPCGateway("/babylon/btcstaking/v1/params", url.Values{})
 	require.NoError(n.t, err)
 
 	var resp bstypes.QueryParamsResponse
@@ -24,7 +24,7 @@ func (n *NodeConfig) QueryBTCStakingParams() *bstypes.Params {
 }
 
 func (n *NodeConfig) QueryBTCStakingParamsByVersion(version uint32) *bstypes.Params {
-	path := fmt.Sprintf("/ybtc/btcstaking/v1/params/%d", version)
+	path := fmt.Sprintf("/babylon/btcstaking/v1/params/%d", version)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -36,7 +36,7 @@ func (n *NodeConfig) QueryBTCStakingParamsByVersion(version uint32) *bstypes.Par
 }
 
 func (n *NodeConfig) QueryFinalityParams() *ftypes.Params {
-	bz, err := n.QueryGRPCGateway("/ybtc/finality/v1/params", url.Values{})
+	bz, err := n.QueryGRPCGateway("/babylon/finality/v1/params", url.Values{})
 	require.NoError(n.t, err)
 
 	var resp ftypes.QueryParamsResponse
@@ -47,7 +47,7 @@ func (n *NodeConfig) QueryFinalityParams() *ftypes.Params {
 }
 
 func (n *NodeConfig) QueryFinalityProviders() []*bstypes.FinalityProviderResponse {
-	bz, err := n.QueryGRPCGateway("/ybtc/btcstaking/v1/finality_providers", url.Values{})
+	bz, err := n.QueryGRPCGateway("/babylon/btcstaking/v1/finality_providers", url.Values{})
 	require.NoError(n.t, err)
 
 	var resp bstypes.QueryFinalityProvidersResponse
@@ -58,7 +58,7 @@ func (n *NodeConfig) QueryFinalityProviders() []*bstypes.FinalityProviderRespons
 }
 
 func (n *NodeConfig) QueryActiveFinalityProvidersAtHeight(height uint64) []*ftypes.ActiveFinalityProvidersAtHeightResponse {
-	path := fmt.Sprintf("/ybtc/finality/v1/finality_providers/%d", height)
+	path := fmt.Sprintf("/babylon/finality/v1/finality_providers/%d", height)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -70,7 +70,7 @@ func (n *NodeConfig) QueryActiveFinalityProvidersAtHeight(height uint64) []*ftyp
 }
 
 func (n *NodeConfig) QueryFinalityProviderDelegations(fpBTCPK string) []*bstypes.BTCDelegatorDelegationsResponse {
-	path := fmt.Sprintf("/ybtc/btcstaking/v1/finality_providers/%s/delegations", fpBTCPK)
+	path := fmt.Sprintf("/babylon/btcstaking/v1/finality_providers/%s/delegations", fpBTCPK)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -82,7 +82,7 @@ func (n *NodeConfig) QueryFinalityProviderDelegations(fpBTCPK string) []*bstypes
 }
 
 func (n *NodeConfig) QueryBtcDelegation(stakingTxHash string) *bstypes.QueryBTCDelegationResponse {
-	path := fmt.Sprintf("/ybtc/btcstaking/v1/btc_delegation/%s", stakingTxHash)
+	path := fmt.Sprintf("/babylon/btcstaking/v1/btc_delegation/%s", stakingTxHash)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -94,7 +94,7 @@ func (n *NodeConfig) QueryBtcDelegation(stakingTxHash string) *bstypes.QueryBTCD
 }
 
 func (n *NodeConfig) QueryBtcDelegations(status bstypes.BTCDelegationStatus) *bstypes.QueryBTCDelegationsResponse {
-	path := fmt.Sprintf("/ybtc/btcstaking/v1/btc_delegations/%d", status)
+	path := fmt.Sprintf("/babylon/btcstaking/v1/btc_delegations/%d", status)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -118,7 +118,7 @@ func (n *NodeConfig) QueryActiveDelegations() []*bstypes.BTCDelegationResponse {
 }
 
 func (n *NodeConfig) QueryActivatedHeight() (uint64, error) {
-	bz, err := n.QueryGRPCGateway("/ybtc/finality/v1/activated_height", url.Values{})
+	bz, err := n.QueryGRPCGateway("/babylon/finality/v1/activated_height", url.Values{})
 	if err != nil {
 		return 0, err
 	}
@@ -134,7 +134,7 @@ func (n *NodeConfig) QueryActivatedHeight() (uint64, error) {
 
 // TODO: pagination support
 func (n *NodeConfig) QueryListPublicRandomness(fpBTCPK *bbn.BIP340PubKey) map[uint64]*bbn.SchnorrPubRand {
-	path := fmt.Sprintf("/ybtc/finality/v1/finality_providers/%s/public_randomness_list", fpBTCPK.MarshalHex())
+	path := fmt.Sprintf("/babylon/finality/v1/finality_providers/%s/public_randomness_list", fpBTCPK.MarshalHex())
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -147,7 +147,7 @@ func (n *NodeConfig) QueryListPublicRandomness(fpBTCPK *bbn.BIP340PubKey) map[ui
 
 // TODO: pagination support
 func (n *NodeConfig) QueryListPubRandCommit(fpBTCPK *bbn.BIP340PubKey) map[uint64]*ftypes.PubRandCommitResponse {
-	path := fmt.Sprintf("/ybtc/finality/v1/finality_providers/%s/pub_rand_commit_list", fpBTCPK.MarshalHex())
+	path := fmt.Sprintf("/babylon/finality/v1/finality_providers/%s/pub_rand_commit_list", fpBTCPK.MarshalHex())
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -159,7 +159,7 @@ func (n *NodeConfig) QueryListPubRandCommit(fpBTCPK *bbn.BIP340PubKey) map[uint6
 }
 
 func (n *NodeConfig) QueryVotesAtHeight(height uint64) []bbn.BIP340PubKey {
-	path := fmt.Sprintf("/ybtc/finality/v1/votes/%d", height)
+	path := fmt.Sprintf("/babylon/finality/v1/votes/%d", height)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -174,7 +174,7 @@ func (n *NodeConfig) QueryVotesAtHeight(height uint64) []bbn.BIP340PubKey {
 func (n *NodeConfig) QueryListBlocks(status ftypes.QueriedBlockStatus) []*ftypes.IndexedBlock {
 	values := url.Values{}
 	values.Set("status", fmt.Sprintf("%d", status))
-	bz, err := n.QueryGRPCGateway("/ybtc/finality/v1/blocks", values)
+	bz, err := n.QueryGRPCGateway("/babylon/finality/v1/blocks", values)
 	require.NoError(n.t, err)
 
 	var resp ftypes.QueryListBlocksResponse
@@ -185,7 +185,7 @@ func (n *NodeConfig) QueryListBlocks(status ftypes.QueriedBlockStatus) []*ftypes
 }
 
 func (n *NodeConfig) QueryIndexedBlock(height uint64) *ftypes.IndexedBlock {
-	path := fmt.Sprintf("/ybtc/finality/v1/blocks/%d", height)
+	path := fmt.Sprintf("/babylon/finality/v1/blocks/%d", height)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 

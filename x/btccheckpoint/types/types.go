@@ -8,8 +8,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/btctxformatter"
-	"github.com/amovidhussaini/ybtcclone/types"
+	"github.com/almovidhussaini/babylonclone/btctxformatter"
+	"github.com/almovidhussaini/babylonclone/types"
 )
 
 // RawCheckpointSubmission Semantically valid checkpoint submission with:
@@ -134,7 +134,7 @@ func (submission *SubmissionBtcInfo) HappenedAfter(parentEpochSubmission *Submis
 }
 
 // SubmissionDepth return depth of the submission. Due to the fact that submissions
-// are split between several btc blocks, in ybtc submission depth is the depth
+// are split between several btc blocks, in Babylon submission depth is the depth
 // of the youngest btc block
 func (submission *SubmissionBtcInfo) SubmissionDepth() uint32 {
 	return submission.YoungestBlockDepth

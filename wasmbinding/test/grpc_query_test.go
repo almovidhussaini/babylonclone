@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/amovidhussaini/ybtcclone/app"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
@@ -15,30 +15,30 @@ var pathToGrpcContract = "../testdata/artifacts/testgrpc.wasm"
 
 func TestGrpcQueryEpoch(t *testing.T) {
 	acc := RandomAccountAddress()
-	ybtcApp, ctx := SetupAppWithContext(t)
-	FundAccount(t, ctx, ybtcApp, acc)
+	babylonApp, ctx := SetupAppWithContext(t)
+	FundAccount(t, ctx, babylonApp, acc)
 
-	contractAddress := deployGrpcContract(t, ctx, ybtcApp, acc, pathToGrpcContract)
+	contractAddress := deployGrpcContract(t, ctx, babylonApp, acc, pathToGrpcContract)
 	require.NotEmpty(t, contractAddress)
 
 	query := TestQuery{
 		QueryCurrentEpoch: &struct{}{},
 	}
 	resp := epochingtypes.QueryCurrentEpochResponse{}
-	testGrpcQuery(t, ctx, ybtcApp, contractAddress, query, &resp)
+	testGrpcQuery(t, ctx, babylonApp, contractAddress, query, &resp)
 	require.Equal(t, resp.CurrentEpoch, uint64(1))
 
-	newEpoch := ybtcApp.EpochingKeeper.IncEpoch(ctx)
+	newEpoch := babylonApp.EpochingKeeper.IncEpoch(ctx)
 
 	resp = epochingtypes.QueryCurrentEpochResponse{}
-	testGrpcQuery(t, ctx, ybtcApp, contractAddress, query, &resp)
+	testGrpcQuery(t, ctx, babylonApp, contractAddress, query, &resp)
 	require.Equal(t, resp.CurrentEpoch, newEpoch.EpochNumber)
 }
 
 func instantiateGrpcContract(
 	t *testing.T,
 	ctx sdk.Context,
-	bbn *app.ybtcApp,
+	bbn *app.BabylonApp,
 	funder sdk.AccAddress,
 	codeId uint64,
 ) sdk.AccAddress {
@@ -52,7 +52,7 @@ func instantiateGrpcContract(
 func deployGrpcContract(
 	t *testing.T,
 	ctx sdk.Context,
-	bbn *app.ybtcApp,
+	bbn *app.BabylonApp,
 	deployer sdk.AccAddress,
 	codePath string,
 ) sdk.AccAddress {
@@ -68,7 +68,7 @@ type TestQuery struct {
 func testGrpcQuery(
 	t *testing.T,
 	ctx sdk.Context,
-	bbn *app.ybtcApp,
+	bbn *app.BabylonApp,
 	contract sdk.AccAddress,
 	request TestQuery,
 	response interface{},

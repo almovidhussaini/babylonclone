@@ -3,10 +3,10 @@ package sample
 import (
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/types"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btclightck "github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	btclighttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btclightck "github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	btclighttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"

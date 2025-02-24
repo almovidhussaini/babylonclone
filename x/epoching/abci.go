@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/x/epoching/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/epoching/keeper"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"

@@ -6,9 +6,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	btcstk "github.com/amovidhussaini/ybtcclone/btcstaking"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	btcstk "github.com/almovidhussaini/babylonclone/btcstaking"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 // InitGenesis initializes the keeper state from a provided initial genesis state.
@@ -274,7 +274,7 @@ func (k Keeper) signingInfosAndMissedBlock(ctx context.Context) ([]types.Signing
 	return signingInfos, missedBlocks, nil
 }
 
-// fpVotingPowers gets the voting power of a given finality provider at a given ybtc height.
+// fpVotingPowers gets the voting power of a given finality provider at a given Babylon height.
 func (k Keeper) fpVotingPowers(ctx context.Context) ([]*types.VotingPowerFP, error) {
 	iter := k.votingPowerStore(ctx).Iterator(nil, nil)
 	defer iter.Close()

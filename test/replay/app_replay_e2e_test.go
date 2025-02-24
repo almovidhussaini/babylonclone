@@ -12,7 +12,7 @@ import (
 func TestReplayBlocks(t *testing.T) {
 	driverTempDir := t.TempDir()
 	replayerTempDir := t.TempDir()
-	driver := NewybtcAppDriver(t, driverTempDir, replayerTempDir)
+	driver := NewBabylonAppDriver(t, driverTempDir, replayerTempDir)
 
 	for i := 0; i < 100; i++ {
 		driver.GenerateNewBlock(t)
@@ -29,7 +29,7 @@ func TestReplayBlocks(t *testing.T) {
 func TestSendingTxFromDriverAccount(t *testing.T) {
 	driverTempDir := t.TempDir()
 	replayerTempDir := t.TempDir()
-	driver := NewybtcAppDriver(t, driverTempDir, replayerTempDir)
+	driver := NewBabylonAppDriver(t, driverTempDir, replayerTempDir)
 
 	// go over epoch boundary
 	for i := 0; i < 1+epochLength; i++ {

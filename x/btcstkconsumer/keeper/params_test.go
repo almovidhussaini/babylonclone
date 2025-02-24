@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 )
 
 func TestGetParams(t *testing.T) {

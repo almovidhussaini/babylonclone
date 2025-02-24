@@ -6,31 +6,31 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/btctxformatter"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	"github.com/almovidhussaini/babylonclone/btctxformatter"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 	"github.com/btcsuite/btcd/blockchain"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 )
 
-// GenRandomBtcdBlock generates a random BTC block, which can include ybtc txs.
+// GenRandomBtcdBlock generates a random BTC block, which can include Babylon txs.
 // Specifically,
-// - when numybtcTxs == 0 or numybtcTxs > 2, it generates a BTC block with 3 random txs.
-// - when numybtcTxs == 1, it generates a BTC block with 2 random txs and a ybtc tx.
-// - when numybtcTxs == 2, it generates a BTC block with 1 random tx and 2 ybtc txs that constitute a raw BTC checkpoint.
-// When numybtcTxs == 2, the function will return the BTC raw checkpoint as well.
-func GenRandomBtcdBlock(r *rand.Rand, numybtcTxs int, prevHash *chainhash.Hash) (*wire.MsgBlock, *btctxformatter.RawBtcCheckpoint) {
+// - when numBabylonTxs == 0 or numBabylonTxs > 2, it generates a BTC block with 3 random txs.
+// - when numBabylonTxs == 1, it generates a BTC block with 2 random txs and a Babylon tx.
+// - when numBabylonTxs == 2, it generates a BTC block with 1 random tx and 2 Babylon txs that constitute a raw BTC checkpoint.
+// When numBabylonTxs == 2, the function will return the BTC raw checkpoint as well.
+func GenRandomBtcdBlock(r *rand.Rand, numBabylonTxs int, prevHash *chainhash.Hash) (*wire.MsgBlock, *btctxformatter.RawBtcCheckpoint) {
 	var (
 		randomTxs []*wire.MsgTx                    = []*wire.MsgTx{GenRandomTx(r), GenRandomTx(r)}
 		rawCkpt   *btctxformatter.RawBtcCheckpoint = nil
 	)
 
-	if numybtcTxs == 2 {
-		randomTxs, rawCkpt = GenRandomybtcTxPair(r)
-	} else if numybtcTxs == 1 {
-		bbnTxs, _ := GenRandomybtcTxPair(r)
+	if numBabylonTxs == 2 {
+		randomTxs, rawCkpt = GenRandomBabylonTxPair(r)
+	} else if numBabylonTxs == 1 {
+		bbnTxs, _ := GenRandomBabylonTxPair(r)
 		idx := r.Intn(2)
 		randomTxs[idx] = bbnTxs[idx]
 	}
@@ -153,12 +153,12 @@ func GenNEmptyBlocks(r *rand.Rand, n uint64, prevHeader *wire.BlockHeader) []*Bl
 	return GenChainFromListsOfTransactions(r, txs, prevHeader)
 }
 
-// GenRandomBtcdBlockchainWithybtcTx generates a blockchain of `n` blocks, in which each block has some probability of including some ybtc txs
+// GenRandomBtcdBlockchainWithBabylonTx generates a blockchain of `n` blocks, in which each block has some probability of including some Babylon txs
 // Specifically, each block
-// - has `oneTxThreshold` probability of including 1 ybtc tx that does not has any match
-// - has `twoTxThreshold - oneTxThreshold` probability of including 2 ybtc txs that constitute a checkpoint
-// - has `1 - twoTxThreshold` probability of including no ybtc tx
-func GenRandomBtcdBlockchainWithybtcTx(r *rand.Rand, n uint64, oneTxThreshold float32, twoTxThreshold float32) ([]*wire.MsgBlock, int, []*btctxformatter.RawBtcCheckpoint) {
+// - has `oneTxThreshold` probability of including 1 Babylon tx that does not has any match
+// - has `twoTxThreshold - oneTxThreshold` probability of including 2 Babylon txs that constitute a checkpoint
+// - has `1 - twoTxThreshold` probability of including no Babylon tx
+func GenRandomBtcdBlockchainWithBabylonTx(r *rand.Rand, n uint64, oneTxThreshold float32, twoTxThreshold float32) ([]*wire.MsgBlock, int, []*btctxformatter.RawBtcCheckpoint) {
 	blocks := []*wire.MsgBlock{}
 	numCkptSegs := 0
 	rawCkpts := []*btctxformatter.RawBtcCheckpoint{}

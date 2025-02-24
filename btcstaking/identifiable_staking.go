@@ -292,7 +292,7 @@ func tryToGetOpReturnDataFromOutputs(outputs []*wire.TxOut) (*V0OpReturnData, in
 		d, err := NewV0OpReturnDataFromTxOutput(output)
 
 		if err != nil {
-			// this is not an op return output recognized by ybtc, move forward
+			// this is not an op return output recognized by Babylon, move forward
 			continue
 		}
 		// this case should not happen as standard bitcoin node propagation rules
@@ -453,7 +453,7 @@ func IsPossibleV0StakingTx(tx *wire.MsgTx, expectedTag []byte) bool {
 		data, err := getV0OpReturnBytes(output)
 
 		if err != nil {
-			// this is not an op return output recognized by ybtc, move forward
+			// this is not an op return output recognized by Babylon, move forward
 			continue
 		}
 

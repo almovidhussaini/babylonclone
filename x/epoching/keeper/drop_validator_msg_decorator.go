@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authz "github.com/cosmos/cosmos-sdk/x/authz"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"

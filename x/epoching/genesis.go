@@ -2,8 +2,9 @@ package epoching
 
 import (
 	"context"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+
+	"github.com/almovidhussaini/babylonclone/x/epoching/keeper"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

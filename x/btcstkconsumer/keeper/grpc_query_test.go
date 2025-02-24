@@ -9,11 +9,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 
-	btcstaking "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	btcstaking "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 type consumerRegister struct {
@@ -26,9 +26,9 @@ func FuzzConsumerRegistryList(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		bscKeeper := ybtcApp.BTCStkConsumerKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		bscKeeper := babylonApp.BTCStkConsumerKeeper
+		ctx := babylonApp.NewContext(false)
 
 		// invoke the consumer registration a random number of times with random consumer IDs
 		numRegistrations := datagen.RandomInt(r, 100) + 1
@@ -68,9 +68,9 @@ func FuzzConsumersRegistry(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		bscKeeper := ybtcApp.BTCStkConsumerKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		bscKeeper := babylonApp.BTCStkConsumerKeeper
+		ctx := babylonApp.NewContext(false)
 
 		var (
 			consumersRegister []consumerRegister
@@ -109,9 +109,9 @@ func FuzzFinalityProviders(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		bscKeeper := ybtcApp.BTCStkConsumerKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		bscKeeper := babylonApp.BTCStkConsumerKeeper
+		ctx := babylonApp.NewContext(false)
 
 		// Generate random finality providers and add them to kv store under a consumer id
 		consumerID := datagen.GenRandomHexStr(r, 30)
@@ -177,9 +177,9 @@ func FuzzFinalityProvider(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		bscKeeper := ybtcApp.BTCStkConsumerKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		bscKeeper := babylonApp.BTCStkConsumerKeeper
+		ctx := babylonApp.NewContext(false)
 
 		// Generate random finality providers and add them to kv store under a consumer id
 		fpsMap := make(map[string]*btcstaking.FinalityProvider)
@@ -240,9 +240,9 @@ func FuzzFinalityProviderConsumer(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		bscKeeper := ybtcApp.BTCStkConsumerKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		bscKeeper := babylonApp.BTCStkConsumerKeeper
+		ctx := babylonApp.NewContext(false)
 
 		// Generate random finality providers and add them to kv store under a consumer id
 		fpsMap := make(map[string]*btcstaking.FinalityProvider)

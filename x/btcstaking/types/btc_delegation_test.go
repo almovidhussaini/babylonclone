@@ -10,12 +10,12 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/stretchr/testify/require"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	btctest "github.com/amovidhussaini/ybtcclone/testutil/bitcoin"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	btctest "github.com/almovidhussaini/babylonclone/testutil/bitcoin"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 func FuzzBTCDelegation(f *testing.F) {

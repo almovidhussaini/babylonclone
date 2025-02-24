@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cobra"
 
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 )
 
 // GetTxCmd returns the transaction commands for this module
@@ -36,7 +36,7 @@ func NewRegisterConsumerCmd() *cobra.Command {
 		Args:  cobra.ExactArgs(3),
 		Short: "Registers a consumer",
 		Long: strings.TrimSpace(
-			`Registers a consumer with ybtc. The consumer-id must be unique and will be used to identify this consumer.
+			`Registers a consumer with Babylon. The consumer-id must be unique and will be used to identify this consumer.
 			The name and optional description help identify the purpose of this consumer.`,
 		),
 		RunE: func(cmd *cobra.Command, args []string) error {

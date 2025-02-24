@@ -14,9 +14,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "ybtc-bindings"
+name = "babylon-bindings"
 version = "0.1.0"
-source = "git+https://github.com/ybtcchain/bindings?tag=v0.1.0#7c209ab2cd289b9bad57958d5bc074cb8ded5a5c"
+source = "git+https://github.com/babylonchain/bindings?tag=v0.1.0#7c209ab2cd289b9bad57958d5bc074cb8ded5a5c"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
@@ -25,11 +25,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "ybtc-example"
+name = "babylon-example"
 version = "0.1.0"
-source = "git+https://github.com/ybtcchain/bindings?tag=v0.1.0#7c209ab2cd289b9bad57958d5bc074cb8ded5a5c"
+source = "git+https://github.com/babylonchain/bindings?tag=v0.1.0#7c209ab2cd289b9bad57958d5bc074cb8ded5a5c"
 dependencies = [
- "ybtc-bindings",
+ "babylon-bindings",
  "cosmwasm-schema",
  "cosmwasm-std",
  "cosmwasm-storage",
@@ -651,7 +651,7 @@ dependencies = [
 name = "testdata"
 version = "0.1.0"
 dependencies = [
- "ybtc-example",
+ "babylon-example",
 ]
 
 [[package]]

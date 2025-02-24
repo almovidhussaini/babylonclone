@@ -7,9 +7,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testkeeper "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 // a single validator

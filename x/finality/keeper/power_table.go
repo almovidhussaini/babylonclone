@@ -8,8 +8,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 type FpWithVotingPower struct {
@@ -22,7 +22,7 @@ func (k Keeper) SetVotingPower(ctx context.Context, fpBTCPK []byte, height uint6
 	store.Set(fpBTCPK, sdk.Uint64ToBigEndian(power))
 }
 
-// GetVotingPower gets the voting power of a given finality provider at a given ybtc height
+// GetVotingPower gets the voting power of a given finality provider at a given Babylon height
 func (k Keeper) GetVotingPower(ctx context.Context, fpBTCPK []byte, height uint64) uint64 {
 	store := k.votingPowerBbnBlockHeightStore(ctx, height)
 	powerBytes := store.Get(fpBTCPK)
@@ -153,7 +153,7 @@ func (k Keeper) IsBTCStakingActivated(ctx context.Context) bool {
 }
 
 // votingPowerBbnBlockHeightStore returns the KVStore of the finality providers' voting power
-// prefix: (VotingPowerKey || ybtc block height)
+// prefix: (VotingPowerKey || Babylon block height)
 // key: Bitcoin secp256k1 PK
 // value: voting power quantified in Satoshi
 func (k Keeper) votingPowerBbnBlockHeightStore(ctx context.Context, height uint64) prefix.Store {
@@ -163,7 +163,7 @@ func (k Keeper) votingPowerBbnBlockHeightStore(ctx context.Context, height uint6
 
 // votingPowerStore returns the KVStore of the finality providers' voting power
 // prefix: (VotingPowerKey)
-// key: ybtc block height || Bitcoin secp256k1 PK
+// key: Babylon block height || Bitcoin secp256k1 PK
 // value: voting power quantified in Satoshi
 func (k Keeper) votingPowerStore(ctx context.Context) prefix.Store {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))

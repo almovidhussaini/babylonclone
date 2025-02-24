@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 )
 
 // GetTxCmd returns the transaction commands for this module

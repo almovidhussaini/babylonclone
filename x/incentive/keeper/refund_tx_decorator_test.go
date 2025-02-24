@@ -3,9 +3,9 @@ package keeper_test
 import (
 	"testing"
 
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/x/incentive/keeper"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"

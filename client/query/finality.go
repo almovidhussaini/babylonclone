@@ -6,10 +6,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	sdkquerytypes "github.com/cosmos/cosmos-sdk/types/query"
 
-	finalitytypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
+	finalitytypes "github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
-// QueryFinality queries the Finality module of the ybtc node according to the given function
+// QueryFinality queries the Finality module of the Babylon node according to the given function
 func (c *QueryClient) QueryFinality(f func(ctx context.Context, queryClient finalitytypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()
 	defer cancel()
@@ -78,7 +78,7 @@ func (c *QueryClient) FinalityParams() (*finalitytypes.QueryParamsResponse, erro
 	return resp, err
 }
 
-// VotesAtHeight queries the Finality module to get signature set at a given ybtc block height
+// VotesAtHeight queries the Finality module to get signature set at a given babylon block height
 func (c *QueryClient) VotesAtHeight(height uint64) (*finalitytypes.QueryVotesAtHeightResponse, error) {
 	var resp *finalitytypes.QueryVotesAtHeightResponse
 	err := c.QueryFinality(func(ctx context.Context, queryClient finalitytypes.QueryClient) error {

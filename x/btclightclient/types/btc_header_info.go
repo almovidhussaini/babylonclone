@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	sdkmath "cosmossdk.io/math"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 )
 
 func NewBTCHeaderInfo(header *bbn.BTCHeaderBytes, headerHash *bbn.BTCHeaderHashBytes, height uint32, work *sdkmath.Uint) *BTCHeaderInfo {

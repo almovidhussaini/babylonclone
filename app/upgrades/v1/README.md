@@ -1,8 +1,8 @@
 # Upgrade V1
 
-ybtc launched as Phase-1 without a cosmos chain running
+Babylon launched as Phase-1 without a cosmos chain running
 to collect BTC staking prior to decentralize the finality provider
-set of operators. The first upgrade of ybtc chain to start
+set of operators. The first upgrade of Babylon chain to start
 receiving BTC delegations will include the BTC headers created
 during Phase-1 and upgrade, tokens distribution for the active users
 and operators that participated and need to finish their actions and
@@ -10,7 +10,7 @@ update of parameters for `x/finality` and `x/btcstaking` modules.
 
 ## Testnet vs Mainnet
 
-ybtc upgrade data will be different for mainnet and testnet,
+Babylon upgrade data will be different for mainnet and testnet,
 The BTC Headers are different as the Bitcoin mainnet and signet produces
 different block headers. So, the upgrade data will be divided into 2
 `app/upgrades/v1`:
@@ -44,16 +44,16 @@ This upgrade loads 5 JSONs from strings in different files.
 
 This upgrade accepts insertion of multiple
 [`btclighttypes.BTCHeaderInfo`](../../../x/btclightclient/types/btclightclient.pb.go#36)
-due to ybtc Phase-1 and Phase-2 launch will be a few months apart, so
-during Phase-1 ybtc accepts BTC delegations without ybtcchain running.
-At the time of launching the ybtcchain it is needed all the BTC block
-headers that have passed since ybtc started to accept BTC staking messages,
+due to Babylon Phase-1 and Phase-2 launch will be a few months apart, so
+during Phase-1 Babylon accepts BTC delegations without Babylonchain running.
+At the time of launching the Babylonchain it is needed all the BTC block
+headers that have passed since babylon started to accept BTC staking messages,
 and to avoid giving too much work for
-[vigilante](https://github.com/ybtclabs-io/vigilante)
+[vigilante](https://github.com/babylonlabs-io/vigilante)
 to submit all of those missing headers.
 
 To generate this BTC headers there is a specific command in
-[staking-indexer](https://github.com/ybtclabs-io/staking-indexer)
+[staking-indexer](https://github.com/babylonlabs-io/staking-indexer)
 that query BTC for all the BTC headers and outputs it as json file
 `sid btc-headers [from-block-height] [to-block-height]` and then
 it is needed to recreate the golang file `./data_btc_headers.go`
@@ -66,7 +66,7 @@ EXPORT_TO="./btc-headers.json"
 $SID_BIN btc-headers 1 1000 --output $EXPORT_TO
 btcHeadersJson=$(cat $EXPORT_TO)
 
-# writes the headers to ybtc as go file
+# writes the headers to babylon as go file
 echo "package signetlaunch
 
 const NewBtcHeadersStr = \`$btcHeadersJson\`" > $GO_BTC_HEADERS_PATH

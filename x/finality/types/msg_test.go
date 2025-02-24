@@ -4,9 +4,9 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/eots"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/crypto/eots"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 	"github.com/stretchr/testify/require"
 )
 

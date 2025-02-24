@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authz "github.com/cosmos/cosmos-sdk/x/authz"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"

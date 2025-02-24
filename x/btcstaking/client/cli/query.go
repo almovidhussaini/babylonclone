@@ -5,7 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
 
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/spf13/cobra"
 )

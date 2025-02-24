@@ -10,9 +10,9 @@ import (
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 )
 
 type BTCSlashingTx []byte

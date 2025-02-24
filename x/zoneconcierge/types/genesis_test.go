@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	"github.com/stretchr/testify/require"
 )
 

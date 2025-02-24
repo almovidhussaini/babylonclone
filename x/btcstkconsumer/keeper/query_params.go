@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 )
 
 func (k Keeper) Params(goCtx context.Context, req *types.QueryParamsRequest) (*types.QueryParamsResponse, error) {

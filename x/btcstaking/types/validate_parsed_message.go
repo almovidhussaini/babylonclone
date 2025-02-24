@@ -6,8 +6,8 @@ import (
 
 	"github.com/btcsuite/btcd/chaincfg"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 )
 
 type ParamsValidationResult struct {
@@ -185,7 +185,7 @@ func ValidateParsedMessageAgainstTheParams(
 		// Note: we do not enforce any minimum fee for unbonding tx, we only require that it is larger than 0
 		// Given that unbonding tx must not be replaceable, and we do not allow sending it second time, it places
 		// burden on staker to choose right fee.
-		// Unbonding tx should not be replaceable at ybtc level (and by extension on btc level), as this would
+		// Unbonding tx should not be replaceable at babylon level (and by extension on btc level), as this would
 		// allow staker to spam the network with unbonding txs, which would force covenant and finality provider to send signatures.
 		return nil, ErrInvalidUnbondingTx.Wrapf("unbonding tx fee must be larger that 0")
 	}

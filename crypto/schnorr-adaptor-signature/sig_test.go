@@ -7,7 +7,7 @@ import (
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/stretchr/testify/require"
 
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
 )
 
 func FuzzEncSignAndEncVerify(f *testing.F) {

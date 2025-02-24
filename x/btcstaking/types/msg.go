@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 	"github.com/btcsuite/btcd/blockchain"
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"

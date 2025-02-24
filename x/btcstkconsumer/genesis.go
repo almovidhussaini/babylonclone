@@ -3,8 +3,8 @@ package btcstkconsumer
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

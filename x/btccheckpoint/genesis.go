@@ -2,8 +2,9 @@ package btccheckpoint
 
 import (
 	"context"
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

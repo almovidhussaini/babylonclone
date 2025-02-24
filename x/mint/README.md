@@ -17,7 +17,7 @@
 
 ## Abstract
 
-ybtc's `x/mint` is a fork of the Cosmos SDK
+Babylon's `x/mint` is a fork of the Cosmos SDK
 [`x/mint`](https://github.com/cosmos/cosmos-sdk/tree/main/x/mint) module that
 makes some changes to the inflation mechanism. The code is adapted from
 [Celestia's mint
@@ -95,17 +95,17 @@ An event is emitted every block when a block provision is minted. See
 ### CLI
 
 ```shell
-$ ybtcd query mint annual-provisions
+$ babylond query mint annual-provisions
 80235005639941.760000000000000000
 ```
 
 ```shell
-$ ybtcd query mint genesis-time
+$ babylond query mint genesis-time
 2023-05-09 00:56:15.59304 +0000 UTC
 ```
 
 ```shell
-$ ybtcd query mint inflation
+$ babylond query mint inflation
 0.080000000000000000
 ```
 
@@ -146,7 +146,7 @@ See [x/mint](../../x/mint) for the implementation of this module.
 
 ## References
 
-1. [ADR-031](https://github.com/ybtclabs-io/pm/blob/main/adr/adr-031-mint-module.md)
+1. [ADR-031](https://github.com/babylonlabs-io/pm/blob/main/adr/adr-031-mint-module.md)
 2. [Celestia's
    ADR-019](https://github.com/celestiaorg/celestia-app/tree/main/docs/architecture/adr-019-strict-inflation-schedule.md)
 3. [Celestia's mint

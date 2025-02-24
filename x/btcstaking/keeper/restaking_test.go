@@ -5,11 +5,11 @@ import (
 	"math/rand"
 	"testing"
 
-	testutil "github.com/amovidhussaini/ybtcclone/testutil/btcstaking-helper"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	testutil "github.com/almovidhussaini/babylonclone/testutil/btcstaking-helper"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
@@ -32,7 +32,7 @@ func FuzzRestaking_RestakedBTCDelegation(f *testing.F) {
 
 		bsParams := h.BTCStakingKeeper.GetParams(h.Ctx)
 
-		// generate and insert new ybtc finality provider
+		// generate and insert new Babylon finality provider
 		_, fpPK, _ := h.CreateFinalityProvider(r)
 
 		delSK, _, err := datagen.GenRandomBTCKeyPair(r)
@@ -82,7 +82,7 @@ func FuzzRestaking_RestakedBTCDelegation(f *testing.F) {
 		require.True(t, errors.Is(err, types.ErrFpNotFound))
 
 		/*
-			ensure BTC delegation request will fail if no PK corresponds to a ybtc fp
+			ensure BTC delegation request will fail if no PK corresponds to a Babylon fp
 		*/
 		_, _, _, _, _, _, err = h.CreateDelegationWithBtcBlockHeight(
 			r,
@@ -98,10 +98,10 @@ func FuzzRestaking_RestakedBTCDelegation(f *testing.F) {
 			30,
 		)
 		h.Error(err)
-		require.True(t, errors.Is(err, types.ErrNoybtcFPRestaked), err)
+		require.True(t, errors.Is(err, types.ErrNoBabylonFPRestaked), err)
 
 		/*
-			happy case -- restaking to a ybtc fp and a consumer fp
+			happy case -- restaking to a Babylon fp and a consumer fp
 		*/
 
 		_, msgBTCDel, actualDel, _, _, _, err := h.CreateDelegationWithBtcBlockHeight(
@@ -152,7 +152,7 @@ func FuzzFinalityProviderDelegations_RestakingConsumers(f *testing.F) {
 		err := h.BTCStkConsumerKeeper.RegisterConsumer(h.Ctx, consumerRegister)
 		require.NoError(t, err)
 
-		// generate and insert new ybtc finality provider
+		// generate and insert new Babylon finality provider
 		_, fpPK, fp := h.CreateFinalityProvider(r)
 
 		// generate and insert new consumer finality provider
@@ -191,7 +191,7 @@ func FuzzFinalityProviderDelegations_RestakingConsumers(f *testing.F) {
 		require.Error(t, err)
 
 		/*
-			Test BTC delegator delegations under the ybtc finality provider
+			Test BTC delegator delegations under the Babylon finality provider
 			or the consumer finality provider
 		*/
 
@@ -200,7 +200,7 @@ func FuzzFinalityProviderDelegations_RestakingConsumers(f *testing.F) {
 		limit := datagen.RandomInt(r, len(expectedBtcDelsMap)) + 1
 		pagination := constructRequestWithLimit(r, limit)
 
-		// the tested finality provider is under ybtc or consumer
+		// the tested finality provider is under Babylon or consumer
 		testedFP := fp
 		if datagen.OneInN(r, 2) {
 			testedFP = czFP
@@ -222,7 +222,7 @@ func FuzzFinalityProviderDelegations_RestakingConsumers(f *testing.F) {
 				require.Len(t, btcDels.Dels, 1)
 				btcDel := btcDels.Dels[0]
 				require.Len(t, btcDel.FpBtcPkList, 2)
-				require.Equal(t, fp.BtcPk, &btcDel.FpBtcPkList[0])   // ybtc finality provider
+				require.Equal(t, fp.BtcPk, &btcDel.FpBtcPkList[0])   // Babylon finality provider
 				require.Equal(t, czFP.BtcPk, &btcDel.FpBtcPkList[1]) // consumer finality provider
 				// Check if the pk exists in the map
 				_, ok := expectedBtcDelsMap[btcDel.BtcPk.MarshalHex()]

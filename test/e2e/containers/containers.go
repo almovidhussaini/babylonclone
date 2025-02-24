@@ -23,8 +23,8 @@ const (
 	// The maximum number of times debug logs are printed to console
 	// per CLI command.
 	maxDebugLogsPerCommand = 3
-	ybtcHomePath        = "/home/ybtc/ybtcdata"
-	FlagHome               = "--home=" + ybtcHomePath
+	BabylonHomePath        = "/home/babylon/babylondata"
+	FlagHome               = "--home=" + BabylonHomePath
 )
 
 var errRegex = regexp.MustCompile(`(E|e)rror`)
@@ -72,7 +72,7 @@ func (m *Manager) ExecTxCmd(t *testing.T, chainId string, nodeName string, comma
 // namely adding flags `--chain-id={chain-id} -b=block --yes --keyring-backend=test "--log_format=json"`,
 // and searching for `successStr`
 func (m *Manager) ExecTxCmdWithSuccessString(t *testing.T, chainId string, containerName string, command []string, successStr string) (bytes.Buffer, bytes.Buffer, error) {
-	additionalArgs := []string{fmt.Sprintf("--chain-id=%s", chainId), "--gas-prices=0.002ubbn", "-b=sync", "--yes", "--keyring-backend=test", "--log_format=json", "--home=/home/ybtc/ybtcdata"}
+	additionalArgs := []string{fmt.Sprintf("--chain-id=%s", chainId), "--gas-prices=0.002ubbn", "-b=sync", "--yes", "--keyring-backend=test", "--log_format=json", "--home=/home/babylon/babylondata"}
 
 	cmd := command
 	cmd = append(cmd, additionalArgs...)
@@ -273,13 +273,13 @@ func (m *Manager) RunNodeResource(chainId string, containerName, valCondifDir st
 			"sh",
 			"-c",
 			// one can use the following for debugging purposes
-			// "ybtcd start " + FlagHome + " --log_level trace --trace",
+			// "babylond start " + FlagHome + " --log_level trace --trace",
 			// TODO: parameterise the log level
-			"ybtcd start " + FlagHome,
+			"babylond start " + FlagHome,
 		},
 		ExposedPorts: []string{"26656", "26657", "1317", "9090"},
 		Mounts: []string{
-			fmt.Sprintf("%s/:%s", valCondifDir, ybtcHomePath),
+			fmt.Sprintf("%s/:%s", valCondifDir, BabylonHomePath),
 			fmt.Sprintf("%s/bytecode:/bytecode", pwd),
 			fmt.Sprintf("%s/upgrades:/upgrades", pwd),
 		},
@@ -349,7 +349,7 @@ func (m *Manager) ClearResources() (e error) {
 	}
 
 	// TODO: fix error to delete wasm
-	// unlinkat /tmp/bbn-e2e-testnet-2820217771/bbn-test-a/bbn-test-a-node-ybtc-default-a-2/ibc_08-wasm/state/wasm: permission denied
+	// unlinkat /tmp/bbn-e2e-testnet-2820217771/bbn-test-a/bbn-test-a-node-babylon-default-a-2/ibc_08-wasm/state/wasm: permission denied
 	err := g.Wait()
 	if err != nil {
 		fmt.Printf("error to clear resources %s", err.Error())
@@ -384,7 +384,7 @@ func (m *Manager) RunChainInitResource(
 	// Note: any change that needs to take effect in older releases, lets say
 	// that it is needed to update the config of some node in the TGE chain
 	// for software upgrade testing, it is needed to also update the version
-	// from that ybtc node, probably a new tag will need to be pushed in
+	// from that babylon node, probably a new tag will need to be pushed in
 	// older releases branches increasing the minor patch.
 	initResource, err := m.pool.RunWithOptions(
 		&dockertest.RunOptions{

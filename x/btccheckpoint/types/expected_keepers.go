@@ -3,8 +3,8 @@ package types
 import (
 	"context"
 
-	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	txformat "github.com/almovidhussaini/babylonclone/btctxformatter"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

@@ -9,14 +9,14 @@ import (
 	"cosmossdk.io/core/address"
 	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	cosmoscli "github.com/cosmos/cosmos-sdk/x/staking/client/cli"
 	"github.com/spf13/cobra"
 
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 	"github.com/cosmos/cosmos-sdk/client"
 )
 
@@ -38,11 +38,11 @@ func GetTxCmd() *cobra.Command {
 func CmdWrappedCreateValidator(valAddrCodec address.Codec) *cobra.Command {
 	cmd := cosmoscli.NewCreateValidatorCmd(valAddrCodec)
 	cmd.Long = strings.TrimSpace(`create-validator will create a new validator initialized
-with a self-delegation to it using the BLS key generated for the validator (e.g., via ybtcd create-bls-key).
+with a self-delegation to it using the BLS key generated for the validator (e.g., via babylond create-bls-key).
 
 This command creates a MsgWrappedCreateValidator message which is a wrapper of cosmos-sdk's
 create validator with a pair of BLS key. The BLS key should exist in priv_validator_key.json
-before running the command (e.g., via ybtcd create-bls-key).`)
+before running the command (e.g., via babylond create-bls-key).`)
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
 		clientCtx, err := client.GetClientTxContext(cmd)
 		if err != nil {
@@ -77,7 +77,7 @@ before running the command (e.g., via ybtcd create-bls-key).`)
 		panic(err)
 	}
 
-	defaultNodeHome := filepath.Join(userHomeDir, ".ybtcd")
+	defaultNodeHome := filepath.Join(userHomeDir, ".babylond")
 	cmd.Flags().String(flags.FlagHome, defaultNodeHome, "The node home directory")
 
 	return cmd

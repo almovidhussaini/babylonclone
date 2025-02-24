@@ -11,9 +11,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 var (
@@ -294,7 +294,7 @@ func TestPoPBTCVerify(t *testing.T) {
 			randomAddr,
 			bip340PK,
 			popBip322,
-			fmt.Errorf("failed to verify possession of ybtc sig by the BTC key: signature not empty on failed checksig"),
+			fmt.Errorf("failed to verify possession of babylon sig by the BTC key: signature not empty on failed checksig"),
 		},
 		{
 			"invalid: ECDSA - bad addr",
@@ -320,7 +320,7 @@ func TestPoPBTCVerify(t *testing.T) {
 				BtcSigType: types.BTCSigType_BIP322,
 				BtcSig:     nil,
 			},
-			fmt.Errorf("failed to verify possession of ybtc sig by the BTC key: cannot verify bip322 signature. One of the required parameters is empty"),
+			fmt.Errorf("failed to verify possession of babylon sig by the BTC key: cannot verify bip322 signature. One of the required parameters is empty"),
 		},
 		{
 			"invalid: nil signed msg",

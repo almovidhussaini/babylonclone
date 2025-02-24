@@ -5,9 +5,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 type msgServer struct {

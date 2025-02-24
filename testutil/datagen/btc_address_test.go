@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/stretchr/testify/require"

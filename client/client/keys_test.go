@@ -5,10 +5,10 @@ import (
 	"strings"
 	"testing"
 
-	bbn "github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/client/client"
-	"github.com/amovidhussaini/ybtcclone/client/config"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/client/client"
+	"github.com/almovidhussaini/babylonclone/client/config"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	"github.com/stretchr/testify/require"
@@ -39,8 +39,8 @@ func FuzzKeys(f *testing.F) {
 		)
 		require.NoError(t, err)
 
-		// create a ybtc client with this random keyring
-		cfg := config.DefaultybtcConfig()
+		// create a Babylon client with this random keyring
+		cfg := config.DefaultBabylonConfig()
 		cfg.KeyDirectory = dir
 		cfg.Key = keyName
 		cl, err := client.New(&cfg, nil)
@@ -51,7 +51,7 @@ func FuzzKeys(f *testing.F) {
 		require.NoError(t, err)
 		require.Equal(t, 1, len(keys))
 
-		// test if the key is consistent in ybtc client and keyring
+		// test if the key is consistent in Babylon client and keyring
 		bbnAddr := cl.MustGetAddr()
 		addr, _ := keys[0].GetAddress()
 		require.Equal(t, addr.String(), bbnAddr)

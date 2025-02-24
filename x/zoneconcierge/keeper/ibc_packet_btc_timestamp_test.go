@@ -5,10 +5,10 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	btclckeeper "github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	btclckeeper "github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -46,15 +46,15 @@ func FuzzGetHeadersToBroadcast(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		btclcKeeper := ybtcApp.BTCLightClientKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		btclcKeeper := babylonApp.BTCLightClientKeeper
+		ctx := babylonApp.NewContext(false)
 
 		hooks := zcKeeper.Hooks()
 
 		// insert a random number of BTC headers to BTC light client
-		wValue := ybtcApp.BtcCheckpointKeeper.GetParams(ctx).CheckpointFinalizationTimeout
+		wValue := babylonApp.BtcCheckpointKeeper.GetParams(ctx).CheckpointFinalizationTimeout
 		chainLength := uint32(datagen.RandomInt(r, 10)) + wValue
 		genRandomChain(
 			t,

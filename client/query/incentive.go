@@ -3,11 +3,11 @@ package query
 import (
 	"context"
 
-	incentivetypes "github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	incentivetypes "github.com/almovidhussaini/babylonclone/x/incentive/types"
 	"github.com/cosmos/cosmos-sdk/client"
 )
 
-// QueryIncentive queries the Incentive module of the ybtc node
+// QueryIncentive queries the Incentive module of the Babylon node
 func (c *QueryClient) QueryIncentive(f func(ctx context.Context, queryClient incentivetypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()
 	defer cancel()

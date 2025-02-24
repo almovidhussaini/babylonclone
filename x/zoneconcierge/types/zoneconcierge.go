@@ -53,11 +53,11 @@ func (ih *IndexedHeader) ValidateBasic() error {
 	if len(ih.Hash) == 0 {
 		return fmt.Errorf("empty Hash")
 	}
-	if len(ih.ybtcHeaderHash) == 0 {
-		return fmt.Errorf("empty ybtcHeader hash")
+	if len(ih.BabylonHeaderHash) == 0 {
+		return fmt.Errorf("empty BabylonHeader hash")
 	}
-	if len(ih.ybtcTxHash) == 0 {
-		return fmt.Errorf("empty ybtcTxHash")
+	if len(ih.BabylonTxHash) == 0 {
+		return fmt.Errorf("empty BabylonTxHash")
 	}
 	return nil
 }
@@ -76,16 +76,16 @@ func (ih *IndexedHeader) Equal(ih2 *IndexedHeader) bool {
 	if ih.Height != ih2.Height {
 		return false
 	}
-	if !bytes.Equal(ih.ybtcHeaderHash, ih2.ybtcHeaderHash) {
+	if !bytes.Equal(ih.BabylonHeaderHash, ih2.BabylonHeaderHash) {
 		return false
 	}
-	if ih.ybtcHeaderHeight != ih2.ybtcHeaderHeight {
+	if ih.BabylonHeaderHeight != ih2.BabylonHeaderHeight {
 		return false
 	}
-	if ih.ybtcEpoch != ih2.ybtcEpoch {
+	if ih.BabylonEpoch != ih2.BabylonEpoch {
 		return false
 	}
-	return bytes.Equal(ih.ybtcTxHash, ih2.ybtcTxHash)
+	return bytes.Equal(ih.BabylonTxHash, ih2.BabylonTxHash)
 }
 
 func (ci *ChainInfo) Equal(ci2 *ChainInfo) bool {

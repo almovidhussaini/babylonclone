@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/stretchr/testify/require"
 )
 

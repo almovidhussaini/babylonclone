@@ -3,7 +3,7 @@ package v1_test
 import (
 	"testing"
 
-	v1 "github.com/amovidhussaini/ybtcclone/app/upgrades/v1"
+	v1 "github.com/almovidhussaini/babylonclone/app/upgrades/v1"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )

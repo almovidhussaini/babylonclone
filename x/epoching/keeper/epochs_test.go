@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testhelper "github.com/amovidhussaini/ybtcclone/testutil/helper"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testhelper "github.com/almovidhussaini/babylonclone/testutil/helper"
 )
 
 func FuzzEpochs(f *testing.F) {

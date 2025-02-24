@@ -4,12 +4,12 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 )
 
 func FuzzHashesQuery(f *testing.F) {

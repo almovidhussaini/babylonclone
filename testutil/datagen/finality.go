@@ -8,9 +8,9 @@ import (
 	"github.com/cometbft/cometbft/crypto/merkle"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/eots"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/crypto/eots"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 type RandListInfo struct {

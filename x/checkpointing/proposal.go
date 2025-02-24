@@ -13,8 +13,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/mempool"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	ckpttypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	ckpttypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 const defaultInjectedTxIndex = 0
@@ -344,7 +344,7 @@ func (h *ProposalHandler) ProcessProposal() sdk.ProcessProposalHandler {
 
 // PreBlocker extracts the checkpoint from the injected tx and stores it in the application
 // no more validation is needed as it is already done in ProcessProposal
-// NOTE: this is appended to the existing PreBlocker in ybtcApp at app.go
+// NOTE: this is appended to the existing PreBlocker in BabylonApp at app.go
 func (h *ProposalHandler) PreBlocker() sdk.PreBlocker {
 	return func(ctx sdk.Context, req *abci.RequestFinalizeBlock) (*sdk.ResponsePreBlock, error) {
 		res := &sdk.ResponsePreBlock{}

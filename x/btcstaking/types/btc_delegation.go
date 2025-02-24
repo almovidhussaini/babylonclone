@@ -14,9 +14,9 @@ import (
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 )
 
 func NewBTCDelegationStatusFromString(statusStr string) (BTCDelegationStatus, error) {
@@ -89,7 +89,7 @@ func (d *BTCDelegation) GetCovSlashingAdaptorSig(
 
 // IsUnbondedEarly returns whether the delegator has signed unbonding signature.
 // Signing unbonding signature means the delegator wants to unbond early, and
-// ybtc will consider this BTC delegation unbonded directly
+// Babylon will consider this BTC delegation unbonded directly
 func (d *BTCDelegation) IsUnbondedEarly() bool {
 	return d.BtcUndelegation.DelegatorUnbondingInfo != nil
 }
@@ -378,7 +378,7 @@ func (d *BTCDelegation) findFPIdx(fpBTCPK *bbn.BIP340PubKey) (int, error) {
 func (d *BTCDelegation) BuildSlashingTxWithWitness(bsParams *Params, btcNet *chaincfg.Params, fpSK *btcec.PrivateKey) (*wire.MsgTx, error) {
 	stakingMsgTx, err := bbn.NewBTCTxFromBytes(d.StakingTx)
 	if err != nil {
-		return nil, fmt.Errorf("failed to convert a ybtc staking tx to wire.MsgTx: %w", err)
+		return nil, fmt.Errorf("failed to convert a Babylon staking tx to wire.MsgTx: %w", err)
 	}
 
 	// get staking info
@@ -428,7 +428,7 @@ func (d *BTCDelegation) BuildSlashingTxWithWitness(bsParams *Params, btcNet *cha
 func (d *BTCDelegation) BuildUnbondingSlashingTxWithWitness(bsParams *Params, btcNet *chaincfg.Params, fpSK *btcec.PrivateKey) (*wire.MsgTx, error) {
 	unbondingMsgTx, err := bbn.NewBTCTxFromBytes(d.BtcUndelegation.UnbondingTx)
 	if err != nil {
-		return nil, fmt.Errorf("failed to convert a ybtc unbonding tx to wire.MsgTx: %w", err)
+		return nil, fmt.Errorf("failed to convert a Babylon unbonding tx to wire.MsgTx: %w", err)
 	}
 
 	// get unbonding info

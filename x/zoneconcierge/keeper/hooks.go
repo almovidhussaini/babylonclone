@@ -5,9 +5,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 type Hooks struct {

@@ -9,10 +9,10 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/coins"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/testutil/coins"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testkeeper "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 func FuzzRewardBTCStaking(f *testing.F) {

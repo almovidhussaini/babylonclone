@@ -8,7 +8,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	types "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	types "github.com/almovidhussaini/babylonclone/x/epoching/types"
 	types0 "github.com/cosmos/cosmos-sdk/types"
 	gomock "github.com/golang/mock/gomock"
 )

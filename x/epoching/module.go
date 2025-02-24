@@ -13,9 +13,9 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/epoching/client/cli"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/epoching/client/cli"
+	"github.com/almovidhussaini/babylonclone/x/epoching/keeper"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

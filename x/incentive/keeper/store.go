@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

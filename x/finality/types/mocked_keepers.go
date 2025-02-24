@@ -8,9 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
-	types "github.com/amovidhussaini/ybtcclone/types"
-	types0 "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	types1 "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	types "github.com/almovidhussaini/babylonclone/types"
+	types0 "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	types1 "github.com/almovidhussaini/babylonclone/x/epoching/types"
 	types2 "github.com/cosmos/cosmos-sdk/types"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -79,18 +79,18 @@ func (mr *MockBTCStakingKeeperMockRecorder) GetBTCDelegation(ctx, stakingTxHashS
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBTCDelegation", reflect.TypeOf((*MockBTCStakingKeeper)(nil).GetBTCDelegation), ctx, stakingTxHashStr)
 }
 
-// GetBTCHeightAtybtcHeight mocks base method.
-func (m *MockBTCStakingKeeper) GetBTCHeightAtybtcHeight(ctx context.Context, ybtcHeight uint64) uint32 {
+// GetBTCHeightAtBabylonHeight mocks base method.
+func (m *MockBTCStakingKeeper) GetBTCHeightAtBabylonHeight(ctx context.Context, babylonHeight uint64) uint32 {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetBTCHeightAtybtcHeight", ctx, ybtcHeight)
+	ret := m.ctrl.Call(m, "GetBTCHeightAtBabylonHeight", ctx, babylonHeight)
 	ret0, _ := ret[0].(uint32)
 	return ret0
 }
 
-// GetBTCHeightAtybtcHeight indicates an expected call of GetBTCHeightAtybtcHeight.
-func (mr *MockBTCStakingKeeperMockRecorder) GetBTCHeightAtybtcHeight(ctx, ybtcHeight interface{}) *gomock.Call {
+// GetBTCHeightAtBabylonHeight indicates an expected call of GetBTCHeightAtBabylonHeight.
+func (mr *MockBTCStakingKeeperMockRecorder) GetBTCHeightAtBabylonHeight(ctx, babylonHeight interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBTCHeightAtybtcHeight", reflect.TypeOf((*MockBTCStakingKeeper)(nil).GetBTCHeightAtybtcHeight), ctx, ybtcHeight)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBTCHeightAtBabylonHeight", reflect.TypeOf((*MockBTCStakingKeeper)(nil).GetBTCHeightAtBabylonHeight), ctx, babylonHeight)
 }
 
 // GetCurrentBTCHeight mocks base method.

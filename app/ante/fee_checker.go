@@ -5,7 +5,7 @@ import (
 
 	errors "cosmossdk.io/errors"
 	sdkmath "cosmossdk.io/math"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerror "github.com/cosmos/cosmos-sdk/types/errors"
 )

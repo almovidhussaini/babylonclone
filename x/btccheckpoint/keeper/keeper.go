@@ -12,9 +12,9 @@ import (
 
 	"cosmossdk.io/log"
 	"cosmossdk.io/store/prefix"
-	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	txformat "github.com/almovidhussaini/babylonclone/btctxformatter"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -86,7 +86,7 @@ func (k Keeper) GetPowLimit() *big.Int {
 // hex string to bytes.
 // NOTE: keeper could probably cache decoded tag, but it is rather improbable this function
 // will ever be a bottleneck so it is not worth it.
-func (k Keeper) GetExpectedTag(ctx context.Context) txformat.ybtcTag {
+func (k Keeper) GetExpectedTag(ctx context.Context) txformat.BabylonTag {
 	tag := k.GetParams(ctx).CheckpointTag
 
 	tagAsBytes, err := hex.DecodeString(tag)
@@ -95,7 +95,7 @@ func (k Keeper) GetExpectedTag(ctx context.Context) txformat.ybtcTag {
 		panic("Tag should always be valid")
 	}
 
-	return txformat.ybtcTag(tagAsBytes)
+	return txformat.BabylonTag(tagAsBytes)
 }
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {

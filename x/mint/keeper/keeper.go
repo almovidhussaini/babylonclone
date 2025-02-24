@@ -9,7 +9,7 @@ import (
 	"cosmossdk.io/log"
 	"cosmossdk.io/math"
 
-	"github.com/amovidhussaini/ybtcclone/x/mint/types"
+	"github.com/almovidhussaini/babylonclone/x/mint/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

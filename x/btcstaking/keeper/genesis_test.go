@@ -12,13 +12,13 @@ import (
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/stretchr/testify/require"
 
-	v1 "github.com/amovidhussaini/ybtcclone/app/upgrades/v1"
-	testnetdata "github.com/amovidhussaini/ybtcclone/app/upgrades/v1/testnet"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/testutil/helper"
-	testutilk "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	btclightclientt "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	v1 "github.com/almovidhussaini/babylonclone/app/upgrades/v1"
+	testnetdata "github.com/almovidhussaini/babylonclone/app/upgrades/v1/testnet"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/helper"
+	testutilk "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	btclightclientt "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 func TestInitGenesisWithSetParams(t *testing.T) {

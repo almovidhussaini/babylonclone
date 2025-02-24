@@ -6,8 +6,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/bip322"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/crypto/bip322"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/chaincfg"

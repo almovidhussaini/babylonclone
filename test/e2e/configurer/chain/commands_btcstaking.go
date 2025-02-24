@@ -22,13 +22,13 @@ import (
 	cmtcrypto "github.com/cometbft/cometbft/proto/tendermint/crypto"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/eots"
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/containers"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/crypto/eots"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	"github.com/almovidhussaini/babylonclone/test/e2e/containers"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 func (n *NodeConfig) CreateFinalityProvider(walletAddrOrName string, btcPK *bbn.BIP340PubKey, pop *bstypes.ProofOfPossessionBTC, moniker, identity, website, securityContract, details string, commission *sdkmath.LegacyDec) {
@@ -41,7 +41,7 @@ func (n *NodeConfig) CreateFinalityProvider(walletAddrOrName string, btcPK *bbn.
 	require.NoError(n.t, err)
 
 	cmd := []string{
-		"ybtcd", "tx", "btcstaking", "create-finality-provider", btcPKHex, popHex,
+		"babylond", "tx", "btcstaking", "create-finality-provider", btcPKHex, popHex,
 		fmt.Sprintf("--from=%s", walletAddrOrName), "--moniker", moniker, "--identity", identity, "--website", website,
 		"--security-contact", securityContract, "--details", details, "--commission-rate", commission.String(),
 	}
@@ -112,7 +112,7 @@ func (n *NodeConfig) CreateBTCDelegation(
 	delUnbondingSlashingSigHex := delUnbondingSlashingSig.ToHexStr()
 
 	cmd := []string{
-		"ybtcd", "tx", "btcstaking", "create-btc-delegation",
+		"babylond", "tx", "btcstaking", "create-btc-delegation",
 		btcPKHex, popHex, stakingTxHex, inclusionProofHex, fpPKHexes, stakingTimeString, stakingValueString, slashingTxHex, delegatorSigHex, unbondingTxHex, unbondingSlashingTxHex, unbondingTimeStr, unbondingValueStr, delUnbondingSlashingSigHex,
 		fmt.Sprintf("--from=%s", fromWalletName), containers.FlagHome, flagKeyringTest,
 		n.FlagChainID(), "--log_format=json",
@@ -154,7 +154,7 @@ func (n *NodeConfig) AddCovenantSigs(
 
 	covPKHex := covPK.MarshalHex()
 
-	cmd := []string{"ybtcd", "tx", "btcstaking", "add-covenant-sigs", covPKHex, stakingTxHash}
+	cmd := []string{"babylond", "tx", "btcstaking", "add-covenant-sigs", covPKHex, stakingTxHash}
 
 	// slashing signatures
 	var slashingSigStrList []string
@@ -186,7 +186,7 @@ func (n *NodeConfig) AddCovenantSigs(
 func (n *NodeConfig) CommitPubRandList(fpBTCPK *bbn.BIP340PubKey, startHeight uint64, numPubrand uint64, commitment []byte, sig *bbn.BIP340Signature) {
 	n.LogActionF("committing public randomness list")
 
-	cmd := []string{"ybtcd", "tx", "finality", "commit-pubrand-list"}
+	cmd := []string{"babylond", "tx", "finality", "commit-pubrand-list"}
 
 	// add finality provider BTC PK to cmd
 	fpBTCPKHex := fpBTCPK.MarshalHex()
@@ -239,8 +239,8 @@ func (n *NodeConfig) AddFinalitySig(
 	appHashHex := hex.EncodeToString(appHash)
 	finalitySigHex := finalitySig.ToHexStr()
 
-	cmd := []string{"ybtcd", "tx", "finality", "add-finality-sig", fpBTCPKHex, blockHeightStr, pubRandHex, proofHex, appHashHex, finalitySigHex, "--gas=500000"}
-	additionalArgs := []string{fmt.Sprintf("--chain-id=%s", n.chainId), "--gas-prices=0.002ubbn", "-b=sync", "--yes", "--keyring-backend=test", "--log_format=json", "--home=/home/ybtc/ybtcdata"}
+	cmd := []string{"babylond", "tx", "finality", "add-finality-sig", fpBTCPKHex, blockHeightStr, pubRandHex, proofHex, appHashHex, finalitySigHex, "--gas=500000"}
+	additionalArgs := []string{fmt.Sprintf("--chain-id=%s", n.chainId), "--gas-prices=0.002ubbn", "-b=sync", "--yes", "--keyring-backend=test", "--log_format=json", "--home=/home/babylon/babylondata"}
 	cmd = append(cmd, additionalArgs...)
 
 	outBuff, _, err := n.containerManager.ExecCmd(n.t, n.Name, append(cmd, overallFlags...), "code: 0")
@@ -270,7 +270,7 @@ func (n *NodeConfig) AddCovenantUnbondingSigs(
 	covPKHex := covPK.MarshalHex()
 	unbondingTxSigHex := unbondingTxSig.ToHexStr()
 
-	cmd := []string{"ybtcd", "tx", "btcstaking", "add-covenant-unbonding-sigs", covPKHex, stakingTxHash, unbondingTxSigHex}
+	cmd := []string{"babylond", "tx", "btcstaking", "add-covenant-unbonding-sigs", covPKHex, stakingTxHash, unbondingTxSigHex}
 	for _, sig := range slashUnbondingTxSigs {
 		cmd = append(cmd, sig.MarshalHex())
 	}
@@ -293,7 +293,7 @@ func (n *NodeConfig) BTCUndelegate(
 	inclusionProofHex, err := spendStakeTxInclusionProof.MarshalHex()
 	require.NoError(n.t, err)
 
-	cmd := []string{"ybtcd", "tx", "btcstaking", "btc-undelegate", stakingTxHash.String(), spendStakeTxHex, inclusionProofHex, "--from=val"}
+	cmd := []string{"babylond", "tx", "btcstaking", "btc-undelegate", stakingTxHash.String(), spendStakeTxHex, inclusionProofHex, "--from=val"}
 
 	_, _, err = n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
@@ -307,7 +307,7 @@ func (n *NodeConfig) AddBTCDelegationInclusionProof(
 	inclusionProofHex, err := inclusionProof.MarshalHex()
 	require.NoError(n.t, err)
 
-	cmd := []string{"ybtcd", "tx", "btcstaking", "add-btc-inclusion-proof", stakingTxHash.String(), inclusionProofHex, "--from=val"}
+	cmd := []string{"babylond", "tx", "btcstaking", "add-btc-inclusion-proof", stakingTxHash.String(), inclusionProofHex, "--from=val"}
 	_, _, err = n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
 	n.LogActionF("successfully added inclusion proof")
@@ -360,7 +360,7 @@ func (n *NodeConfig) BTCStakingUnbondSlashInfo(
 	blockWithStakingTx := datagen.CreateBlockWithTransaction(r, currentBtcTip.Header.ToBlockHeader(), stakingMsgTx)
 	n.InsertHeader(&blockWithStakingTx.HeaderBytes)
 	// make block k-deep
-	for i := 0; i < initialization.ybtcBtcConfirmationPeriod; i++ {
+	for i := 0; i < initialization.BabylonBtcConfirmationPeriod; i++ {
 		n.InsertNewEmptyBtcHeader(r)
 	}
 	inclusionProof := bstypes.NewInclusionProofFromSpvProof(blockWithStakingTx.SpvProof)

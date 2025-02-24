@@ -3,16 +3,16 @@ package types
 import (
 	"context"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	etypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	etypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 type BTCStakingKeeper interface {
 	GetParams(ctx context.Context) bstypes.Params
 	GetCurrentBTCHeight(ctx context.Context) uint32
-	GetBTCHeightAtybtcHeight(ctx context.Context, ybtcHeight uint64) uint32
+	GetBTCHeightAtBabylonHeight(ctx context.Context, babylonHeight uint64) uint32
 	GetFinalityProvider(ctx context.Context, fpBTCPK []byte) (*bstypes.FinalityProvider, error)
 	HasFinalityProvider(ctx context.Context, fpBTCPK []byte) bool
 	SlashFinalityProvider(ctx context.Context, fpBTCPK []byte) error

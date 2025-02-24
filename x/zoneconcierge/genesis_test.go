@@ -3,10 +3,10 @@ package zoneconcierge_test
 import (
 	"testing"
 
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/testutil/nullify"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/testutil/nullify"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"

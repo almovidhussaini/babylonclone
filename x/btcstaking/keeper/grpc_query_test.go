@@ -15,13 +15,13 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	btcstakingkeeper "github.com/amovidhussaini/ybtcclone/x/btcstaking/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testkeeper "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	btcstakingkeeper "github.com/almovidhussaini/babylonclone/x/btcstaking/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 var net = &chaincfg.SimNetParams
@@ -214,8 +214,8 @@ func FuzzFinalityProviderDelegations(f *testing.F) {
 		require.Nil(t, resp)
 		require.Error(t, err)
 
-		ybtcHeight := datagen.RandomInt(r, 10) + 1
-		ctx = datagen.WithCtxHeight(ctx, ybtcHeight)
+		babylonHeight := datagen.RandomInt(r, 10) + 1
+		ctx = datagen.WithCtxHeight(ctx, babylonHeight)
 		keeper.IndexBTCHeight(ctx)
 
 		// Generate a page request with a limit and a nil key
@@ -347,8 +347,8 @@ func FuzzPendingBTCDelegations(f *testing.F) {
 			}
 		}
 
-		ybtcHeight := datagen.RandomInt(r, 10) + 1
-		ctx = datagen.WithCtxHeight(ctx, ybtcHeight)
+		babylonHeight := datagen.RandomInt(r, 10) + 1
+		ctx = datagen.WithCtxHeight(ctx, babylonHeight)
 
 		// querying paginated BTC delegations and assert
 		// Generate a page request with a limit and a nil key

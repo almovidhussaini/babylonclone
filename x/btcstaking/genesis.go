@@ -3,8 +3,8 @@ package btcstaking
 import (
 	"context"
 
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

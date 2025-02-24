@@ -7,14 +7,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	v1 "github.com/amovidhussaini/ybtcclone/app/upgrades/v1"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/config"
+	"github.com/almovidhussaini/babylonclone/app"
+	v1 "github.com/almovidhussaini/babylonclone/app/upgrades/v1"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/config"
 	"github.com/stretchr/testify/require"
 )
 
 func TestParseGovPropFromFile(t *testing.T) {
-	cdc := app.NewTmpybtcApp().AppCodec()
+	cdc := app.NewTmpBabylonApp().AppCodec()
 
 	pwd, err := os.Getwd()
 	require.NoError(t, err)
@@ -27,7 +27,7 @@ func TestParseGovPropFromFile(t *testing.T) {
 }
 
 func TestWriteGovPropToFile(t *testing.T) {
-	cdc := app.NewTmpybtcApp().AppCodec()
+	cdc := app.NewTmpBabylonApp().AppCodec()
 
 	pwd, err := os.Getwd()
 	require.NoError(t, err)

@@ -6,8 +6,8 @@ import (
 	mathrand "math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/eots"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/crypto/eots"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/decred/dcrd/dcrec/secp256k1/v4"
 	"github.com/stretchr/testify/require"
 	"github.com/vulpine-io/io-test/v1/pkg/iotest"

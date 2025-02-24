@@ -10,9 +10,9 @@ import (
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	v1 "github.com/amovidhussaini/ybtcclone/app/upgrades/v1"
-	testutilk "github.com/amovidhussaini/ybtcclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/app"
+	v1 "github.com/almovidhussaini/babylonclone/app/upgrades/v1"
+	testutilk "github.com/almovidhussaini/babylonclone/testutil/keeper"
 )
 
 func TestHardCodedBtcStakingParamsAreValid(t *testing.T) {
@@ -33,7 +33,7 @@ func TestHardCodedBtcStakingParamsAreValid(t *testing.T) {
 }
 
 func TestHardCodedFinalityParamsAreValid(t *testing.T) {
-	bbnApp := app.NewTmpybtcApp()
+	bbnApp := app.NewTmpBabylonApp()
 	for _, upgradeData := range UpgradeV1Data {
 		params, err := v1.LoadFinalityParamsFromData(bbnApp.AppCodec(), upgradeData.FinalityParamStr)
 		require.NoError(t, err)
@@ -42,7 +42,7 @@ func TestHardCodedFinalityParamsAreValid(t *testing.T) {
 }
 
 func TestHardCodedWasmParamsAreValid(t *testing.T) {
-	bbnApp := app.NewTmpybtcApp()
+	bbnApp := app.NewTmpBabylonApp()
 
 	for _, upgradeData := range UpgradeV1Data {
 		params, err := v1.LoadCosmWasmParamsFromData(bbnApp.AppCodec(), upgradeData.CosmWasmParamStr)

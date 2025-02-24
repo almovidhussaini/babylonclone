@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 	"github.com/stretchr/testify/require"
 )
 

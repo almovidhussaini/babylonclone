@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 	"github.com/btcsuite/btcd/chaincfg"
 
 	"github.com/cosmos/cosmos-sdk/codec"

@@ -2,7 +2,8 @@ package keeper
 
 import (
 	"context"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 // SetParams sets the x/zoneconcierge module parameters.

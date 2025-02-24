@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 	abci "github.com/cometbft/cometbft/abci/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -74,7 +74,7 @@ func (k Keeper) ApplyMatureUnbonding(ctx context.Context, epochNumber uint64) {
 			continue
 		}
 
-		// ybtc modification: record delegation state
+		// Babylon modification: record delegation state
 		// AFTER mature, unbonded from the validator
 		// TODO: find a way to specify amount?
 		if err := k.RecordNewDelegationState(currentSdkCtx, delAddr, valAddr, nil, types.BondState_UNBONDED); err != nil {
@@ -123,7 +123,7 @@ func (k Keeper) ApplyMatureUnbonding(ctx context.Context, epochNumber uint64) {
 			continue
 		}
 
-		// ybtc modification: record delegation state
+		// Babylon modification: record delegation state
 		// AFTER mature, unbonded from the source validator, created/bonded to the destination validator
 		// TODO: find a way to specify amount?
 		if err := k.RecordNewDelegationState(currentSdkCtx, delAddr, valSrcAddr, nil, types.BondState_UNBONDED); err != nil {

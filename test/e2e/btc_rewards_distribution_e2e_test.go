@@ -17,15 +17,15 @@ import (
 	"github.com/stretchr/testify/suite"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/eots"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/chain"
-	"github.com/amovidhussaini/ybtcclone/testutil/coins"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
-	itypes "github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/crypto/eots"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/chain"
+	"github.com/almovidhussaini/babylonclone/testutil/coins"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
+	itypes "github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 const (
@@ -318,7 +318,7 @@ func (s *BtcRewardsDistribution) Test5CheckRewardsFirstDelegations() {
 	s.Len(fps, 2)
 	s.Equal(fps[0].Commission.String(), fps[1].Commission.String())
 	for _, fp := range fps {
-		s.Equal(fp.SlashedybtcHeight, uint64(0))
+		s.Equal(fp.SlashedBabylonHeight, uint64(0))
 		s.Equal(fp.SlashedBtcHeight, uint32(0))
 	}
 
@@ -472,10 +472,10 @@ func (s *BtcRewardsDistribution) Test8SlashFp() {
 	require.Len(s.T(), fps, 2)
 	for _, fp := range fps {
 		if strings.EqualFold(fp.Addr, s.fp1Addr) {
-			require.Zero(s.T(), fp.SlashedybtcHeight)
+			require.Zero(s.T(), fp.SlashedBabylonHeight)
 			continue
 		}
-		require.NotZero(s.T(), fp.SlashedybtcHeight)
+		require.NotZero(s.T(), fp.SlashedBabylonHeight)
 	}
 
 	// wait a few blocks to check if it doesn't panic when rewards are being produced

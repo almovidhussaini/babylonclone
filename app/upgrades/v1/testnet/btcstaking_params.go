@@ -2,9 +2,9 @@ package testnet
 
 // The BTC staking parameters should be compatible with the global-parameters
 // used in the BTC staking caps on bbn-test-4
-// ref: https://github.com/ybtcchain/networks/blob/main/bbn-test-4/parameters/global-params.json
+// ref: https://github.com/babylonchain/networks/blob/main/bbn-test-4/parameters/global-params.json
 // allow_list_expiration_height set to close to 72 hours of blocks 25920 + ~200 blocks of TGE
-// producing each ybtc block in 10 seconds = 26120.
+// producing each babylon block in 10 seconds = 26120.
 // In global params version 2,3,4 we inserted the cap_height: 201385, at the moment we don't
 // have a good way of specifyng the cap to avoid overflow to join as valid BTC staking,
 // so this will be filtered out by the allow list of transactions

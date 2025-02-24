@@ -40,8 +40,8 @@ providers and BTC delegations under them. This includes:
 
 ## Concepts
 
-ybtc's Bitcoin Staking protocol allows bitcoin holders to _trustlessly_ stake
-their bitcoin for providing economic security to the ybtc chain and other
+Babylon's Bitcoin Staking protocol allows bitcoin holders to _trustlessly_ stake
+their bitcoin for providing economic security to the Babylon chain and other
 Proof-of-Stake (PoS) blockchains, _without bridging their bitcoin elsewhere_.
 
 ### Actors
@@ -60,11 +60,11 @@ The following actors interact with the BTC staking module:
   finality providers interact with the [`x/finality`](../x/finality) module.
 - **Covenant emulators** who serve as
   [covenants](https://covenants.info) to enforce spending conditions on bitcoin
-  staked on ybtc.
-  [Covenant emulators](https://github.com/ybtclabs-io/covenant-emulator)
+  staked on Babylon.
+  [Covenant emulators](https://github.com/babylonlabs-io/covenant-emulator)
   interact with the `x/btcstaking` module to submit covenant signatures for the
   slashing, unbonding, and unbonding slashing transactions.
-- **Vigilantes**: [Vigilante BTC Staking Trackers](https://github.com/ybtclabs-io/vigilante)
+- **Vigilantes**: [Vigilante BTC Staking Trackers](https://github.com/babylonlabs-io/vigilante)
   monitor the Bitcoin staking ledger to identify whether staking transactions have been unbonded
   or whether a staking transaction the staker intended to create has been included and confirmed
   in the Bitcoin ledger.
@@ -88,7 +88,7 @@ by following this process:
       transaction once the finality provider is slashed.
 3. Once the staking transaction is confirmed on Bitcoin, the BTC staker sends
    the staking transaction, its inclusion proof, slashing transaction,
-   unbonding transaction, and unbonding slashing transaction to ybtc.
+   unbonding transaction, and unbonding slashing transaction to Babylon.
    This happens by the submission of a [MsgCreateBTCDelegation](#msgcreatebtcdelegation) message.
 4. The covenant emulators verify the transactions and submit their pre-signatures
    for the slashing transactions and unbonding transaction.
@@ -97,7 +97,7 @@ by following this process:
 #### Expression of Interest Delegation (EOI)
 
 The above mechanism requires the staker to first lock their funds
-and then request the ybtc blockchain to activate the stake.
+and then request the Babylon blockchain to activate the stake.
 For stakers that want to avoid this and prefer to first receive confirmation
 and then lock their funds on Bitcoin, the Expression of Interest (EOI) procedure
 can be used.
@@ -105,7 +105,7 @@ can be used.
 The EOI procedure works as follows:
 
 1. The BTC staker constructs the following transactions (whose specifications
-   can be found [here](../../docs/staking-script.md)) and sends them on ybtc
+   can be found [here](../../docs/staking-script.md)) and sends them on Babylon
    through the [MsgCreateBTCDelegation](#msgcreatebtcdelegation) message with the
    inclusion proof not set:
     - an unsigned _staking transaction_ committing their funds.
@@ -125,12 +125,12 @@ The EOI procedure works as follows:
    [MsgAddBTCDelegationInclusionProof](#msgaddbtcdelegationinclusionproof)
    with the inclusion proof for the stake receiving sufficient confirmations.
    The stake is now active. In the case the staker does not monitor the Bitcoin
-   ledger for confirmation, the [Vigilante BTC Staking Tracker](https://github.com/ybtclabs-io/vigilante)
-   will pick it up and submit the inclusion proof to ybtc.
+   ledger for confirmation, the [Vigilante BTC Staking Tracker](https://github.com/babylonlabs-io/vigilante)
+   will pick it up and submit the inclusion proof to Babylon.
  
 ### Voting Power and Finality
 
-ybtc's [Finality module](../finality) will make use of the voting power table
+Babylon's [Finality module](../finality) will make use of the voting power table
 maintained in the BTC Staking module to determine the finalization status of
 each block, identify equivocations of finality providers, and slash BTC
 delegations under culpable finality providers.
@@ -140,7 +140,7 @@ delegations under culpable finality providers.
 A BTC staker can unbond early by signing the unbonding transaction and
 submitting it to Bitcoin. The BTC Staking module identifies unbonding requests
 through this signature reported by the [BTC staking tracker
-daemon](https://github.com/ybtcchain/vigilante), and will consider the BTC
+daemon](https://github.com/babylonchain/vigilante), and will consider the BTC
 delegation unbonded immediately upon such a signature.
 
 ## States
@@ -151,7 +151,7 @@ The BTC Staking module uses the following prefixed namespaces within its KV stor
 
 The [parameter management](./keeper/params.go) maintains the BTC Staking module's
 parameters. The BTC Staking module's parameters are represented as a `Params`
-[object](../../proto/ybtc/btcstaking/v1/params.proto) defined as follows:
+[object](../../proto/babylon/btcstaking/v1/params.proto) defined as follows:
 
 ```protobuf
 // Params defines the parameters for the module.
@@ -160,7 +160,7 @@ message Params {
   // PARAMETERS COVERING STAKING
   // covenant_pks is the list of public keys held by the covenant committee
   // each PK follows encoding in BIP-340 spec on Bitcoin
-  repeated bytes covenant_pks = 1 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+  repeated bytes covenant_pks = 1 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
   // covenant_quorum is the minimum number of signatures needed for the covenant
   // multisignature
   uint32 covenant_quorum = 2;
@@ -212,7 +212,7 @@ The [finality provider management](./keeper/finality_providers.go) maintains all
 finality providers. The key is the finality provider's Bitcoin Secp256k1 public
 key in [BIP-340](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki)
 format, and the value is a `FinalityProvider`
-[object](../../proto/ybtc/btcstaking/v1/btcstaking.proto) representing a
+[object](../../proto/babylon/btcstaking/v1/btcstaking.proto) representing a
 finality provider.
 
 ```protobuf
@@ -229,14 +229,14 @@ message FinalityProvider {
     ];
     // btc_pk is the Bitcoin secp256k1 PK of this finality provider
     // the PK follows encoding in BIP-340 spec
-    bytes btc_pk = 4 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+    bytes btc_pk = 4 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
     // pop is the proof of possession of the btc_pk, where the BTC
     // private key signs the bech32 bbn addr of the finality provider.
     ProofOfPossessionBTC pop = 5;
-    // slashed_ybtc_height indicates the ybtc height when
+    // slashed_babylon_height indicates the Babylon height when
     // the finality provider is slashed.
     // if it's 0 then the finality provider is not slashed
-    uint64 slashed_ybtc_height = 6;
+    uint64 slashed_babylon_height = 6;
     // slashed_btc_height indicates the BTC height when
     // the finality provider is slashed.
     // if it's 0 then the finality provider is not slashed
@@ -251,7 +251,7 @@ message FinalityProvider {
 The [BTC delegation management](./keeper/btc_delegations.go) maintains all BTC
 delegations. The key is the staking transaction hash corresponding to the BTC
 delegation, and the value is a `BTCDelegation` object. The `BTCDelegation`
-[structure](../../proto/ybtc/btcstaking/v1/btcstaking.proto) includes
+[structure](../../proto/babylon/btcstaking/v1/btcstaking.proto) includes
 information of a BTC delegation and a structure `BTCUndelegation` that includes
 information of its early unbonding path. The staking transaction's hash uniquely
 identifies a `BTCDelegation` as creating a BTC delegation requires the staker to
@@ -264,14 +264,14 @@ message BTCDelegation {
     string staker_addr = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
     // btc_pk is the Bitcoin secp256k1 PK of this BTC delegation
     // the PK follows encoding in BIP-340 spec
-    bytes btc_pk = 2 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
-    // pop is the proof of possession of ybtc_pk and btc_pk
+    bytes btc_pk = 2 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
+    // pop is the proof of possession of babylon_pk and btc_pk
     ProofOfPossessionBTC pop = 3;
     // fp_btc_pk_list is the list of BIP-340 PKs of the finality providers that
     // this BTC delegation delegates to
     // If there is more than 1 PKs, then this means the delegation is restaked
     // to multiple finality providers
-    repeated bytes fp_btc_pk_list = 4 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+    repeated bytes fp_btc_pk_list = 4 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
     // staking_time is the number of blocks for which the delegation is locked on BTC chain
     uint32 staking_time = 5;
     // start_height is the start BTC height of the BTC delegation
@@ -294,7 +294,7 @@ message BTCDelegation {
     // delegator_sig is the signature on the slashing tx
     // by the delegator (i.e., SK corresponding to btc_pk).
     // It will be a part of the witness for the staking tx output.
-    bytes delegator_sig = 12 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340Signature" ];
+    bytes delegator_sig = 12 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340Signature" ];
     // covenant_sigs is a list of adaptor signatures on the slashing tx
     // by each covenant member
     // It will be a part of the witness for the staking tx output.
@@ -317,7 +317,7 @@ message BTCDelegation {
 message DelegatorUnbondingInfo {
     // spend_stake_tx is the transaction which spent the staking output. It is
     // filled only if spend_stake_tx is different than unbonding_tx registered
-    // on the ybtc chain.
+    // on the Babylon chain.
     bytes spend_stake_tx = 1;
 }
 
@@ -334,14 +334,14 @@ message BTCUndelegation {
     // delegator_slashing_sig is the signature on the slashing tx
     // by the delegator (i.e., SK corresponding to btc_pk).
     // It will be a part of the witness for the unbonding tx output.
-    bytes delegator_slashing_sig = 3 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340Signature" ];
+    bytes delegator_slashing_sig = 3 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340Signature" ];
     // covenant_slashing_sigs is a list of adaptor signatures on the slashing tx
     // by each covenant member
     // It will be a part of the witness for the staking tx output.
     repeated CovenantAdaptorSignatures covenant_slashing_sigs = 4;
     // covenant_unbonding_sig_list is the list of signatures on the unbonding tx
     // by covenant members
-    // It must be provided after processing undelegate message by ybtc
+    // It must be provided after processing undelegate message by Babylon
     repeated SignatureInfo covenant_unbonding_sig_list = 5;
     // delegator_unbonding_info is the information about transaction which spent
     // the staking output
@@ -355,7 +355,7 @@ The [BTC delegation index management](./keeper/btc_delegators.go) maintains an
 index between the BTC delegator and its BTC delegations. The key is the BTC
 delegator's Bitcoin secp256k1 public key in BIP-340 format, and the value is a
 `BTCDelegatorDelegationIndex`
-[object](../../proto/ybtc/btcstaking/v1/btcstaking.proto) that contains
+[object](../../proto/babylon/btcstaking/v1/btcstaking.proto) that contains
 staking transaction hashes of the delegator's BTC delegations.
 
 ```protobuf
@@ -370,7 +370,7 @@ message BTCDelegatorDelegationIndex {
 The BTC Staking module handles the following messages from finality providers,
 BTC stakers (aka delegators), and covenant emulators. The message formats are
 defined at
-[proto/ybtc/btcstaking/v1/tx.proto](../../proto/ybtc/btcstaking/v1/tx.proto).
+[proto/babylon/btcstaking/v1/tx.proto](../../proto/babylon/btcstaking/v1/tx.proto).
 The message handlers are defined at
 [x/btcstaking/keeper/msg_server.go](./keeper/msg_server.go). For more information on the SDK messages, refer to the [Cosmos SDK documentation on messages and queries](https://docs.cosmos.network/main/build/building-modules/messages-and-queries)
 
@@ -378,7 +378,7 @@ The message handlers are defined at
 
 The `MsgCreateFinalityProvider` message is used for creating a finality
 provider. It is typically submitted by a finality provider via the [finality
-provider](https://github.com/ybtcchain/finality-provider) program.
+provider](https://github.com/babylonchain/finality-provider) program.
 
 ```protobuf
 // MsgCreateFinalityProvider is the message for creating a finality provider
@@ -396,7 +396,7 @@ message MsgCreateFinalityProvider {
   ];
   // btc_pk is the Bitcoin secp256k1 PK of this finality provider
   // the PK follows encoding in BIP-340 spec
-  bytes btc_pk = 4 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+  bytes btc_pk = 4 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
   // pop is the proof of possession of btc_pk over the FP signer address.
   ProofOfPossessionBTC pop = 5;
 }
@@ -423,11 +423,11 @@ message Description {
 }
 ```
 
-Upon `MsgCreateFinalityProvider`, a ybtc node will execute as follows:
+Upon `MsgCreateFinalityProvider`, a Babylon node will execute as follows:
 
 1. Verify a [proof of
    possession](https://rist.tech.cornell.edu/papers/pkreg.pdf) indicating the
-   ownership of the Bitcoin secret keys over the ybtc address.
+   ownership of the Bitcoin secret keys over the Babylon address.
 2. Ensure the given commission rate is at least the `MinCommissionRate` in the
    parameters and at most 100%.
 3. Ensure the finality provider does not exist already.
@@ -438,7 +438,7 @@ Upon `MsgCreateFinalityProvider`, a ybtc node will execute as follows:
 
 The `MsgEditFinalityProvider` message is used for editing the information of an
 existing finality provider, including the commission and the description. It
-needs to be submitted by using the ybtc account registered in the finality
+needs to be submitted by using the Babylon account registered in the finality
 provider.
 
 ```protobuf
@@ -459,7 +459,7 @@ message MsgEditFinalityProvider {
 }
 ```
 
-Upon `MsgEditFinalityProvider`, a ybtc node will execute as follows:
+Upon `MsgEditFinalityProvider`, a Babylon node will execute as follows:
 
 1. Validate the formats of the description.
 2. Ensure the given commission rate is at least the `MinCommissionRate` in the
@@ -475,7 +475,7 @@ Upon `MsgEditFinalityProvider`, a ybtc node will execute as follows:
 
 The `MsgCreateBTCDelegation` message is used for delegating some bitcoin to a
 finality provider. It is typically submitted by a BTC delegator via the [BTC
-staker](https://github.com/ybtcchain/btc-staker) program.
+staker](https://github.com/babylonchain/btc-staker) program.
 
 ```protobuf
 // MsgCreateBTCDelegation is the message for creating a BTC delegation
@@ -486,10 +486,10 @@ message MsgCreateBTCDelegation {
   // pop is the proof of possession of btc_pk by the staker_addr.
   ProofOfPossessionBTC pop = 2;
   // btc_pk is the Bitcoin secp256k1 PK of the BTC delegator
-  bytes btc_pk = 3 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+  bytes btc_pk = 3 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
   // fp_btc_pk_list is the list of Bitcoin secp256k1 PKs of the finality providers, if there is more than one
   // finality provider pk it means that delegation is re-staked
-  repeated bytes fp_btc_pk_list = 4 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+  repeated bytes fp_btc_pk_list = 4 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
   // staking_time is the time lock used in staking transaction
   uint32 staking_time = 5;
   // staking_value  is the amount of satoshis locked in staking output
@@ -505,7 +505,7 @@ message MsgCreateBTCDelegation {
   // It will be a part of the witness for the staking tx output.
   // The staking tx output further needs signatures from covenant and finality provider in
   // order to be spendable.
-  bytes delegator_slashing_sig = 10 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340Signature" ];
+  bytes delegator_slashing_sig = 10 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340Signature" ];
   // unbonding_time is the time lock used when funds are being unbonded. It is be used in:
   // - unbonding transaction, time lock spending path
   // - staking slashing transaction, change output
@@ -523,11 +523,11 @@ message MsgCreateBTCDelegation {
   // Note that the tx itself does not contain signatures, which are off-chain.
   bytes unbonding_slashing_tx = 14 [ (gogoproto.customtype) = "BTCSlashingTx" ];
   // delegator_unbonding_slashing_sig is the signature on the slashing tx by the delegator (i.e., SK corresponding to btc_pk).
-  bytes delegator_unbonding_slashing_sig = 15 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340Signature" ];
+  bytes delegator_unbonding_slashing_sig = 15 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340Signature" ];
 }
 ```
 
-Upon `MsgCreateBTCDelegation`, a ybtc node will execute as follows:
+Upon `MsgCreateBTCDelegation`, a Babylon node will execute as follows:
 
 1. Ensure the given unbonding time is larger than `max(MinUnbondingTime,
 CheckpointFinalizationTimeout)`, where `MinUnbondingTime` and
@@ -556,11 +556,11 @@ CheckpointFinalizationTimeout)`, where `MinUnbondingTime` and
        [specification](../../docs/staking-script.md) of their formats.
 4. Verify a [proof of
    possession](https://rist.tech.cornell.edu/papers/pkreg.pdf) indicating the
-   ownership of the Bitcoin secret key over the ybtc staker address.
+   ownership of the Bitcoin secret key over the Babylon staker address.
 5. Ensure the staking transaction is not duplicated with an existing BTC
-   delegation known to ybtc.
+   delegation known to Babylon.
 6. Ensure the finality providers that the bitcoin are delegated to are known to
-   ybtc.
+   Babylon.
 7. If the allow-list is enabled, ensure that the staking transaction is
    in the allow-list.
 8. If the delegation contains an inclusion proof (it is optional due to EOI),
@@ -576,7 +576,7 @@ CheckpointFinalizationTimeout)`, where `MinUnbondingTime` and
 The `MsgAddBTCDelegationInclusionProof` message is used for submitting
 the proof of inclusion of a Bitcoin Stake delegation on the
 Bitcoin blockchain.
-This message is utilised for notifying the ybtc blockchain
+This message is utilised for notifying the Babylon blockchain
 that a staking transaction that was previously submitted through
 the EOI process is now on Bitcoin and has received sufficient
 confirmations to become active.
@@ -595,9 +595,9 @@ message MsgAddBTCDelegationInclusionProof {
 }
 ```
 
-Upon `MsgAddBTCDelegationInclusionProof`, a ybtc
+Upon `MsgAddBTCDelegationInclusionProof`, a Babylon
 node will execute as follows:
-1. Ensure that the staking transaction is tracked by ybtc.
+1. Ensure that the staking transaction is tracked by Babylon.
 2. Check whether the delegation has an inclusion proof. If yes, exit.
 3. Check whether the delegation has not received a quorum of covenant sigs.
    If not, exist.
@@ -610,7 +610,7 @@ node will execute as follows:
 The `MsgAddCovenantSigs` message is used for submitting signatures on a BTC
 delegation signed by a covenant committee member. It is typically submitted by a
 covenant committee member via the [covenant
-emulator](https://github.com/ybtcchain/covenant-emulator) program.
+emulator](https://github.com/babylonchain/covenant-emulator) program.
 
 ```protobuf
 // MsgAddCovenantSigs is the message for handling signatures from a covenant member
@@ -619,7 +619,7 @@ message MsgAddCovenantSigs {
 
   string signer = 1;
   // pk is the BTC public key of the covenant member
-  bytes pk = 2  [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+  bytes pk = 2  [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
   // staking_tx_hash is the hash of the staking tx.
   // It uniquely identifies a BTC delegation
   string staking_tx_hash = 3;
@@ -627,20 +627,20 @@ message MsgAddCovenantSigs {
   // the order of sigs should respect the order of finality providers
   // of the corresponding delegation
   repeated bytes slashing_tx_sigs = 4;
-  // unbonding_tx_sig is the signature of the covenant on the unbonding tx submitted to ybtc
+  // unbonding_tx_sig is the signature of the covenant on the unbonding tx submitted to babylon
   // the signature follows encoding in BIP-340 spec
-  bytes unbonding_tx_sig = 5 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340Signature" ];
+  bytes unbonding_tx_sig = 5 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340Signature" ];
   // slashing_unbonding_tx_sigs is a list of adaptor signatures of the covenant
-  // on slashing tx corresponding to unbonding tx submitted to ybtc
+  // on slashing tx corresponding to unbonding tx submitted to babylon
   // the order of sigs should respect the order of finality providers
   // of the corresponding delegation
   repeated bytes slashing_unbonding_tx_sigs = 6;
 }
 ```
 
-Upon `AddCovenantSigs`, a ybtc node will execute as follows:
+Upon `AddCovenantSigs`, a Babylon node will execute as follows:
 
-1. Ensure the given BTC delegation is known to ybtc.
+1. Ensure the given BTC delegation is known to Babylon.
 2. Ensure the given covenant public key is in the covenant committee.
 3. Verify each covenant adaptor signature on the slashing transaction. Note that
    each covenant adaptor signature is encrypted by a finality provider's BTC
@@ -655,7 +655,7 @@ Upon `AddCovenantSigs`, a ybtc node will execute as follows:
 
 The `MsgBTCUndelegate` message is used for unbonding bitcoin from a given
 finality provider. It is typically reported by the [BTC staking
-tracker](https://github.com/ybtcchain/vigilante/tree/dev/btcstaking-tracker)
+tracker](https://github.com/babylonchain/vigilante/tree/dev/btcstaking-tracker)
 program which proactively monitors unbonding transactions on Bitcoin.
 
 ```protobuf
@@ -669,20 +669,20 @@ message MsgBTCUndelegate {
   // staking_tx_hash is the hash of the staking tx.
   // It uniquely identifies a BTC delegation
   string staking_tx_hash = 2;
-  // unbonding_tx_sig is the signature of the staker on the unbonding tx submitted to ybtc
+  // unbonding_tx_sig is the signature of the staker on the unbonding tx submitted to babylon
   // the signature follows encoding in BIP-340 spec
-  bytes unbonding_tx_sig = 3 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340Signature" ];
+  bytes unbonding_tx_sig = 3 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340Signature" ];
 }
 ```
 
-Upon `BTCUndelegate`, a ybtc node will execute as follows:
+Upon `BTCUndelegate`, a Babylon node will execute as follows:
 
 1. Ensure the given BTC delegation is still active.
 2. Verify the Schnorr signature on the unbonding transaction from the BTC
    delegator. If valid, this signature effectively proves that the BTC delegator
-   wants to unbond this BTC delegation from ybtc.
+   wants to unbond this BTC delegation from Babylon.
 3. Add the Schnorr signature to the `BTCDelegation` in the BTC delegation
-   storage. ybtc will consider this BTC delegation to be unbonded from now
+   storage. Babylon will consider this BTC delegation to be unbonded from now
    on.
 
 ### MsgUpdateParams
@@ -740,7 +740,7 @@ message MsgSelectiveSlashingEvidence {
 }
 ```
 
-Upon `MsgSelectiveSlashingEvidence`, a ybtc node will execute as follows:
+Upon `MsgSelectiveSlashingEvidence`, a Babylon node will execute as follows:
 
 1. Find the BTC delegation with the given staking transaction hash.
 2. Ensure the BTC delegation is active or unbonding.
@@ -751,11 +751,11 @@ Upon `MsgSelectiveSlashingEvidence`, a ybtc node will execute as follows:
    this.
 
 The `MsgSelectiveSlashingEvidence` is typically reported by the [BTC staking
-tracker](https://github.com/ybtcchain/vigilante/tree/dev/btcstaking-tracker)
+tracker](https://github.com/babylonchain/vigilante/tree/dev/btcstaking-tracker)
 program. It keeps monitoring for slashing transactions on Bitcoin. Upon each
 slashing transaction, it will try to extract the finality provider's secret key.
 If successful, it will construct a `MsgSelectiveSlashingEvidence` message and
-submit it to ybtc.
+submit it to Babylon.
 
 ## BeginBlocker
 
@@ -766,7 +766,7 @@ The logic is defined at [x/btcstaking/abci.go](./abci.go).
 ## Events
 
 The BTC staking module emits a set of events for external subscribers. The events are defined
-at `proto/ybtc/btcstaking/v1/events.proto`.
+at `proto/babylon/btcstaking/v1/events.proto`.
 
 ### Finality provider events
 
@@ -775,7 +775,7 @@ at `proto/ybtc/btcstaking/v1/events.proto`.
 message EventFinalityProviderCreated {
   // btc_pk_hex is the hex string of Bitcoin secp256k1 PK of this finality provider
   string btc_pk_hex = 1;
-  // addr is the ybtc address to receive commission from delegations.
+  // addr is the babylon address to receive commission from delegations.
   string addr = 2;
   // commission defines the commission rate of the finality provider in decimals.
   string commission = 3;
@@ -839,7 +839,7 @@ message EventFinalityProviderStatusChange {
 ```protobuf
 
 // EventBTCDelegationCreated is the event emitted when a BTC delegation is created
-// on the ybtc chain
+// on the Babylon chain
 message EventBTCDelegationCreated {
   // staking_tx_hash is the hash of the staking tx.
   // It uniquely identifies a BTC delegation
@@ -933,50 +933,50 @@ The BTC Staking module provides a set of queries related to the status of finali
 
 Available Queries:
 Parameters
-Endpoint: `/ybtc/btcstaking/v1/params`
+Endpoint: `/babylon/btcstaking/v1/params`
 Description: Queries the current parameters of the BTC Staking module.
 
 Params by Version
-Endpoint: `/ybtc/btcstaking/v1/params/{version}`
+Endpoint: `/babylon/btcstaking/v1/params/{version}`
 Description: Queries the parameters of the module for a specific past version.
 
 Finality Providers
-Endpoint: `/ybtc/btcstaking/v1/finality_providers`
-Description: Retrieves all finality providers in the ybtc staking module.
+Endpoint: `/babylon/btcstaking/v1/finality_providers`
+Description: Retrieves all finality providers in the Babylon staking module.
 
 Finality Provider by Public Key
-Endpoint: `/ybtc/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/finality_provider`
+Endpoint: `/babylon/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/finality_provider`
 Description: Retrieves information about a specific finality provider by its Bitcoin public key (in BIP-340 format).
 
 BTC Delegations by Status
-Endpoint: `/ybtc/btcstaking/v1/btc_delegations/{status}`
+Endpoint: `/babylon/btcstaking/v1/btc_delegations/{status}`
 Description: Queries all BTC delegations under a given status.
 
 Active Finality Providers at Height
-Endpoint: `/ybtc/btcstaking/v1/finality_providers/{height}`
-Description: Retrieves finality providers with non-zero voting power at a specific ybtc block height.
+Endpoint: `/babylon/btcstaking/v1/finality_providers/{height}`
+Description: Retrieves finality providers with non-zero voting power at a specific Babylon block height.
 
 Finality Provider Power at Height
-Endpoint: `/ybtc/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/power/`{height}
-Description: Queries the voting power of a specific finality provider at a given ybtc block height.
+Endpoint: `/babylon/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/power/`{height}
+Description: Queries the voting power of a specific finality provider at a given Babylon block height.
 
 Finality Provider Current Power
-Endpoint: `/ybtc/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/power`
+Endpoint: `/babylon/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/power`
 Description: Queries the current voting power of a specific finality provider.
 
 Activated Height
-Endpoint: `/ybtc/btcstaking/v1/activated_height`
+Endpoint: `/babylon/btcstaking/v1/activated_height`
 Description: Queries the block height when the BTC staking protocol was activated (i.e., the first height when there existed at least one finality provider with voting power).
 
 Finality Provider Delegations
-Endpoint: `/ybtc/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/delegations`
+Endpoint: `/babylon/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/delegations`
 Description: Queries all BTC delegations under a specific finality provider.
 
 BTC Delegation by Staking Transaction Hash
-Endpoint: `/ybtc/btcstaking/v1/btc_delegation/{staking_tx_hash_hex}`
+Endpoint: `/babylon/btcstaking/v1/btc_delegation/{staking_tx_hash_hex}`
 Description: Retrieves a specific BTC delegation by its corresponding staking transaction hash.
 
 Additional Information:
-For further details on how to use these queries and additional documentation, please refer to docs.ybtcchain.io.
+For further details on how to use these queries and additional documentation, please refer to docs.babylonchain.io.
 
-<!-- TODO: update ybtc doc website -->
+<!-- TODO: update Babylon doc website -->

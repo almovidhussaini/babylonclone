@@ -8,7 +8,7 @@ import (
 
 	"cosmossdk.io/math"
 	"github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/amovidhussaini/ybtcclone/app"
+	"github.com/almovidhussaini/babylonclone/app"
 	"github.com/cometbft/cometbft/crypto"
 	"github.com/cometbft/cometbft/crypto/ed25519"
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
@@ -30,21 +30,21 @@ func RandomAccountAddress() sdk.AccAddress {
 	return addr
 }
 
-func SetupAppWithContext(t *testing.T) (*app.ybtcApp, sdk.Context) {
+func SetupAppWithContext(t *testing.T) (*app.BabylonApp, sdk.Context) {
 	return SetupAppWithContextAndCustomHeight(t, 1)
 }
 
-func SetupAppWithContextAndCustomHeight(t *testing.T, height int64) (*app.ybtcApp, sdk.Context) {
-	ybtcApp := app.Setup(t, false)
-	ctx := ybtcApp.BaseApp.NewContext(false).
+func SetupAppWithContextAndCustomHeight(t *testing.T, height int64) (*app.BabylonApp, sdk.Context) {
+	babylonApp := app.Setup(t, false)
+	ctx := babylonApp.BaseApp.NewContext(false).
 		WithBlockHeader(cmtproto.Header{Height: height, Time: time.Now().UTC()})
-	return ybtcApp, ctx
+	return babylonApp, ctx
 }
 
 func FundAccount(
 	t *testing.T,
 	ctx sdk.Context,
-	bbn *app.ybtcApp,
+	bbn *app.BabylonApp,
 	acc sdk.AccAddress,
 ) {
 	err := MintCoinsTo(bbn.BankKeeper, ctx, acc, sdk.NewCoins(
@@ -68,7 +68,7 @@ func MintCoinsTo(
 func StoreTestCode(
 	t *testing.T,
 	ctx sdk.Context,
-	ybtcApp *app.ybtcApp,
+	babylonApp *app.BabylonApp,
 	addr sdk.AccAddress,
 	codePath string,
 ) (uint64, []byte) {
@@ -76,7 +76,7 @@ func StoreTestCode(
 	wasmCode, err := os.ReadFile(codePath)
 
 	require.NoError(t, err)
-	permKeeper := keeper.NewPermissionedKeeper(ybtcApp.WasmKeeper, keeper.DefaultAuthorizationPolicy{})
+	permKeeper := keeper.NewPermissionedKeeper(babylonApp.WasmKeeper, keeper.DefaultAuthorizationPolicy{})
 	id, checksum, err := permKeeper.Create(ctx, addr, wasmCode, nil)
 	require.NoError(t, err)
 	return id, checksum
@@ -85,7 +85,7 @@ func StoreTestCode(
 func DeployTestContract(
 	t *testing.T,
 	ctx sdk.Context,
-	bbn *app.ybtcApp,
+	bbn *app.BabylonApp,
 	deployer sdk.AccAddress,
 	codePath string,
 ) sdk.AccAddress {
@@ -97,7 +97,7 @@ func DeployTestContract(
 func InstantiateContract(
 	t *testing.T,
 	ctx sdk.Context,
-	bbn *app.ybtcApp,
+	bbn *app.BabylonApp,
 	funder sdk.AccAddress,
 	codeId uint64,
 ) sdk.AccAddress {

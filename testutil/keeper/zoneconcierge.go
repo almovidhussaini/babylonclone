@@ -20,8 +20,8 @@ import (
 	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/keeper"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 type zoneconciergeStoreQuerier struct{}

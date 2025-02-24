@@ -8,13 +8,13 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/btctxformatter"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/testutil/mocks"
-	ckpttypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	types2 "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	"github.com/amovidhussaini/ybtcclone/x/monitor/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/btctxformatter"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/mocks"
+	ckpttypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	types2 "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/monitor/types"
 )
 
 func FuzzQueryEndedEpochBtcHeight(f *testing.F) {
@@ -22,12 +22,12 @@ func FuzzQueryEndedEpochBtcHeight(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		ctx := ybtcApp.NewContext(false)
-		lck := ybtcApp.BTCLightClientKeeper
-		mk := ybtcApp.MonitorKeeper
+		babylonApp := app.Setup(t, false)
+		ctx := babylonApp.NewContext(false)
+		lck := babylonApp.BTCLightClientKeeper
+		mk := babylonApp.MonitorKeeper
 
-		queryHelper := baseapp.NewQueryServerTestHelper(ctx, ybtcApp.InterfaceRegistry())
+		queryHelper := baseapp.NewQueryServerTestHelper(ctx, babylonApp.InterfaceRegistry())
 		types.RegisterQueryServer(queryHelper, mk)
 		queryClient := types.NewQueryClient(queryHelper)
 
@@ -73,15 +73,15 @@ func FuzzQueryReportedCheckpointBtcHeight(f *testing.F) {
 		ctl := gomock.NewController(t)
 		defer ctl.Finish()
 
-		ybtcApp := app.Setup(t, false)
-		ctx := ybtcApp.NewContext(false)
-		lck := ybtcApp.BTCLightClientKeeper
-		mk := ybtcApp.MonitorKeeper
-		ck := ybtcApp.CheckpointingKeeper
+		babylonApp := app.Setup(t, false)
+		ctx := babylonApp.NewContext(false)
+		lck := babylonApp.BTCLightClientKeeper
+		mk := babylonApp.MonitorKeeper
+		ck := babylonApp.CheckpointingKeeper
 		mockEk := mocks.NewMockEpochingKeeper(ctl)
 		ck.SetEpochingKeeper(mockEk)
 
-		queryHelper := baseapp.NewQueryServerTestHelper(ctx, ybtcApp.InterfaceRegistry())
+		queryHelper := baseapp.NewQueryServerTestHelper(ctx, babylonApp.InterfaceRegistry())
 		types.RegisterQueryServer(queryHelper, mk)
 		queryClient := types.NewQueryClient(queryHelper)
 

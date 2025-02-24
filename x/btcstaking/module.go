@@ -2,18 +2,19 @@ package btcstaking
 
 import (
 	"context"
-	"cosmossdk.io/core/appmodule"
 	"encoding/json"
 	"fmt"
+
+	"cosmossdk.io/core/appmodule"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/client/cli"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/client/cli"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

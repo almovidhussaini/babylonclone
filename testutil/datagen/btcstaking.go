@@ -15,9 +15,9 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 const (
@@ -79,7 +79,7 @@ func GenCustomFinalityProvider(r *rand.Rand, btcSK *btcec.PrivateKey, fpAddr sdk
 	}, nil
 }
 
-func GenRandomCreateFinalityProviderMsgWithBTCybtcSKs(
+func GenRandomCreateFinalityProviderMsgWithBTCBabylonSKs(
 	r *rand.Rand,
 	btcSK *btcec.PrivateKey,
 	fpAddr sdk.AccAddress,

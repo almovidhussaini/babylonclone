@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -15,7 +15,7 @@ func TestEpochFinalization(t *testing.T) {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	driverTempDir := t.TempDir()
 	replayerTempDir := t.TempDir()
-	driver := NewybtcAppDriver(t, driverTempDir, replayerTempDir)
+	driver := NewBabylonAppDriver(t, driverTempDir, replayerTempDir)
 	// first finalize at least one block
 	driver.GenerateNewBlock(t)
 	epochingParams := driver.GetEpochingParams()
@@ -44,7 +44,7 @@ func FuzzCreatingAndActivatingDelegations(f *testing.F) {
 
 		driverTempDir := t.TempDir()
 		replayerTempDir := t.TempDir()
-		driver := NewybtcAppDriver(t, driverTempDir, replayerTempDir)
+		driver := NewBabylonAppDriver(t, driverTempDir, replayerTempDir)
 		// first finalize at least one block
 		driver.GenerateNewBlock(t)
 		stakingParams := driver.GetBTCStakingParams(t)

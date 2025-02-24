@@ -16,12 +16,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/chain"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/config"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/containers"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
+	"github.com/almovidhussaini/babylonclone/app"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/chain"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/config"
+	"github.com/almovidhussaini/babylonclone/test/e2e/containers"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
 )
 
 type UpgradeSettings struct {
@@ -253,7 +253,7 @@ func (uc *UpgradeConfigurer) runForkUpgrade() {
 func (uc *UpgradeConfigurer) upgradeContainers(chainConfig *chain.Config, propHeight int64) error {
 	// upgrade containers to the locally compiled daemon
 	uc.t.Logf("starting upgrade for chain-id: %s...", chainConfig.Id)
-	uc.containerManager.CurrentRepository = containers.ybtcContainerName
+	uc.containerManager.CurrentRepository = containers.BabylonContainerName
 	uc.containerManager.CurrentTag = "latest"
 
 	for _, node := range chainConfig.NodeConfigs {
@@ -275,7 +275,7 @@ func (uc *UpgradeConfigurer) ParseGovPropFromFile() (*upgradetypes.MsgSoftwareUp
 		return nil, err
 	}
 
-	cdc := app.NewTmpybtcApp().AppCodec()
+	cdc := app.NewTmpBabylonApp().AppCodec()
 	upgradePath := filepath.Join(pwd, uc.upgradeJsonFilePath)
 
 	_, msgSoftwareUpgrade, err := parseGovPropFromFile(cdc, upgradePath)
@@ -284,7 +284,7 @@ func (uc *UpgradeConfigurer) ParseGovPropFromFile() (*upgradetypes.MsgSoftwareUp
 
 // SetGovPropUpgradeHeight loads the proposal from the UpgradeSignetLaunchFilePath
 func (uc *UpgradeConfigurer) SetGovPropUpgradeHeight(newUpgradeHeight int64) error {
-	cdc := app.NewTmpybtcApp().AppCodec()
+	cdc := app.NewTmpBabylonApp().AppCodec()
 	upgradePath, err := uc.UpgradeFilePath()
 	if err != nil {
 		return err

@@ -23,8 +23,8 @@ import (
 	staketypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	flag "github.com/spf13/pflag"
 
-	"github.com/amovidhussaini/ybtcclone/privval"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/privval"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 // validator struct to define the fields of the validator

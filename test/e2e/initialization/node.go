@@ -31,12 +31,12 @@ import (
 	"github.com/cosmos/go-bip39"
 	"github.com/spf13/viper"
 
-	ybtcApp "github.com/amovidhussaini/ybtcclone/app"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/cmd/ybtcd/cmd"
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/privval"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
+	babylonApp "github.com/almovidhussaini/babylonclone/app"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/cmd/babylond/cmd"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/privval"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
 )
 
 type internalNode struct {
@@ -120,21 +120,21 @@ func (n *internalNode) createAppConfig(nodeConfig *NodeConfig) {
 	// set application configuration
 	appCfgPath := filepath.Join(n.configDir(), "config", "app.toml")
 
-	appConfig := cmd.DefaultybtcAppConfig()
+	appConfig := cmd.DefaultBabylonAppConfig()
 
 	appConfig.BaseConfig.Pruning = nodeConfig.Pruning
 	appConfig.BaseConfig.PruningKeepRecent = nodeConfig.PruningKeepRecent
 	appConfig.BaseConfig.PruningInterval = nodeConfig.PruningInterval
 	appConfig.API.Enable = true
 	appConfig.API.Address = "tcp://0.0.0.0:1317"
-	appConfig.MinGasPrices = fmt.Sprintf("%s%s", MinGasPrice, ybtcDenom)
+	appConfig.MinGasPrices = fmt.Sprintf("%s%s", MinGasPrice, BabylonDenom)
 	appConfig.StateSync.SnapshotInterval = nodeConfig.SnapshotInterval
 	appConfig.StateSync.SnapshotKeepRecent = nodeConfig.SnapshotKeepRecent
 	appConfig.BtcConfig.Network = nodeConfig.BtcNetwork
 	appConfig.GRPC.Enable = true
 	appConfig.GRPC.Address = "0.0.0.0:9090"
 
-	customTemplate := cmd.DefaultybtcTemplate()
+	customTemplate := cmd.DefaultBabylonTemplate()
 
 	srvconfig.SetConfigTemplate(customTemplate)
 	srvconfig.WriteConfigFile(appCfgPath, appConfig)
@@ -300,7 +300,7 @@ func (n *internalNode) init() error {
 	}
 
 	// Create a temp app to get the default genesis state
-	tempApp := ybtcApp.NewTmpybtcApp()
+	tempApp := babylonApp.NewTmpBabylonApp()
 	appState, err := json.MarshalIndent(tempApp.DefaultGenesis(), "", " ")
 	if err != nil {
 		return fmt.Errorf("failed to JSON encode app genesis state: %w", err)
@@ -311,8 +311,8 @@ func (n *internalNode) init() error {
 	appGenesis.Consensus = &genutiltypes.ConsensusGenesis{
 		Params: cmttypes.DefaultConsensusParams(),
 	}
-	appGenesis.Consensus.Params.Block.MaxGas = ybtcApp.DefaultGasLimit
-	appGenesis.Consensus.Params.ABCI.VoteExtensionsEnableHeight = ybtcApp.DefaultVoteExtensionsEnableHeight
+	appGenesis.Consensus.Params.Block.MaxGas = babylonApp.DefaultGasLimit
+	appGenesis.Consensus.Params.ABCI.VoteExtensionsEnableHeight = babylonApp.DefaultVoteExtensionsEnableHeight
 
 	if err = genutil.ExportGenesisFile(appGenesis, config.GenesisFile()); err != nil {
 		return fmt.Errorf("failed to export app genesis state: %w", err)

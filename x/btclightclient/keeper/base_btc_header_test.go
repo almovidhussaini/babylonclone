@@ -1,10 +1,11 @@
 package keeper_test
 
 import (
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/testutil/keeper"
 	"math/rand"
 	"testing"
+
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/keeper"
 )
 
 func FuzzKeeperBaseBTCHeader(f *testing.F) {

@@ -3,11 +3,11 @@ package epoching_test
 import (
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/x/epoching"
+	"github.com/almovidhussaini/babylonclone/x/epoching"
 	"github.com/stretchr/testify/require"
 
-	simapp "github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	simapp "github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 func TestExportGenesis(t *testing.T) {

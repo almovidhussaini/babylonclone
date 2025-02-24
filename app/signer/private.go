@@ -6,7 +6,7 @@ import (
 	cmtconfig "github.com/cometbft/cometbft/config"
 	cmtos "github.com/cometbft/cometbft/libs/os"
 
-	"github.com/amovidhussaini/ybtcclone/privval"
+	"github.com/almovidhussaini/babylonclone/privval"
 )
 
 type PrivSigner struct {

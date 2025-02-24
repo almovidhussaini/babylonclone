@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
 	channeltypes "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
 )
 

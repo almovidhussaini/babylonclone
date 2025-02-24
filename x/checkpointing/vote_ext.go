@@ -8,11 +8,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/keeper"
-	ckpttypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/keeper"
+	ckpttypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
-// VoteExtensionHandler defines a BLS-based vote extension handlers for ybtc.
+// VoteExtensionHandler defines a BLS-based vote extension handlers for Babylon.
 type VoteExtensionHandler struct {
 	logger     log.Logger
 	ckptKeeper *keeper.Keeper

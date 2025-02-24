@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

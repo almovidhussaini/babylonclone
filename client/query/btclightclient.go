@@ -3,13 +3,13 @@ package query
 import (
 	"context"
 
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/cosmos/cosmos-sdk/client"
 	sdkquerytypes "github.com/cosmos/cosmos-sdk/types/query"
 )
 
-// QueryBTCLightclient queries the BTCLightclient module of the ybtc node
+// QueryBTCLightclient queries the BTCLightclient module of the Babylon node
 // according to the given function
 func (c *QueryClient) QueryBTCLightclient(f func(ctx context.Context, queryClient btclctypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()

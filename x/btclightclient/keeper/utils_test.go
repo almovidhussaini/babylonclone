@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	sdkmath "cosmossdk.io/math"
-	"github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/btcsuite/btcd/blockchain"
 	"github.com/btcsuite/btcd/wire"
 	"github.com/stretchr/testify/require"

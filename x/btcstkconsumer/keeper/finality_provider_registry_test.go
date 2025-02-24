@@ -4,11 +4,11 @@ import (
 	"math/rand"
 	"testing"
 
-	btcstaking "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	btcstaking "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/stretchr/testify/require"
 )
 
@@ -18,9 +18,9 @@ func FuzzFPRegistry(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		bscKeeper := ybtcApp.BTCStkConsumerKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		bscKeeper := babylonApp.BTCStkConsumerKeeper
+		ctx := babylonApp.NewContext(false)
 		// Create a random consumer id that starts with "test-"
 		consumerID := "test-" + datagen.GenRandomHexStr(r, 10)
 

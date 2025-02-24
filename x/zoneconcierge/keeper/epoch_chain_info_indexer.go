@@ -8,8 +8,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 // GetEpochChainInfo gets the latest chain info of a given epoch for a given chain ID
@@ -50,7 +50,7 @@ func (k Keeper) GetEpochHeaders(ctx context.Context, consumerID string, epochNum
 	epochChainInfo := epochChainInfoWithProof.ChainInfo
 	// it's possible that this epoch's snapshot is not updated for many epochs
 	// this implies that this epoch does not timestamp any header for this chain at all
-	if epochChainInfo.LatestHeader.ybtcEpoch < epochNumber {
+	if epochChainInfo.LatestHeader.BabylonEpoch < epochNumber {
 		return nil, types.ErrEpochHeadersNotFound
 	}
 	// now we have the last header in this epoch
@@ -65,7 +65,7 @@ func (k Keeper) GetEpochHeaders(ctx context.Context, consumerID string, epochNum
 	for ; canonicalChainIter.Valid(); canonicalChainIter.Next() {
 		var prevHeader types.IndexedHeader
 		k.cdc.MustUnmarshal(canonicalChainIter.Value(), &prevHeader)
-		if prevHeader.ybtcEpoch < epochNumber {
+		if prevHeader.BabylonEpoch < epochNumber {
 			// we have reached the previous epoch, break the loop
 			break
 		}
@@ -111,7 +111,7 @@ func (k Keeper) recordEpochChainInfoProofs(ctx context.Context, epochNumber uint
 		}
 
 		lastHeaderInEpoch := chainInfo.ChainInfo.LatestHeader
-		if lastHeaderInEpoch.ybtcEpoch == curEpoch.EpochNumber {
+		if lastHeaderInEpoch.BabylonEpoch == curEpoch.EpochNumber {
 			// get proofCZHeaderInEpoch
 			proofCZHeaderInEpoch, err := k.ProveCZHeaderInEpoch(ctx, lastHeaderInEpoch, curEpoch)
 			if err != nil {

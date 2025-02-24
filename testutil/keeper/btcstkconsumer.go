@@ -17,8 +17,8 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 )
 
 func BTCStkConsumerKeeper(t testing.TB) (keeper.Keeper, sdk.Context) {

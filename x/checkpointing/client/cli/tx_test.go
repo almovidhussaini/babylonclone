@@ -26,11 +26,11 @@ import (
 	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/privval"
-	testutilcli "github.com/amovidhussaini/ybtcclone/testutil/cli"
-	checkpointcli "github.com/amovidhussaini/ybtcclone/x/checkpointing/client/cli"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/privval"
+	testutilcli "github.com/almovidhussaini/babylonclone/testutil/cli"
+	checkpointcli "github.com/almovidhussaini/babylonclone/x/checkpointing/client/cli"
 )
 
 type mockCometRPC struct {

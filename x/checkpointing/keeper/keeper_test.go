@@ -10,12 +10,12 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/btctxformatter"
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/testutil/mocks"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/btctxformatter"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testkeeper "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/testutil/mocks"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 // FuzzKeeperAddRawCheckpoint checks
@@ -231,7 +231,7 @@ func FuzzKeeperCheckpointEpoch(f *testing.F) {
 
 func makeBtcCkptBytes(r *rand.Rand, epoch uint64, appHash []byte, bitmap []byte, blsSig []byte, t *testing.T) *btctxformatter.RawBtcCheckpoint {
 	tag := datagen.GenRandomByteArray(r, btctxformatter.TagLength)
-	ybtcTag := btctxformatter.ybtcTag(tag[:btctxformatter.TagLength])
+	babylonTag := btctxformatter.BabylonTag(tag[:btctxformatter.TagLength])
 	address := datagen.GenRandomByteArray(r, btctxformatter.AddressLength)
 
 	rawBTCCkpt := &btctxformatter.RawBtcCheckpoint{
@@ -242,14 +242,14 @@ func makeBtcCkptBytes(r *rand.Rand, epoch uint64, appHash []byte, bitmap []byte,
 		BlsSig:           blsSig,
 	}
 	firstHalf, secondHalf, err := btctxformatter.EncodeCheckpointData(
-		ybtcTag,
+		babylonTag,
 		btctxformatter.CurrentVersion,
 		rawBTCCkpt,
 	)
 	require.NoError(t, err)
-	decodedFirst, err := btctxformatter.IsybtcCheckpointData(ybtcTag, btctxformatter.CurrentVersion, firstHalf)
+	decodedFirst, err := btctxformatter.IsBabylonCheckpointData(babylonTag, btctxformatter.CurrentVersion, firstHalf)
 	require.NoError(t, err)
-	decodedSecond, err := btctxformatter.IsybtcCheckpointData(ybtcTag, btctxformatter.CurrentVersion, secondHalf)
+	decodedSecond, err := btctxformatter.IsBabylonCheckpointData(babylonTag, btctxformatter.CurrentVersion, secondHalf)
 	require.NoError(t, err)
 	ckptData, err := btctxformatter.ConnectParts(btctxformatter.CurrentVersion, decodedFirst.Data, decodedSecond.Data)
 	require.NoError(t, err)

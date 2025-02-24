@@ -6,13 +6,13 @@ import (
 	"time"
 )
 
-// ybtcQueryConfig defines configuration for the ybtc query client
-type ybtcQueryConfig struct {
+// BabylonQueryConfig defines configuration for the Babylon query client
+type BabylonQueryConfig struct {
 	RPCAddr string        `mapstructure:"rpc-addr"`
 	Timeout time.Duration `mapstructure:"timeout"`
 }
 
-func (cfg *ybtcQueryConfig) Validate() error {
+func (cfg *BabylonQueryConfig) Validate() error {
 	if _, err := url.Parse(cfg.RPCAddr); err != nil {
 		return fmt.Errorf("cfg.RPCAddr is not correctly formatted: %w", err)
 	}
@@ -22,8 +22,8 @@ func (cfg *ybtcQueryConfig) Validate() error {
 	return nil
 }
 
-func DefaultybtcQueryConfig() ybtcQueryConfig {
-	return ybtcQueryConfig{
+func DefaultBabylonQueryConfig() BabylonQueryConfig {
+	return BabylonQueryConfig{
 		RPCAddr: "http://localhost:26657",
 		Timeout: 20 * time.Second,
 	}

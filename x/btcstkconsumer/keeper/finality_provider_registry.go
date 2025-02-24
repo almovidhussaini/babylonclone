@@ -7,9 +7,9 @@ import (
 
 	"cosmossdk.io/store/prefix"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcstaking "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	btcstktypes "github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcstaking "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	btcstktypes "github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 )
 
 // SetConsumerFinalityProvider adds the given finality provider to CZ chains KVStore

@@ -9,8 +9,8 @@ import (
 	"time"
 
 	sdkmath "cosmossdk.io/math"
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/chaincfg"

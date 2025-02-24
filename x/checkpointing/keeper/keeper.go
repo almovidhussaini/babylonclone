@@ -7,7 +7,7 @@ import (
 
 	corestoretypes "cosmossdk.io/core/store"
 
-	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
+	txformat "github.com/almovidhussaini/babylonclone/btctxformatter"
 
 	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -15,9 +15,9 @@ import (
 
 	cmtprotocrypto "github.com/cometbft/cometbft/proto/tendermint/crypto"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 type (

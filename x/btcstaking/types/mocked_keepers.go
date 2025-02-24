@@ -8,9 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
-	types "github.com/amovidhussaini/ybtcclone/types"
-	types0 "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	types1 "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	types "github.com/almovidhussaini/babylonclone/types"
+	types0 "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	types1 "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	types2 "github.com/cosmos/cosmos-sdk/types"
 	gomock "github.com/golang/mock/gomock"
 )

@@ -10,11 +10,11 @@ import (
 	"time"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	ct "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	itypes "github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	ct "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	itypes "github.com/almovidhussaini/babylonclone/x/incentive/types"
 	"github.com/stretchr/testify/suite"
 )
 

@@ -17,8 +17,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 // copied from github.com/cometbft/cometbft/privval/file.go"

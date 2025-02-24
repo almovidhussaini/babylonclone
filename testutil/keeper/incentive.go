@@ -17,9 +17,9 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/stretchr/testify/require"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/x/incentive/keeper"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 func IncentiveKeeperWithStore(

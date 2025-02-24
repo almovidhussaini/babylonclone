@@ -6,9 +6,9 @@ import (
 	cryptocodec "github.com/cosmos/cosmos-sdk/crypto/codec"
 	cosmosed "github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 
-	"github.com/amovidhussaini/ybtcclone/app/signer"
-	"github.com/amovidhussaini/ybtcclone/privval"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/app/signer"
+	"github.com/almovidhussaini/babylonclone/privval"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 // SetupTestPrivSigner sets up a PrivSigner for testing

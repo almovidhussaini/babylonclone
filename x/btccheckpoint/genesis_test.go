@@ -3,11 +3,11 @@ package btccheckpoint_test
 import (
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint"
 	"github.com/stretchr/testify/require"
 
-	simapp "github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	simapp "github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 )
 
 func TestExportGenesis(t *testing.T) {

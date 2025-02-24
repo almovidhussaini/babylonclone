@@ -14,14 +14,14 @@ type ImageConfig struct {
 //nolint:deadcode
 const (
 	// Images that do not have specified tag, latest will be used by default.
-	// name of ybtc image produced by running `make build-docker`
-	ybtcContainerName = "ybtclabs-io/ybtcd"
-	// name of ybtc image before the upgrade
-	ybtcContainerNameBeforeUpgrade = "ybtclabs/ybtcd"
-	ybtcContainerTagBeforeUpgrade  = "v0.9.3"
+	// name of babylon image produced by running `make build-docker`
+	BabylonContainerName = "babylonlabs-io/babylond"
+	// name of babylon image before the upgrade
+	BabylonContainerNameBeforeUpgrade = "babylonlabs/babylond"
+	BabylonContainerTagBeforeUpgrade  = "v0.9.3"
 
 	// name of the image produced by running `make e2e-init-chain` in contrib/images
-	InitChainContainerE2E = "ybtclabs-io/ybtcd-e2e-init-chain"
+	InitChainContainerE2E = "babylonlabs-io/babylond-e2e-init-chain"
 
 	hermesRelayerRepository = "informalsystems/hermes"
 	hermesRelayerTag        = "v1.8.2"
@@ -36,14 +36,14 @@ const (
 // If isFork is true, utilizes provided fork height to initiate fork logic
 func NewImageConfig(isCosmosRelayer, isUpgrade bool) (ic ImageConfig) {
 	ic = ImageConfig{
-		CurrentRepository: ybtcContainerName,
+		CurrentRepository: BabylonContainerName,
 		CurrentTag:        "latest",
 	}
 
 	if isUpgrade {
-		// starts at the older version and later upgrades it to current branch... ybtcContainerName
-		ic.CurrentRepository = ybtcContainerNameBeforeUpgrade
-		ic.CurrentTag = ybtcContainerTagBeforeUpgrade
+		// starts at the older version and later upgrades it to current branch... BabylonContainerName
+		ic.CurrentRepository = BabylonContainerNameBeforeUpgrade
+		ic.CurrentTag = BabylonContainerTagBeforeUpgrade
 	}
 
 	if isCosmosRelayer {

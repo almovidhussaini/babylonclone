@@ -2,18 +2,19 @@ package finality
 
 import (
 	"context"
-	"cosmossdk.io/core/appmodule"
 	"encoding/json"
 	"fmt"
+
+	"cosmossdk.io/core/appmodule"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/finality/client/cli"
-	"github.com/amovidhussaini/ybtcclone/x/finality/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/client/cli"
+	"github.com/almovidhussaini/babylonclone/x/finality/keeper"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

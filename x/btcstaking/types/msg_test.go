@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"cosmossdk.io/errors"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbntypes "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbntypes "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	stktypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/stretchr/testify/require"

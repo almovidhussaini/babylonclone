@@ -12,13 +12,13 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/wire"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testhelper "github.com/amovidhussaini/ybtcclone/testutil/helper"
-	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	zctypes "github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testhelper "github.com/almovidhussaini/babylonclone/testutil/helper"
+	testkeeper "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	zctypes "github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 func FuzzProofCZHeaderInEpoch(f *testing.F) {
@@ -57,7 +57,7 @@ func FuzzProofCZHeaderInEpoch(f *testing.F) {
 			h.NoError(err)
 		}
 
-		epochWithHeader, err := ek.GetHistoricalEpoch(h.Ctx, indexedHeader.ybtcEpoch)
+		epochWithHeader, err := ek.GetHistoricalEpoch(h.Ctx, indexedHeader.BabylonEpoch)
 		h.NoError(err)
 
 		// generate inclusion proof
@@ -285,10 +285,10 @@ func FuzzProofEpochSubmitted(f *testing.F) {
 			},
 		}
 
-		// net param, ybtcTag
+		// net param, babylonTag
 		powLimit := chaincfg.SimNetParams.PowLimit
-		ybtcTag := btcctypes.DefaultCheckpointTag
-		tagAsBytes, _ := hex.DecodeString(ybtcTag)
+		babylonTag := btcctypes.DefaultCheckpointTag
+		tagAsBytes, _ := hex.DecodeString(babylonTag)
 
 		// verify
 		err = zctypes.VerifyEpochSubmitted(rawCkpt, txsInfo, btcHeaders, powLimit, tagAsBytes)

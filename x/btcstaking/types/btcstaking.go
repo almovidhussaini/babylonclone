@@ -5,12 +5,12 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 )
 
 func (fp *FinalityProvider) IsSlashed() bool {
-	return fp.SlashedybtcHeight > 0
+	return fp.SlashedBabylonHeight > 0
 }
 
 func (fp *FinalityProvider) IsJailed() bool {

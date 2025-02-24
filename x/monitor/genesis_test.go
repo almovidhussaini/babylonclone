@@ -3,11 +3,11 @@ package monitor_test
 import (
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/x/monitor"
+	"github.com/almovidhussaini/babylonclone/x/monitor"
 	"github.com/stretchr/testify/require"
 
-	simapp "github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/x/monitor/types"
+	simapp "github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/x/monitor/types"
 )
 
 func TestExportGenesis(t *testing.T) {

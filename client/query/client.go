@@ -8,14 +8,14 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/types/query"
 
-	"github.com/amovidhussaini/ybtcclone/client/config"
+	"github.com/almovidhussaini/babylonclone/client/config"
 	rpcclient "github.com/cometbft/cometbft/rpc/client"
 	"github.com/cosmos/cosmos-sdk/client"
 	grpctypes "github.com/cosmos/cosmos-sdk/types/grpc"
 	"google.golang.org/grpc/metadata"
 )
 
-// QueryClient is a client that can only perform queries to a ybtc node
+// QueryClient is a client that can only perform queries to a Babylon node
 // It only requires `Cfg` to have `Timeout` and `RPCAddr`, but not other fields
 // such as keyring, chain ID, etc..
 type QueryClient struct {
@@ -24,7 +24,7 @@ type QueryClient struct {
 }
 
 // New creates a new QueryClient according to the given config
-func New(cfg *config.ybtcQueryConfig) (*QueryClient, error) {
+func New(cfg *config.BabylonQueryConfig) (*QueryClient, error) {
 	if err := cfg.Validate(); err != nil {
 		return nil, err
 	}

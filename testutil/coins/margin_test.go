@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/coins"
+	"github.com/almovidhussaini/babylonclone/testutil/coins"
 )
 
 const (

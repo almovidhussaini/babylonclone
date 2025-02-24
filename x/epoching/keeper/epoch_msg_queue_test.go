@@ -4,16 +4,16 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testhelper "github.com/amovidhussaini/ybtcclone/testutil/helper"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testhelper "github.com/almovidhussaini/babylonclone/testutil/helper"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
 )
 
 var (
@@ -266,7 +266,7 @@ func FuzzHandleQueuedMsg_MsgWrappedBeginRedelegate(f *testing.F) {
 		// ensure the voting power has been redelegated from val1 to val2
 		// Note that in Cosmos SDK, redelegation happens upon the next `EndBlock`, rather than waiting for 14 days.
 		// This is because redelegation does not affect PoS security: upon redelegation requests, no token is leaving the system.
-		// SImilarly, in ybtc, redelegation happens unconditionally upon `EndEpoch`, rather than depending on checkpoint status.
+		// SImilarly, in Babylon, redelegation happens unconditionally upon `EndEpoch`, rather than depending on checkpoint status.
 		val1Power2, err := helper.App.EpochingKeeper.GetCurrentValidatorVotingPower(ctx, val1)
 		require.NoError(t, err)
 		val2Power2, err := helper.App.EpochingKeeper.GetCurrentValidatorVotingPower(ctx, val2)

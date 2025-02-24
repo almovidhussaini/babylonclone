@@ -14,8 +14,8 @@ import (
 	coretypes "github.com/cometbft/cometbft/rpc/core/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/containers"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
+	"github.com/almovidhussaini/babylonclone/test/e2e/containers"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
 )
 
 type NodeConfig struct {
@@ -173,7 +173,7 @@ func (n *NodeConfig) extractOperatorAddressIfValidator() error {
 		return nil
 	}
 
-	cmd := []string{"ybtcd", "debug", "addr", hex.EncodeToString(n.PublicKey)}
+	cmd := []string{"babylond", "debug", "addr", hex.EncodeToString(n.PublicKey)}
 	n.t.Logf("extracting validator operator addresses for validator: %s", n.Name)
 	_, errBuf, err := n.containerManager.ExecCmd(n.t, n.Name, cmd, "")
 	if err != nil {
@@ -201,7 +201,7 @@ func (n *NodeConfig) LogActionF(msg string, args ...interface{}) {
 }
 
 func (n *NodeConfig) Status() (*coretypes.ResultStatus, error) {
-	cmd := []string{"ybtcd", "status", "--output=json"}
+	cmd := []string{"babylond", "status", "--output=json"}
 	outBuf, _, err := n.containerManager.ExecCmd(n.t, n.Name, cmd, "")
 	if err != nil {
 		return nil, err

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"cosmossdk.io/store/prefix"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	"github.com/cosmos/cosmos-sdk/runtime"
 )
 

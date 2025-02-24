@@ -13,13 +13,13 @@ import (
 )
 
 var (
-	// Customybtcrfc6979ExtraDataV0 is the extra data to feed to RFC6979 when
-	// generating the deterministic nonce for the BIP-340 ybtc adaptor signature scheme.
+	// CustomBabylonrfc6979ExtraDataV0 is the extra data to feed to RFC6979 when
+	// generating the deterministic nonce for the BIP-340 Babylon adaptor signature scheme.
 	// This ensures the same nonce is not generated for the same message and key
 	// as for other signing algorithms such as ECDSA.
 	//
-	// It is equal to SHA-256([]byte("BIP-340/ybtc-adaptor-signature")).
-	customybtcRFC6979ExtraDataV0 = [chainhash.HashSize]uint8{
+	// It is equal to SHA-256([]byte("BIP-340/babylon-adaptor-signature")).
+	customBabylonRFC6979ExtraDataV0 = [chainhash.HashSize]uint8{
 		0xcd, 0x36, 0xb5, 0x97, 0xbd, 0x59, 0x08, 0xfc,
 		0x48, 0x5c, 0xe9, 0xa2, 0xc0, 0xc2, 0x8b, 0xce,
 		0xd0, 0xda, 0xdb, 0x7f, 0xac, 0x7b, 0xf9, 0x4c,
@@ -219,7 +219,7 @@ func EncSign(sk *btcec.PrivateKey, encKey *EncryptionKey, msgHash []byte) (*Adap
 		// parameterized by the private key, message being signed, extra data
 		// that identifies the scheme, and an iteration count
 		nonce := btcec.NonceRFC6979(
-			privKeyBytes[:], hashForNonce, customybtcRFC6979ExtraDataV0[:], nil, iteration,
+			privKeyBytes[:], hashForNonce, customBabylonRFC6979ExtraDataV0[:], nil, iteration,
 		)
 
 		// try to generate adaptor signature

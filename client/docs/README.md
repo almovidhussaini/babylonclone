@@ -1,4 +1,4 @@
-# ybtc Chain
+# Babylon Chain
 
 ## Workflows
 
@@ -6,11 +6,11 @@ The following are the most prominent workflows. The diagrams depict cross-module
 
 ### Validator Registration and Staking
 
-In order to support regular checkpointing, ybtc has two extensions over the regular Tendermint consensus:
+In order to support regular checkpointing, Babylon has two extensions over the regular Tendermint consensus:
 * the use of epochs, during which the validator set in stable
 * the use of BLS keys for signature aggregation
 
-In order to keep changes to the Cosmos SDK to a minimum and maximize code reuse, the `epoching` module _wraps_ the `staking` module: the regular staking transactions are still used, but enveloped in a ybtc transaction that allows us to attach extra data as well as to control when these transactions are executed.
+In order to keep changes to the Cosmos SDK to a minimum and maximize code reuse, the `epoching` module _wraps_ the `staking` module: the regular staking transactions are still used, but enveloped in a Babylon transaction that allows us to attach extra data as well as to control when these transactions are executed.
 
 ![Validator Registration](diagrams/validator_registration.png)
 
@@ -23,7 +23,7 @@ The next diagram depicts the process of the power transfer that takes place at t
 ### Submit Checkpoint
 
 Once the raw checkpoint is available, vigilantes take it and send them to Bitcoin,
-paying the BTC fees, for future rewards on ybtc.
+paying the BTC fees, for future rewards on Babylon.
 
 ![Submit Checkpoint](diagrams/submit_checkpoint.png)
 

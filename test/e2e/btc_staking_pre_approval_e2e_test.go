@@ -13,16 +13,16 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/eots"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/chain"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	ckpttypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
-	itypes "github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/crypto/eots"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/chain"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	ckpttypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
+	itypes "github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 type BTCStakingPreApprovalTestSuite struct {
@@ -270,7 +270,7 @@ func (s *BTCStakingPreApprovalTestSuite) Test3SendStakingTransctionInclusionProo
 	stakingTxHash := stakingMsgTx.TxHash()
 
 	// make staking transacion inclusion block k-deep before submitting the inclusion proof
-	for i := 0; i < initialization.ybtcBtcConfirmationPeriod; i++ {
+	for i := 0; i < initialization.BabylonBtcConfirmationPeriod; i++ {
 		nonValidatorNode.InsertNewEmptyBtcHeader(s.r)
 	}
 
@@ -311,12 +311,12 @@ func (s *BTCStakingPreApprovalTestSuite) Test4CommitPublicRandomnessAndSubmitFin
 	)
 
 	// no reward gauge for finality provider and delegation yet
-	fpybtcAddr, err := sdk.AccAddressFromBech32(s.cacheFP.Addr)
+	fpBabylonAddr, err := sdk.AccAddressFromBech32(s.cacheFP.Addr)
 	s.NoError(err)
 
-	_, err = nonValidatorNode.QueryRewardGauge(fpybtcAddr)
+	_, err = nonValidatorNode.QueryRewardGauge(fpBabylonAddr)
 	s.ErrorContains(err, itypes.ErrRewardGaugeNotFound.Error())
-	delybtcAddr := fpybtcAddr
+	delBabylonAddr := fpBabylonAddr
 
 	// finalize epochs from 1 to the current epoch
 	currentEpoch, err := nonValidatorNode.QueryCurrentEpoch()
@@ -392,13 +392,13 @@ func (s *BTCStakingPreApprovalTestSuite) Test4CommitPublicRandomnessAndSubmitFin
 	}, false)
 
 	// ensure finality provider has received rewards after the block is finalised
-	fpRewardGauges, err := nonValidatorNode.QueryRewardGauge(fpybtcAddr)
+	fpRewardGauges, err := nonValidatorNode.QueryRewardGauge(fpBabylonAddr)
 	s.NoError(err)
 	fpRewardGauge, ok := fpRewardGauges[itypes.FinalityProviderType.String()]
 	s.True(ok)
 	s.True(fpRewardGauge.Coins.IsAllPositive())
 	// ensure BTC delegation has received rewards after the block is finalised
-	btcDelRewardGauges, err := nonValidatorNode.QueryRewardGauge(delybtcAddr)
+	btcDelRewardGauges, err := nonValidatorNode.QueryRewardGauge(delBabylonAddr)
 	s.NoError(err)
 	btcDelRewardGauge, ok := btcDelRewardGauges[itypes.BTCDelegationType.String()]
 	s.True(ok)
@@ -412,14 +412,14 @@ func (s *BTCStakingPreApprovalTestSuite) Test4WithdrawReward() {
 	s.NoError(err)
 
 	// finality provider balance before withdraw
-	fpybtcAddr, err := sdk.AccAddressFromBech32(s.cacheFP.Addr)
+	fpBabylonAddr, err := sdk.AccAddressFromBech32(s.cacheFP.Addr)
 	s.NoError(err)
-	delybtcAddr := fpybtcAddr
+	delBabylonAddr := fpBabylonAddr
 
-	fpBalance, err := nonValidatorNode.QueryBalances(fpybtcAddr.String())
+	fpBalance, err := nonValidatorNode.QueryBalances(fpBabylonAddr.String())
 	s.NoError(err)
 	// finality provider reward gauge should not be fully withdrawn
-	fpRgs, err := nonValidatorNode.QueryRewardGauge(fpybtcAddr)
+	fpRgs, err := nonValidatorNode.QueryRewardGauge(fpBabylonAddr)
 	s.NoError(err)
 	fpRg := fpRgs[itypes.FinalityProviderType.String()]
 	s.T().Logf("finality provider's withdrawable reward before withdrawing: %s", convertToRewardGauge(fpRg).GetWithdrawableCoins().String())
@@ -430,22 +430,22 @@ func (s *BTCStakingPreApprovalTestSuite) Test4WithdrawReward() {
 	nonValidatorNode.WaitForNextBlock()
 
 	// balance after withdrawing finality provider reward
-	fpBalance2, err := nonValidatorNode.QueryBalances(fpybtcAddr.String())
+	fpBalance2, err := nonValidatorNode.QueryBalances(fpBabylonAddr.String())
 	s.NoError(err)
 	s.T().Logf("fpBalance2: %s; fpBalance: %s", fpBalance2.String(), fpBalance.String())
 	s.True(fpBalance2.IsAllGT(fpBalance))
 	// finality provider reward gauge should be fully withdrawn now
-	fpRgs2, err := nonValidatorNode.QueryRewardGauge(fpybtcAddr)
+	fpRgs2, err := nonValidatorNode.QueryRewardGauge(fpBabylonAddr)
 	s.NoError(err)
 	fpRg2 := fpRgs2[itypes.FinalityProviderType.String()]
 	s.T().Logf("finality provider's withdrawable reward after withdrawing: %s", convertToRewardGauge(fpRg2).GetWithdrawableCoins().String())
 	s.True(convertToRewardGauge(fpRg2).IsFullyWithdrawn())
 
 	// BTC delegation balance before withdraw
-	btcDelBalance, err := nonValidatorNode.QueryBalances(delybtcAddr.String())
+	btcDelBalance, err := nonValidatorNode.QueryBalances(delBabylonAddr.String())
 	s.NoError(err)
 	// BTC delegation reward gauge should not be fully withdrawn
-	btcDelRgs, err := nonValidatorNode.QueryRewardGauge(delybtcAddr)
+	btcDelRgs, err := nonValidatorNode.QueryRewardGauge(delBabylonAddr)
 	s.NoError(err)
 	btcDelRg := btcDelRgs[itypes.BTCDelegationType.String()]
 	s.T().Logf("BTC delegation's withdrawable reward before withdrawing: %s", convertToRewardGauge(btcDelRg).GetWithdrawableCoins().String())
@@ -456,12 +456,12 @@ func (s *BTCStakingPreApprovalTestSuite) Test4WithdrawReward() {
 	nonValidatorNode.WaitForNextBlock()
 
 	// balance after withdrawing BTC delegation reward
-	btcDelBalance2, err := nonValidatorNode.QueryBalances(delybtcAddr.String())
+	btcDelBalance2, err := nonValidatorNode.QueryBalances(delBabylonAddr.String())
 	s.NoError(err)
 	s.T().Logf("btcDelBalance2: %s; btcDelBalance: %s", btcDelBalance2.String(), btcDelBalance.String())
 	s.True(btcDelBalance2.IsAllGT(btcDelBalance))
 	// BTC delegation reward gauge should be fully withdrawn now
-	btcDelRgs2, err := nonValidatorNode.QueryRewardGauge(delybtcAddr)
+	btcDelRgs2, err := nonValidatorNode.QueryRewardGauge(delBabylonAddr)
 	s.NoError(err)
 	btcDelRg2 := convertToRewardGauge(btcDelRgs2[itypes.BTCDelegationType.String()])
 	s.T().Logf("BTC delegation's withdrawable reward after withdrawing: %s", btcDelRg2.GetWithdrawableCoins().String())

@@ -13,12 +13,12 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/stretchr/testify/require"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	dg "github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bkeeper "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/keeper"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	dg "github.com/almovidhussaini/babylonclone/testutil/datagen"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bkeeper "github.com/almovidhussaini/babylonclone/x/btccheckpoint/keeper"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 )
 
 type TestKeepers struct {

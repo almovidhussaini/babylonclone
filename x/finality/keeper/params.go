@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 // SetParams sets the x/finality module parameters.

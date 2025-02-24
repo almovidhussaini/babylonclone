@@ -10,13 +10,13 @@ import (
 	cmtcrypto "github.com/cometbft/cometbft/proto/tendermint/crypto"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	btclckeeper "github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	txformat "github.com/almovidhussaini/babylonclone/btctxformatter"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	btclckeeper "github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 func GetCZHeaderKey(consumerID string, height uint64) []byte {
@@ -104,8 +104,8 @@ func VerifyEpochSealed(epoch *epochingtypes.Epoch, rawCkpt *checkpointingtypes.R
 	}
 
 	// ensure the raw checkpoint's block_hash is same as the sealer_block_hash of the sealed epoch
-	// NOTE: since this proof is assembled by a ybtc node who has verified the checkpoint,
-	// the two blockhash values should always be the same, otherwise this ybtc node is malicious.
+	// NOTE: since this proof is assembled by a Babylon node who has verified the checkpoint,
+	// the two blockhash values should always be the same, otherwise this Babylon node is malicious.
 	// This is different from the checkpoint verification rules in checkpointing,
 	// where a checkpoint with valid BLS multisig but different blockhashes signals a dishonest majority equivocation.
 	blockHashInCkpt := rawCkpt.BlockHash
@@ -169,8 +169,8 @@ func VerifyCZHeaderInEpoch(header *IndexedHeader, epoch *epochingtypes.Epoch, pr
 	}
 
 	// ensure epoch number is same in epoch and CZ header
-	if epoch.EpochNumber != header.ybtcEpoch {
-		return fmt.Errorf("epoch.EpochNumber (%d) is not equal to header.ybtcEpoch (%d)", epoch.EpochNumber, header.ybtcEpoch)
+	if epoch.EpochNumber != header.BabylonEpoch {
+		return fmt.Errorf("epoch.EpochNumber (%d) is not equal to header.BabylonEpoch (%d)", epoch.EpochNumber, header.BabylonEpoch)
 	}
 
 	// get the Merkle root, i.e., the BlockHash of the sealer header
@@ -194,7 +194,7 @@ func VerifyCZHeaderInEpoch(header *IndexedHeader, epoch *epochingtypes.Epoch, pr
 // - basic sanity checks
 // - Merkle proofs in txsInfo are valid
 // - the raw ckpt decoded from txsInfo is same as the expected rawCkpt
-func VerifyEpochSubmitted(rawCkpt *checkpointingtypes.RawCheckpoint, txsInfo []*btcctypes.TransactionInfo, btcHeaders []*wire.BlockHeader, powLimit *big.Int, ybtcTag txformat.ybtcTag) error {
+func VerifyEpochSubmitted(rawCkpt *checkpointingtypes.RawCheckpoint, txsInfo []*btcctypes.TransactionInfo, btcHeaders []*wire.BlockHeader, powLimit *big.Int, babylonTag txformat.BabylonTag) error {
 	// basic sanity check
 	switch {
 	case rawCkpt == nil:
@@ -233,7 +233,7 @@ func VerifyEpochSubmitted(rawCkpt *checkpointingtypes.RawCheckpoint, txsInfo []*
 	checkpointData := [][]byte{}
 	for i, proof := range parsedProofs {
 		data, err := txformat.GetCheckpointData(
-			ybtcTag,
+			babylonTag,
 			txformat.CurrentVersion,
 			uint8(i),
 			proof.OpReturnData,
@@ -265,7 +265,7 @@ func (ts *BTCTimestamp) Verify(
 	ctx context.Context,
 	btclcKeeper *btclckeeper.Keeper,
 	wValue uint32,
-	ckptTag txformat.ybtcTag,
+	ckptTag txformat.BabylonTag,
 ) error {
 	// BTC net
 	btcNet := btclcKeeper.GetBTCNet()
@@ -309,7 +309,7 @@ func (ts *BTCTimestamp) Verify(
 func (ts *BTCTimestamp) VerifyStateless(
 	btcHeadersWithCkpt []*wire.BlockHeader,
 	powLimit *big.Int,
-	ckptTag txformat.ybtcTag,
+	ckptTag txformat.BabylonTag,
 ) error {
 	// ensure raw checkpoint corresponds to the epoch
 	if ts.EpochInfo.EpochNumber != ts.RawCheckpoint.EpochNum {

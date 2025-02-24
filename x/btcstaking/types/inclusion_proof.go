@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 )
 
 func NewInclusionProof(txKey *btcctypes.TransactionKey, proof []byte) *InclusionProof {

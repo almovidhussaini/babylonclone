@@ -3,8 +3,8 @@ package finality
 import (
 	"context"
 
-	"github.com/amovidhussaini/ybtcclone/x/finality/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/keeper"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

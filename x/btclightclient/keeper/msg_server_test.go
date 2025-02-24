@@ -6,13 +6,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 	"github.com/btcsuite/btcd/wire"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

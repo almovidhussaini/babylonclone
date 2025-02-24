@@ -2,9 +2,10 @@ package monitor
 
 import (
 	"context"
-	"cosmossdk.io/core/appmodule"
 	"encoding/json"
 	"fmt"
+
+	"cosmossdk.io/core/appmodule"
 
 	"github.com/gorilla/mux"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
@@ -12,9 +13,9 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/monitor/client/cli"
-	"github.com/amovidhussaini/ybtcclone/x/monitor/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/monitor/types"
+	"github.com/almovidhussaini/babylonclone/x/monitor/client/cli"
+	"github.com/almovidhussaini/babylonclone/x/monitor/keeper"
+	"github.com/almovidhussaini/babylonclone/x/monitor/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

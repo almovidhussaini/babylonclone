@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 // AddFinalityProvider adds the given finality provider to KVStore if it has valid
@@ -33,10 +33,10 @@ func (k Keeper) AddFinalityProvider(goCtx context.Context, msg *types.MsgCreateF
 		return types.ErrFpRegistered
 	}
 
-	// default consumer ID is ybtc's chain ID
+	// default consumer ID is Babylon's chain ID
 	consumerID := msg.GetConsumerId()
 	if consumerID == "" {
-		// ybtc chain ID
+		// Babylon chain ID
 		consumerID = ctx.ChainID()
 	}
 
@@ -113,7 +113,7 @@ func (k Keeper) SlashFinalityProvider(ctx context.Context, fpBTCPK []byte) error
 	}
 
 	// set finality provider to be slashed
-	fp.SlashedybtcHeight = uint64(sdk.UnwrapSDKContext(ctx).HeaderInfo().Height)
+	fp.SlashedBabylonHeight = uint64(sdk.UnwrapSDKContext(ctx).HeaderInfo().Height)
 	btcTip := k.btclcKeeper.GetTipInfo(ctx)
 	if btcTip == nil {
 		return fmt.Errorf("failed to get current BTC tip")
@@ -143,7 +143,7 @@ func (k Keeper) SlashConsumerFinalityProvider(ctx context.Context, consumerID st
 	}
 
 	// Set slashed height
-	fp.SlashedybtcHeight = uint64(sdk.UnwrapSDKContext(ctx).HeaderInfo().Height)
+	fp.SlashedBabylonHeight = uint64(sdk.UnwrapSDKContext(ctx).HeaderInfo().Height)
 	btcTip := k.btclcKeeper.GetTipInfo(ctx)
 	if btcTip == nil {
 		return fmt.Errorf("failed to get current BTC tip")
@@ -201,11 +201,11 @@ func (k Keeper) PropagateFPSlashingToConsumers(ctx context.Context, fpBTCPK *bbn
 			fpBTCPKHex := delegationFPBTCPK.MarshalHex()
 			consumerID, exists := fpToConsumerMap[fpBTCPKHex]
 			if !exists {
-				// If not in map, check if it's a ybtc FP or get its consumer
+				// If not in map, check if it's a Babylon FP or get its consumer
 				// TODO: avoid querying GetFinalityProvider again by passing the result
-				// https://github.com/amovidhussaini/ybtcclone/blob/873f1232365573a97032037af4ac99b5e3fcada8/x/btcstaking/keeper/btc_delegators.go#L79 to this function
+				// https://github.com/almovidhussaini/babylonclone/blob/873f1232365573a97032037af4ac99b5e3fcada8/x/btcstaking/keeper/btc_delegators.go#L79 to this function
 				if _, err := k.GetFinalityProvider(ctx, delegationFPBTCPK); err == nil {
-					continue // It's a ybtc FP, skip
+					continue // It's a Babylon FP, skip
 				} else if consumerID, err = k.BscKeeper.GetConsumerOfFinalityProvider(ctx, &delegationFPBTCPK); err == nil {
 					// Found consumer, add to map
 					fpToConsumerMap[fpBTCPKHex] = consumerID

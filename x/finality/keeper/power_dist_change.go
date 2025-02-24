@@ -12,9 +12,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 /* power distribution update */
@@ -34,7 +34,7 @@ func (k Keeper) UpdatePowerDist(ctx context.Context) {
 
 	// get all power distribution update events during the previous tip
 	// and the current tip
-	lastBTCTipHeight := k.BTCStakingKeeper.GetBTCHeightAtybtcHeight(ctx, height-1)
+	lastBTCTipHeight := k.BTCStakingKeeper.GetBTCHeightAtBabylonHeight(ctx, height-1)
 	events := k.BTCStakingKeeper.GetAllPowerDistUpdateEvents(ctx, lastBTCTipHeight, btcTipHeight)
 
 	// clear all events that have been consumed in this function
@@ -65,7 +65,7 @@ func (k Keeper) recordVotingPowerAndCache(ctx context.Context, newDc *ftypes.Vot
 		panic("the voting power distribution cache cannot be nil")
 	}
 
-	ybtcTipHeight := uint64(sdk.UnwrapSDKContext(ctx).HeaderInfo().Height)
+	babylonTipHeight := uint64(sdk.UnwrapSDKContext(ctx).HeaderInfo().Height)
 
 	// label fps with whether it has timestamped pub rand so that these fps
 	// will not be assigned voting power
@@ -73,7 +73,7 @@ func (k Keeper) recordVotingPowerAndCache(ctx context.Context, newDc *ftypes.Vot
 		// TODO calling HasTimestampedPubRand potentially iterates
 		// all the pub rand committed by the fpDistInfo, which might slow down
 		// the process, need optimization
-		fpDistInfo.IsTimestamped = k.HasTimestampedPubRand(ctx, fpDistInfo.BtcPk, ybtcTipHeight)
+		fpDistInfo.IsTimestamped = k.HasTimestampedPubRand(ctx, fpDistInfo.BtcPk, babylonTipHeight)
 	}
 
 	// apply the finality provider voting power dist info to the new cache
@@ -85,11 +85,11 @@ func (k Keeper) recordVotingPowerAndCache(ctx context.Context, newDc *ftypes.Vot
 	// set voting power table for each active finality providers at this height
 	for i := uint32(0); i < newDc.NumActiveFps; i++ {
 		fp := newDc.FinalityProviders[i]
-		k.SetVotingPower(ctx, fp.BtcPk.MustMarshal(), ybtcTipHeight, fp.TotalBondedSat)
+		k.SetVotingPower(ctx, fp.BtcPk.MustMarshal(), babylonTipHeight, fp.TotalBondedSat)
 	}
 
 	// set the voting power distribution cache of the current height
-	k.SetVotingPowerDistCache(ctx, ybtcTipHeight, newDc)
+	k.SetVotingPowerDistCache(ctx, babylonTipHeight, newDc)
 }
 
 // handleFPStateUpdates emits events and triggers hooks for finality providers with state updates
@@ -211,7 +211,7 @@ func (k Keeper) ProcessAllPowerDistUpdateEvents(
 				for _, fpBTCPK := range btcDel.FpBtcPkList {
 					fpBTCPKHex := fpBTCPK.MarshalHex()
 					if !k.BTCStakingKeeper.HasFinalityProvider(ctx, fpBTCPK) {
-						// This is a consumer FP rather than ybtc FP, skip it
+						// This is a consumer FP rather than Babylon FP, skip it
 						continue
 					}
 					activedSatsByFpBtcPk[fpBTCPKHex] = append(activedSatsByFpBtcPk[fpBTCPKHex], btcDel.TotalSat)
@@ -239,7 +239,7 @@ func (k Keeper) ProcessAllPowerDistUpdateEvents(
 			slashedFPs[fpBTCPKHex] = struct{}{}
 			// TODO(rafilx): handle slashed fps prunning
 			// It is not possible to slash fp and delete all of his data at the
-			// ybtc block height that is being processed, because
+			// babylon block height that is being processed, because
 			// the function RewardBTCStaking is called a few blocks behind.
 			// If the data is deleted at the slash event, when slashed fps are
 			// receveing rewards from a few blocks behind HandleRewarding
@@ -343,7 +343,7 @@ func (k Keeper) ProcessAllPowerDistUpdateEvents(
 		// get the finality provider and initialise its dist info
 		newFP := k.loadFP(ctx, fpByBtcPkHex, fpBTCPKHex)
 		if newFP == nil {
-			// This is a consumer FP rather than ybtc FP, skip it
+			// This is a consumer FP rather than Babylon FP, skip it
 			continue
 		}
 		fpDistInfo := ftypes.NewFinalityProviderDistInfo(newFP)
@@ -388,7 +388,7 @@ func (k Keeper) processPowerDistUpdateEventUnbond(
 	for _, fpBTCPK := range btcDel.FpBtcPkList {
 		fpBTCPKHex := fpBTCPK.MarshalHex()
 		if !k.BTCStakingKeeper.HasFinalityProvider(ctx, fpBTCPK) {
-			// This is a consumer FP rather than ybtc FP, skip it
+			// This is a consumer FP rather than Babylon FP, skip it
 			continue
 		}
 		unbondedSatsByFpBtcPk[fpBTCPKHex] = append(unbondedSatsByFpBtcPk[fpBTCPKHex], btcDel.TotalSat)
@@ -421,20 +421,20 @@ func (k Keeper) RemoveVotingPowerDistCache(ctx context.Context, height uint64) {
 
 // votingPowerDistCacheStore returns the KVStore of the voting power distribution cache
 // prefix: VotingPowerDistCacheKey
-// key: ybtc block height
+// key: Babylon block height
 // value: VotingPowerDistCache
 func (k Keeper) votingPowerDistCacheStore(ctx context.Context) prefix.Store {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	return prefix.NewStore(storeAdapter, ftypes.VotingPowerDistCacheKey)
 }
 
-// processRewardTracker loads ybtc FPs from the given BTC delegation
-// and executes the given function over each ybtc FP, delegator address
+// processRewardTracker loads Babylon FPs from the given BTC delegation
+// and executes the given function over each Babylon FP, delegator address
 // and satoshi amounts.
 // NOTE:
-//   - The function will only be executed over ybtc FPs but not consumer FPs
+//   - The function will only be executed over Babylon FPs but not consumer FPs
 //   - The function makes uses of the fpByBtcPkHex cache, and the cache only
-//     contains ybtc FPs but not consumer FPs
+//     contains Babylon FPs but not consumer FPs
 func (k Keeper) processRewardTracker(
 	ctx context.Context,
 	fpByBtcPkHex map[string]*types.FinalityProvider,
@@ -445,7 +445,7 @@ func (k Keeper) processRewardTracker(
 	for _, fpBTCPK := range btcDel.FpBtcPkList {
 		fp := k.loadFP(ctx, fpByBtcPkHex, fpBTCPK.MarshalHex())
 		if fp == nil {
-			// This is a consumer FP rather than ybtc FP, skip it
+			// This is a consumer FP rather than Babylon FP, skip it
 			continue
 		}
 		f(fp.Address(), delAddr, btcDel.TotalSat)

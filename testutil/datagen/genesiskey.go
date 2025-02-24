@@ -1,11 +1,11 @@
 package datagen
 
 import (
-	appsigner "github.com/amovidhussaini/ybtcclone/app/signer"
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/privval"
-	"github.com/amovidhussaini/ybtcclone/testutil/signer"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	appsigner "github.com/almovidhussaini/babylonclone/app/signer"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/privval"
+	"github.com/almovidhussaini/babylonclone/testutil/signer"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 	cmtcrypto "github.com/cometbft/cometbft/crypto"
 	cmted25519 "github.com/cometbft/cometbft/crypto/ed25519"
 	"github.com/cosmos/cosmos-sdk/crypto/codec"

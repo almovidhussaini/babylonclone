@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"cosmossdk.io/store/prefix"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -26,7 +26,7 @@ func (k Keeper) indexBTCConsumerDelegation(ctx sdk.Context, btcDel *bstypes.BTCD
 	for i := range btcDel.FpBtcPkList {
 		fpBTCPK := btcDel.FpBtcPkList[i]
 
-		// skip ybtc finality providers
+		// skip Babylon finality providers
 		if !k.BscKeeper.HasConsumerFinalityProvider(ctx, &fpBTCPK) {
 			continue
 		}

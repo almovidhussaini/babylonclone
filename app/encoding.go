@@ -9,14 +9,14 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	simsutils "github.com/cosmos/cosmos-sdk/testutil/sims"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/testutil/signer"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/testutil/signer"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 )
 
 // TmpAppOptions returns an app option with tmp dir and btc network
 func TmpAppOptions() simsutils.AppOptionsMap {
-	dir, err := os.MkdirTemp("", "ybtc-tmp-app")
+	dir, err := os.MkdirTemp("", "babylon-tmp-app")
 	if err != nil {
 		panic(err)
 	}
@@ -27,9 +27,9 @@ func TmpAppOptions() simsutils.AppOptionsMap {
 	return appOpts
 }
 
-func NewTmpybtcApp() *ybtcApp {
+func NewTmpBabylonApp() *BabylonApp {
 	signer, _ := signer.SetupTestPrivSigner()
-	return NewybtcApp(
+	return NewBabylonApp(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
 		nil,
@@ -44,7 +44,7 @@ func NewTmpybtcApp() *ybtcApp {
 // GetEncodingConfig returns a *registered* encoding config
 // Note that the only way to register configuration is through the app creation
 func GetEncodingConfig() *appparams.EncodingConfig {
-	tmpApp := NewTmpybtcApp()
+	tmpApp := NewTmpBabylonApp()
 	return &appparams.EncodingConfig{
 		InterfaceRegistry: tmpApp.InterfaceRegistry(),
 		Codec:             tmpApp.AppCodec(),

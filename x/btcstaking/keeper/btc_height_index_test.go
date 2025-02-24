@@ -7,10 +7,10 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 func FuzzBTCHeightIndex(f *testing.F) {
@@ -25,15 +25,15 @@ func FuzzBTCHeightIndex(f *testing.F) {
 		btclcKeeper := types.NewMockBTCLightClientKeeper(ctrl)
 		keeper, ctx := keepertest.BTCStakingKeeper(t, btclcKeeper, nil, nil)
 
-		// randomise ybtc height and BTC height
-		ybtcHeight := datagen.RandomInt(r, 100)
-		ctx = datagen.WithCtxHeight(ctx, ybtcHeight)
+		// randomise Babylon height and BTC height
+		babylonHeight := datagen.RandomInt(r, 100)
+		ctx = datagen.WithCtxHeight(ctx, babylonHeight)
 		btcHeight := uint32(datagen.RandomInt(r, 100))
 		btclcKeeper.EXPECT().GetTipInfo(gomock.Any()).Return(&btclctypes.BTCHeaderInfo{Height: btcHeight}).Times(1)
 		keeper.IndexBTCHeight(ctx)
 
 		// assert BTC height
-		actualBtcHeight := keeper.GetBTCHeightAtybtcHeight(ctx, ybtcHeight)
+		actualBtcHeight := keeper.GetBTCHeightAtBabylonHeight(ctx, babylonHeight)
 		require.Equal(t, btcHeight, actualBtcHeight)
 		// assert current BTC height
 		curBtcHeight := keeper.GetCurrentBTCHeight(ctx)

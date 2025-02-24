@@ -7,12 +7,12 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmvmtypes "github.com/CosmWasm/wasmvm/v2/types"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/wasmbinding/bindings"
-	lcKeeper "github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	checkpointingkeeper "github.com/amovidhussaini/ybtcclone/x/checkpointing/keeper"
-	epochingkeeper "github.com/amovidhussaini/ybtcclone/x/epoching/keeper"
-	zckeeper "github.com/amovidhussaini/ybtcclone/x/zoneconcierge/keeper"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/wasmbinding/bindings"
+	lcKeeper "github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	checkpointingkeeper "github.com/almovidhussaini/babylonclone/x/checkpointing/keeper"
+	epochingkeeper "github.com/almovidhussaini/babylonclone/x/epoching/keeper"
+	zckeeper "github.com/almovidhussaini/babylonclone/x/zoneconcierge/keeper"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -43,7 +43,7 @@ func NewQueryPlugin(
 // CustomQuerier dispatches custom CosmWasm bindings queries.
 func CustomQuerier(qp *QueryPlugin) func(ctx sdk.Context, request json.RawMessage) ([]byte, error) {
 	return func(ctx sdk.Context, request json.RawMessage) ([]byte, error) {
-		var contractQuery bindings.ybtcQuery
+		var contractQuery bindings.BabylonQuery
 		if err := json.Unmarshal(request, &contractQuery); err != nil {
 			return nil, errorsmod.Wrap(err, "failed to unarshall request ")
 		}
@@ -157,7 +157,7 @@ func CustomQuerier(qp *QueryPlugin) func(ctx sdk.Context, request json.RawMessag
 
 			return bz, nil
 		default:
-			return nil, wasmvmtypes.UnsupportedRequest{Kind: "unknown ybtc query variant"}
+			return nil, wasmvmtypes.UnsupportedRequest{Kind: "unknown babylon query variant"}
 		}
 	}
 }

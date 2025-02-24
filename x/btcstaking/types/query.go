@@ -77,7 +77,7 @@ func NewFinalityProviderResponse(f *FinalityProvider, bbnBlockHeight uint64) *Fi
 		Addr:                 f.Addr,
 		BtcPk:                f.BtcPk,
 		Pop:                  f.Pop,
-		SlashedybtcHeight: f.SlashedybtcHeight,
+		SlashedBabylonHeight: f.SlashedBabylonHeight,
 		SlashedBtcHeight:     f.SlashedBtcHeight,
 		Jailed:               f.Jailed,
 		Height:               bbnBlockHeight,

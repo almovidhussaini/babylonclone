@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/spf13/cobra"
 
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 const (
@@ -104,7 +104,7 @@ func CmdActivatedHeight() *cobra.Command {
 func CmdFinalityProvidersAtHeight() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "finality-providers-at-height [height]",
-		Short: "retrieve all finality providers at a given ybtc height",
+		Short: "retrieve all finality providers at a given babylon height",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
@@ -142,7 +142,7 @@ func CmdFinalityProvidersAtHeight() *cobra.Command {
 func CmdVotesAtHeight() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "votes-at-height [height]",
-		Short: "retrieve all finality provider pks who voted at requested ybtc height",
+		Short: "retrieve all finality provider pks who voted at requested babylon height",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)

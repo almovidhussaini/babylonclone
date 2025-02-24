@@ -4,11 +4,11 @@ import (
 	"math/rand"
 	"testing"
 
-	testutil "github.com/amovidhussaini/ybtcclone/testutil/btcstaking-helper"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	bsctypes "github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	testutil "github.com/almovidhussaini/babylonclone/testutil/btcstaking-helper"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	bsctypes "github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
@@ -30,10 +30,10 @@ func FuzzSetBTCStakingEventStore_NewFp(f *testing.F) {
 		h := testutil.NewHelper(t, btclcKeeper, btccKeeper)
 		h.GenAndApplyParams(r)
 
-		// register a random consumer on ybtc
+		// register a random consumer on Babylon
 		randomConsumer := registerAndVerifyConsumer(t, r, h)
 
-		// create new consumer finality providers, this will create on ybtc and insert
+		// create new consumer finality providers, this will create on Babylon and insert
 		// events in the events store
 		var fps []*types.FinalityProvider
 		for i := 0; i < int(datagen.RandomInt(r, 10))+1; i++ {
@@ -91,22 +91,22 @@ func FuzzSetBTCStakingEventStore_ActiveDel(f *testing.F) {
 		// set all parameters
 		covenantSKs, _ := h.GenAndApplyParams(r)
 
-		// register a random consumer on ybtc
+		// register a random consumer on Babylon
 		randomConsumer := registerAndVerifyConsumer(t, r, h)
 		// create a new consumer finality provider
 		_, consumerFpPK, _, err := h.CreateConsumerFinalityProvider(r, randomConsumer.ConsumerId)
 		require.NoError(t, err)
-		// create new ybtc finality provider
-		_, ybtcFpPK, _ := h.CreateFinalityProvider(r)
+		// create new Babylon finality provider
+		_, babylonFpPK, _ := h.CreateFinalityProvider(r)
 
-		// generate and insert new BTC delegation, restake to 1 consumer fp and 1 ybtc fp
+		// generate and insert new BTC delegation, restake to 1 consumer fp and 1 babylon fp
 		stakingValue := int64(2 * 10e8)
 		delSK, _, err := datagen.GenRandomBTCKeyPair(r)
 		h.NoError(err)
 		stakingTxHash, msgCreateBTCDel, _, _, _, _, err := h.CreateDelegationWithBtcBlockHeight(
 			r,
 			delSK,
-			[]*btcec.PublicKey{consumerFpPK, ybtcFpPK},
+			[]*btcec.PublicKey{consumerFpPK, babylonFpPK},
 			stakingValue,
 			1000,
 			0,
@@ -189,13 +189,13 @@ func FuzzSetBTCStakingEventStore_UnbondedDel(f *testing.F) {
 
 		bsParams := h.BTCStakingKeeper.GetParams(h.Ctx)
 
-		// register a random consumer on ybtc
+		// register a random consumer on Babylon
 		randomConsumer := registerAndVerifyConsumer(t, r, h)
 		// create a new consumer finality provider
 		_, consumerFpPK, _, err := h.CreateConsumerFinalityProvider(r, randomConsumer.ConsumerId)
 		require.NoError(t, err)
-		// create new ybtc finality provider
-		_, ybtcFpPK, _ := h.CreateFinalityProvider(r)
+		// create new Babylon finality provider
+		_, babylonFpPK, _ := h.CreateFinalityProvider(r)
 
 		// generate and insert new BTC delegation
 		stakingValue := int64(2 * 10e8)
@@ -204,7 +204,7 @@ func FuzzSetBTCStakingEventStore_UnbondedDel(f *testing.F) {
 		stakingTxHash, msgCreateBTCDel, actualDel, _, _, unbondingInfo, err := h.CreateDelegationWithBtcBlockHeight(
 			r,
 			delSK,
-			[]*btcec.PublicKey{consumerFpPK, ybtcFpPK},
+			[]*btcec.PublicKey{consumerFpPK, babylonFpPK},
 			stakingValue,
 			1000,
 			0,
@@ -288,7 +288,7 @@ func FuzzDeleteBTCStakingEventStore(f *testing.F) {
 		h := testutil.NewHelper(t, btclcKeeper, btccKeeper)
 		h.GenAndApplyParams(r)
 
-		// register random number of consumers on ybtc
+		// register random number of consumers on Babylon
 		// and create 1 finality provider for each consumer
 		randNum := int(datagen.RandomInt(r, 10)) + 1
 		var consumerIds []string
@@ -322,7 +322,7 @@ func FuzzDeleteBTCStakingEventStore(f *testing.F) {
 	})
 }
 
-// helper function: register a random consumer on ybtc and verify the registration
+// helper function: register a random consumer on Babylon and verify the registration
 func registerAndVerifyConsumer(t *testing.T, r *rand.Rand, h *testutil.Helper) *bsctypes.ConsumerRegister {
 	// Generate a random consumer register
 	randomConsumer := datagen.GenRandomCosmosConsumerRegister(r)

@@ -1,13 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "ybtc - gRPC Gateway docs",
+    "title": "Babylon - gRPC Gateway docs",
     "description": "A REST interface for state queries",
     "version": "1.0.0"
   },
   "apis": [
     {
-      "url": "./tmp-swagger-gen/ybtc/btccheckpoint/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/babylon/btccheckpoint/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "BtcCheckpointParams"
@@ -15,7 +15,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/btclightclient/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/babylon/btclightclient/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "BtcLightClientParams"
@@ -23,7 +23,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/epoching/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/babylon/epoching/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "EpochingParams"
@@ -31,10 +31,10 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/btcstaking/v1/query.swagger.json"
+      "url": "./tmp-swagger-gen/babylon/btcstaking/v1/query.swagger.json"
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/finality/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/babylon/finality/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "FinalityParams"
@@ -42,13 +42,13 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/mint/v1/query.swagger.json"
+      "url": "./tmp-swagger-gen/babylon/mint/v1/query.swagger.json"
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/monitor/v1/query.swagger.json"
+      "url": "./tmp-swagger-gen/babylon/monitor/v1/query.swagger.json"
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/checkpointing/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/babylon/checkpointing/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "CheckpointingParams"
@@ -56,7 +56,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/btcstkconsumer/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/babylon/btcstkconsumer/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "BtcStkConsumerParams",
@@ -66,7 +66,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/incentive/query.swagger.json",
+      "url": "./tmp-swagger-gen/babylon/incentive/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "IncentiveParams"
@@ -74,7 +74,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/ybtc/zoneconcierge/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/babylon/zoneconcierge/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "ZoneConciergeParams"

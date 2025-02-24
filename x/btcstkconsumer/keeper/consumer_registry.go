@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 
 	"cosmossdk.io/store/prefix"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 )
 
 // RegisterConsumer registers a new consumer
@@ -51,7 +51,7 @@ func (k Keeper) GetConsumerRegister(ctx context.Context, consumerID string) (*ty
 	return &consumerRegister, nil
 }
 
-// GetAllRegisteredConsumerIDs gets all consumer IDs that registered to ybtc
+// GetAllRegisteredConsumerIDs gets all consumer IDs that registered to Babylon
 func (k Keeper) GetAllRegisteredConsumerIDs(ctx context.Context) []string {
 	consumerIDs := []string{}
 	iter := k.consumerRegistryStore(ctx).Iterator(nil, nil)

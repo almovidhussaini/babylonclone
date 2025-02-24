@@ -19,15 +19,15 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	testutil "github.com/amovidhussaini/ybtcclone/testutil/btcstaking-helper"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testhelper "github.com/amovidhussaini/ybtcclone/testutil/helper"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	testutil "github.com/almovidhussaini/babylonclone/testutil/btcstaking-helper"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testhelper "github.com/almovidhussaini/babylonclone/testutil/helper"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 func FuzzMsgServer_UpdateParams(f *testing.F) {
@@ -171,7 +171,7 @@ func FuzzMsgEditFinalityProvider(f *testing.F) {
 			Commission:  &newCommission,
 		}
 		_, err = h.MsgServer.EditFinalityProvider(h.Ctx, msg)
-		require.Equal(h.T(), err, status.Errorf(codes.PermissionDenied, "the signer does not correspond to the finality provider's ybtc address"))
+		require.Equal(h.T(), err, status.Errorf(codes.PermissionDenied, "the signer does not correspond to the finality provider's Babylon address"))
 		errStatus := status.Convert(err)
 		require.Equal(h.T(), codes.PermissionDenied, errStatus.Code())
 	})
@@ -1002,7 +1002,7 @@ func TestDoNotAllowDelegationWithoutFinalityProvider(t *testing.T) {
 	stakingMsgTx := testStakingInfo.StakingTx
 	serializedStakingTx, err := bbn.SerializeBTCTx(stakingMsgTx)
 	require.NoError(t, err)
-	// random ybtc SK
+	// random Babylon SK
 	acc := datagen.GenRandomAccount()
 	stakerAddr := sdk.MustAccAddressFromBech32(acc.Address)
 

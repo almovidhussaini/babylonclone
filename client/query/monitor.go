@@ -3,11 +3,11 @@ package query
 import (
 	"context"
 
-	monitortypes "github.com/amovidhussaini/ybtcclone/x/monitor/types"
+	monitortypes "github.com/almovidhussaini/babylonclone/x/monitor/types"
 	"github.com/cosmos/cosmos-sdk/client"
 )
 
-// QueryMonitor queries the Monitor module of the ybtc node
+// QueryMonitor queries the Monitor module of the Babylon node
 // according to the given function
 func (c *QueryClient) QueryMonitor(f func(ctx context.Context, queryClient monitortypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()

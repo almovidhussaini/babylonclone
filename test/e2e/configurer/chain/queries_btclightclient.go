@@ -10,8 +10,8 @@ import (
 	sdkquerytypes "github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
-	btclighttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
+	btclighttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 )
 
 func (n *NodeConfig) QueryBtcLightClientMainchain(pagination *query.PageRequest) (*btclighttypes.QueryMainChainResponse, error) {
@@ -21,7 +21,7 @@ func (n *NodeConfig) QueryBtcLightClientMainchain(pagination *query.PageRequest)
 		queryParams.Set("pagination.limit", strconv.Itoa(int(pagination.Limit)))
 	}
 
-	bz, err := n.QueryGRPCGateway("/ybtc/btclightclient/v1/mainchain", queryParams)
+	bz, err := n.QueryGRPCGateway("/babylon/btclightclient/v1/mainchain", queryParams)
 	if err != nil {
 		return nil, err
 	}

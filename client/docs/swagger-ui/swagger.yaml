@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
-  title: ybtc - gRPC Gateway docs
+  title: Babylon - gRPC Gateway docs
   description: A REST interface for state queries
   version: 1.0.0
 paths:
-  /ybtc/btccheckpoint/v1:
+  /babylon/btccheckpoint/v1:
     get:
       summary: BtcCheckpointsInfo returns checkpoint info for a range of epochs
       operationId: BtcCheckpointsInfo
@@ -214,7 +214,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btccheckpoint/v1/params:
+  /babylon/btccheckpoint/v1/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: BtcCheckpointParams
@@ -262,7 +262,7 @@ paths:
                       4byte tag in hex format, required to be present in the
                       OP_RETURN transaction
 
-                      related to ybtc
+                      related to babylon
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -290,7 +290,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /ybtc/btccheckpoint/v1/{epoch_num}:
+  /babylon/btccheckpoint/v1/{epoch_num}:
     get:
       summary: BtcCheckpointInfo returns checkpoint info for a given epoch
       operationId: BtcCheckpointInfo
@@ -413,7 +413,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/btccheckpoint/v1/{epoch_num}/submissions:
+  /babylon/btccheckpoint/v1/{epoch_num}/submissions:
     get:
       summary: EpochSubmissions returns all submissions for a given epoch
       operationId: EpochSubmissions
@@ -498,7 +498,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/btclightclient/v1/baseheader:
+  /babylon/btclightclient/v1/baseheader:
     get:
       summary: >-
         BaseHeader returns the base BTC header of the chain. This header is
@@ -565,7 +565,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /ybtc/btclightclient/v1/contains:
+  /babylon/btclightclient/v1/contains:
     get:
       summary: Contains checks whether a hash is maintained by the module.
       operationId: Contains
@@ -610,12 +610,12 @@ paths:
           format: byte
       tags:
         - Query
-  /ybtc/btclightclient/v1/containsBytes:
+  /babylon/btclightclient/v1/containsBytes:
     get:
       summary: |-
         ContainsBytes is a temporary method that
         checks whether a hash is maintained by the module.
-        See discussion at https://github.com/amovidhussaini/ybtcclone/pull/132
+        See discussion at https://github.com/almovidhussaini/babylonclone/pull/132
         for more details.
       operationId: ContainsBytes
       responses:
@@ -661,7 +661,7 @@ paths:
           format: byte
       tags:
         - Query
-  /ybtc/btclightclient/v1/depth/{hash}:
+  /babylon/btclightclient/v1/depth/{hash}:
     get:
       summary: >-
         HeaderDepth returns the depth of the header in main chain or error if
@@ -712,7 +712,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/btclightclient/v1/hashes:
+  /babylon/btclightclient/v1/hashes:
     get:
       summary: Hashes retrieves the hashes maintained by the module.
       operationId: Hashes
@@ -839,7 +839,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btclightclient/v1/mainchain:
+  /babylon/btclightclient/v1/mainchain:
     get:
       summary: MainChain returns the canonical chain
       operationId: MainChain
@@ -987,7 +987,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btclightclient/v1/params:
+  /babylon/btclightclient/v1/params:
     get:
       summary: Params queries the parameters of the module.
       operationId: BtcLightClientParams
@@ -1037,7 +1037,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /ybtc/btclightclient/v1/tip:
+  /babylon/btclightclient/v1/tip:
     get:
       summary: Tip return best header on canonical chain
       operationId: Tip
@@ -1098,7 +1098,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /ybtc/epoching/v1/current_epoch:
+  /babylon/epoching/v1/current_epoch:
     get:
       summary: CurrentEpoch queries the current epoch
       operationId: CurrentEpoch
@@ -1317,7 +1317,7 @@ paths:
                         }
       tags:
         - Query
-  /ybtc/epoching/v1/delegation_lifecycle/{del_addr}:
+  /babylon/epoching/v1/delegation_lifecycle/{del_addr}:
     get:
       summary: DelegationLifecycle queries the lifecycle of a given delegation
       operationId: DelegationLifecycle
@@ -1592,7 +1592,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/epoching/v1/epochs:
+  /babylon/epoching/v1/epochs:
     get:
       summary: >-
         EpochsInfo queries the metadata of epochs in a given range, depending on
@@ -1636,7 +1636,7 @@ paths:
                         last_block_time is the time of the last block in this
                         epoch.
 
-                        ybtc needs to remember the last header's time of each
+                        Babylon needs to remember the last header's time of each
                         epoch to complete
 
                         unbonding validators/delegations when a previous epoch's
@@ -1952,7 +1952,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/epoching/v1/epochs/{epoch_num}:
+  /babylon/epoching/v1/epochs/{epoch_num}:
     get:
       summary: EpochInfo queries the information of a given epoch
       operationId: EpochInfo
@@ -1988,7 +1988,7 @@ paths:
                       last_block_time is the time of the last block in this
                       epoch.
 
-                      ybtc needs to remember the last header's time of each
+                      Babylon needs to remember the last header's time of each
                       epoch to complete
 
                       unbonding validators/delegations when a previous epoch's
@@ -2224,7 +2224,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/epoching/v1/epochs/{epoch_num}/messages:
+  /babylon/epoching/v1/epochs/{epoch_num}/messages:
     get:
       summary: EpochMsgs queries the messages of a given epoch
       operationId: EpochMsgs
@@ -2254,13 +2254,13 @@ paths:
                       format: uint64
                       title: >-
                         block_height is the height when this msg is submitted to
-                        ybtc
+                        Babylon
                     block_time:
                       type: string
                       format: date-time
                       title: >-
                         block_time is the timestamp when this msg is submitted
-                        to ybtc
+                        to Babylon
                     msg:
                       type: string
                       description: >-
@@ -2567,7 +2567,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/epoching/v1/epochs/{epoch_num}/validator_set:
+  /babylon/epoching/v1/epochs/{epoch_num}/validator_set:
     get:
       summary: EpochValSet queries the validator set of a given epoch
       operationId: EpochValSet
@@ -2885,7 +2885,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/epoching/v1/epochs:latest/messages:
+  /babylon/epoching/v1/epochs:latest/messages:
     get:
       summary: >-
         LatestEpochMsgs queries the messages within a given number of most
@@ -2927,13 +2927,13 @@ paths:
                             format: uint64
                             title: >-
                               block_height is the height when this msg is
-                              submitted to ybtc
+                              submitted to Babylon
                           block_time:
                             type: string
                             format: date-time
                             title: >-
                               block_time is the timestamp when this msg is
-                              submitted to ybtc
+                              submitted to Babylon
                           msg:
                             type: string
                             description: >-
@@ -3252,7 +3252,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/epoching/v1/params:
+  /babylon/epoching/v1/params:
     get:
       summary: Params queries the parameters of the module.
       operationId: EpochingParams
@@ -3471,7 +3471,7 @@ paths:
                         }
       tags:
         - Query
-  /ybtc/epoching/v1/validator_lifecycle/{val_addr}:
+  /babylon/epoching/v1/validator_lifecycle/{val_addr}:
     get:
       summary: ValidatorLifecycle queries the lifecycle of a given validator
       operationId: ValidatorLifecycle
@@ -3704,7 +3704,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/btcstaking/v1/btc_delegation/{staking_tx_hash_hex}:
+  /babylon/btcstaking/v1/btc_delegation/{staking_tx_hash_hex}:
     get:
       summary: BTCDelegation retrieves delegation by corresponding staking tx hash
       operationId: BTCDelegation
@@ -4153,7 +4153,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/btcstaking/v1/btc_delegations/{status}:
+  /babylon/btcstaking/v1/btc_delegations/{status}:
     get:
       summary: BTCDelegations queries all BTC delegations under a given status
       operationId: BTCDelegations
@@ -4691,7 +4691,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btcstaking/v1/finality_providers:
+  /babylon/btcstaking/v1/finality_providers:
     get:
       summary: FinalityProviders queries all finality providers
       operationId: FinalityProviders
@@ -4782,23 +4782,23 @@ paths:
                           format: byte
                           title: >-
                             btc_sig is the signature generated via sign(sk_btc,
-                            ybtc_staker_address)
+                            babylon_staker_address)
 
                             the signature follows encoding in either BIP-340
                             spec or BIP-322 spec
                       title: >-
                         ProofOfPossessionBTC is the proof of possession that a
-                        ybtc
+                        Babylon
 
                         address and a Bitcoin secp256k1 secret key are held by
                         the same
 
                         person
-                    slashed_ybtc_height:
+                    slashed_babylon_height:
                       type: string
                       format: uint64
                       title: |-
-                        slashed_ybtc_height indicates the ybtc height when
+                        slashed_babylon_height indicates the Babylon height when
                         the finality provider is slashed.
                         if it's 0 then the finality provider is not slashed
                     slashed_btc_height:
@@ -4811,7 +4811,7 @@ paths:
                     height:
                       type: string
                       format: uint64
-                      title: height is the queried ybtc height
+                      title: height is the queried Babylon height
                     jailed:
                       type: boolean
                       title: jailed defines whether the finality provider is jailed
@@ -5100,7 +5100,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/delegations:
+  /babylon/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/delegations:
     get:
       summary: >-
         FinalityProviderDelegations queries all BTC delegations of the given
@@ -5653,7 +5653,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/finality_provider:
+  /babylon/btcstaking/v1/finality_providers/{fp_btc_pk_hex}/finality_provider:
     get:
       summary: FinalityProvider info about one finality provider
       operationId: FinalityProvider
@@ -5740,23 +5740,23 @@ paths:
                         format: byte
                         title: >-
                           btc_sig is the signature generated via sign(sk_btc,
-                          ybtc_staker_address)
+                          babylon_staker_address)
 
                           the signature follows encoding in either BIP-340 spec
                           or BIP-322 spec
                     title: >-
                       ProofOfPossessionBTC is the proof of possession that a
-                      ybtc
+                      Babylon
 
                       address and a Bitcoin secp256k1 secret key are held by the
                       same
 
                       person
-                  slashed_ybtc_height:
+                  slashed_babylon_height:
                     type: string
                     format: uint64
                     title: |-
-                      slashed_ybtc_height indicates the ybtc height when
+                      slashed_babylon_height indicates the Babylon height when
                       the finality provider is slashed.
                       if it's 0 then the finality provider is not slashed
                   slashed_btc_height:
@@ -5769,7 +5769,7 @@ paths:
                   height:
                     type: string
                     format: uint64
-                    title: height is the queried ybtc height
+                    title: height is the queried Babylon height
                   jailed:
                     type: boolean
                     title: jailed defines whether the finality provider is jailed
@@ -5990,7 +5990,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/btcstaking/v1/params:
+  /babylon/btcstaking/v1/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: Params
@@ -6118,7 +6118,7 @@ paths:
                       allow_list_expiration_height is the height at which the
                       allow list expires
 
-                      i.e all staking transactions are allowed to enter ybtc
+                      i.e all staking transactions are allowed to enter Babylon
                       chain afterwards
 
                       setting it to 0 means allow list is disabled
@@ -6327,7 +6327,7 @@ paths:
                         }
       tags:
         - Query
-  /ybtc/btcstaking/v1/params/btc_height/{btc_height}:
+  /babylon/btcstaking/v1/params/btc_height/{btc_height}:
     get:
       summary: >-
         ParamsByBTCHeight queries the parameters of the module for a specific
@@ -6457,7 +6457,7 @@ paths:
                       allow_list_expiration_height is the height at which the
                       allow list expires
 
-                      i.e all staking transactions are allowed to enter ybtc
+                      i.e all staking transactions are allowed to enter Babylon
                       chain afterwards
 
                       setting it to 0 means allow list is disabled
@@ -6676,7 +6676,7 @@ paths:
           format: int64
       tags:
         - Query
-  /ybtc/btcstaking/v1/params/{version}:
+  /babylon/btcstaking/v1/params/{version}:
     get:
       summary: >-
         ParamsByVersion queries the parameters of the module for a specific
@@ -6806,7 +6806,7 @@ paths:
                       allow_list_expiration_height is the height at which the
                       allow list expires
 
-                      i.e all staking transactions are allowed to enter ybtc
+                      i.e all staking transactions are allowed to enter Babylon
                       chain afterwards
 
                       setting it to 0 means allow list is disabled
@@ -7021,7 +7021,7 @@ paths:
           format: int64
       tags:
         - Query
-  /ybtc/finality/v1/activated_height:
+  /babylon/finality/v1/activated_height:
     get:
       summary: >-
         ActivatedHeight queries the height when BTC staking protocol is
@@ -7065,7 +7065,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /ybtc/finality/v1/blocks:
+  /babylon/finality/v1/blocks:
     get:
       summary: ListBlocks is a range query for blocks at a given status
       operationId: ListBlocks
@@ -7218,7 +7218,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/finality/v1/blocks/{height}:
+  /babylon/finality/v1/blocks/{height}:
     get:
       summary: Block queries a block at a given height
       operationId: Block
@@ -7276,14 +7276,14 @@ paths:
                       format: byte
       parameters:
         - name: height
-          description: height is the height of the ybtc block
+          description: height is the height of the Babylon block
           in: path
           required: true
           type: string
           format: uint64
       tags:
         - Query
-  /ybtc/finality/v1/evidences:
+  /babylon/finality/v1/evidences:
     get:
       summary: ListEvidences queries is a range query for evidences
       operationId: ListEvidences
@@ -7347,7 +7347,7 @@ paths:
                     finality
 
                     signatures with correct public randomness on two conflicting
-                    ybtc headers
+                    Babylon headers
                 title: blocks is the list of evidences
               pagination:
                 description: pagination defines the pagination in the response.
@@ -7460,7 +7460,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/finality/v1/finality_providers/{fp_btc_pk_hex}/evidence:
+  /babylon/finality/v1/finality_providers/{fp_btc_pk_hex}/evidence:
     get:
       summary: >-
         Evidence queries the first evidence which can be used for extracting the
@@ -7524,7 +7524,7 @@ paths:
                   finality
 
                   signatures with correct public randomness on two conflicting
-                  ybtc headers
+                  Babylon headers
             description: |-
               QueryEvidenceResponse is the response type for the
               Query/Evidence RPC method.
@@ -7560,7 +7560,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/finality/v1/finality_providers/{fp_btc_pk_hex}/power:
+  /babylon/finality/v1/finality_providers/{fp_btc_pk_hex}/power:
     get:
       summary: >-
         FinalityProviderCurrentPower queries the voting power of a finality
@@ -7621,7 +7621,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/finality/v1/finality_providers/{fp_btc_pk_hex}/power/{height}:
+  /babylon/finality/v1/finality_providers/{fp_btc_pk_hex}/power/{height}:
     get:
       summary: >-
         FinalityProviderPowerAtHeight queries the voting power of a finality
@@ -7686,7 +7686,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/finality/v1/finality_providers/{fp_btc_pk_hex}/pub_rand_commit_list:
+  /babylon/finality/v1/finality_providers/{fp_btc_pk_hex}/pub_rand_commit_list:
     get:
       summary: >-
         ListPubRandCommit is a range query for public randomness commitments of
@@ -7838,13 +7838,13 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/finality/v1/finality_providers/{fp_btc_pk_hex}/public_randomness_list:
+  /babylon/finality/v1/finality_providers/{fp_btc_pk_hex}/public_randomness_list:
     get:
       summary: >-
         ListPublicRandomness is a range query for public randomness of a given
         finality provider
 
-        NOTE: ybtc only has the knowledge of public randomness that is
+        NOTE: Babylon only has the knowledge of public randomness that is
         already revealed by
 
         finality providers, i.e., the finality provider already provides a
@@ -7979,7 +7979,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/finality/v1/finality_providers/{height}:
+  /babylon/finality/v1/finality_providers/{height}:
     get:
       summary: >-
         ActiveFinalityProvidersAtHeight queries finality providers with non zero
@@ -8006,18 +8006,18 @@ paths:
                     height:
                       type: string
                       format: uint64
-                      title: height is the queried ybtc height
+                      title: height is the queried Babylon height
                     voting_power:
                       type: string
                       format: uint64
                       title: >-
                         voting_power is the voting power of this finality
                         provider at the given height
-                    slashed_ybtc_height:
+                    slashed_babylon_height:
                       type: string
                       format: uint64
                       title: |-
-                        slashed_ybtc_height indicates the ybtc height when
+                        slashed_babylon_height indicates the Babylon height when
                         the finality provider is slashed.
                         if it's 0 then the finality provider is not slashed
                     slashed_btc_height:
@@ -8093,7 +8093,7 @@ paths:
       parameters:
         - name: height
           description: >-
-            height defines at which ybtc height to query the finality
+            height defines at which Babylon height to query the finality
             providers info.
           in: path
           required: true
@@ -8157,7 +8157,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/finality/v1/params:
+  /babylon/finality/v1/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: FinalityParams
@@ -8217,7 +8217,7 @@ paths:
                     type: string
                     format: uint64
                     description: >-
-                      finality_activation_height is the ybtc block height
+                      finality_activation_height is the babylon block height
                       which the finality module will
 
                       start to accept finality voting and the minimum allowed
@@ -8251,7 +8251,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /ybtc/finality/v1/signing_infos:
+  /babylon/finality/v1/signing_infos:
     get:
       summary: >-
         SigningInfos queries the signing info of all the active finality
@@ -8416,7 +8416,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/finality/v1/signing_infos/{fp_btc_pk_hex}:
+  /babylon/finality/v1/signing_infos/{fp_btc_pk_hex}:
     get:
       summary: >-
         SigningInfo queries the signing info of given finality provider BTC
@@ -8499,7 +8499,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/finality/v1/votes/{height}:
+  /babylon/finality/v1/votes/{height}:
     get:
       summary: >-
         VotesAtHeight queries finality providers who have signed the block at
@@ -8682,11 +8682,11 @@ paths:
                       format: byte
       tags:
         - Query
-  /ybtc/monitor/v1/checkpoints/{ckpt_hash}:
+  /babylon/monitor/v1/checkpoints/{ckpt_hash}:
     get:
       summary: |-
         ReportedCheckpointBtcHeight returns the BTC light client height at which
-        the checkpoint with the given hash is reported back to ybtc
+        the checkpoint with the given hash is reported back to Babylon
       operationId: ReportedCheckpointBtcHeight
       responses:
         '200':
@@ -8733,7 +8733,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/monitor/v1/epochs/{epoch_num}:
+  /babylon/monitor/v1/epochs/{epoch_num}:
     get:
       summary: >-
         EndedEpochBtcHeight returns the BTC light client height at provided
@@ -8784,7 +8784,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/checkpointing/v1/bls_public_keys/{epoch_num}:
+  /babylon/checkpointing/v1/bls_public_keys/{epoch_num}:
     get:
       summary: >-
         BlsPublicKeyList queries a list of bls public keys of the validators at
@@ -8929,7 +8929,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/checkpointing/v1/epochs/{epoch_num}/status:
+  /babylon/checkpointing/v1/epochs/{epoch_num}/status:
     get:
       summary: EpochStatus queries the status of the checkpoint at a given epoch
       operationId: EpochStatus
@@ -8991,7 +8991,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/checkpointing/v1/epochs:status_count:
+  /babylon/checkpointing/v1/epochs:status_count:
     get:
       summary: |-
         RecentEpochStatusCount queries the number of epochs with each status in
@@ -9052,7 +9052,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/checkpointing/v1/last_raw_checkpoint/{status}:
+  /babylon/checkpointing/v1/last_raw_checkpoint/{status}:
     get:
       summary: >-
         LastCheckpointWithStatus queries the last checkpoint with a given status
@@ -9136,7 +9136,7 @@ paths:
             - CKPT_STATUS_FINALIZED
       tags:
         - Query
-  /ybtc/checkpointing/v1/raw_checkpoint/{epoch_num}:
+  /babylon/checkpointing/v1/raw_checkpoint/{epoch_num}:
     get:
       summary: RawCheckpoint queries a checkpoints at a given epoch number.
       operationId: RawCheckpoint
@@ -9248,7 +9248,7 @@ paths:
                           type: string
                           format: uint64
                           title: >-
-                            block_height is the height of the ybtc block that
+                            block_height is the height of the Babylon block that
                             triggers the state
 
                             update
@@ -9256,7 +9256,7 @@ paths:
                           type: string
                           format: date-time
                           title: >-
-                            block_time is the timestamp in the ybtc block
+                            block_time is the timestamp in the Babylon block
                             that triggers the state
 
                             update
@@ -9310,7 +9310,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/checkpointing/v1/raw_checkpoints:
+  /babylon/checkpointing/v1/raw_checkpoints:
     get:
       summary: >-
         RawCheckpoints queries checkpoints for a epoch range specified in
@@ -9426,7 +9426,7 @@ paths:
                             type: string
                             format: uint64
                             title: >-
-                              block_height is the height of the ybtc block
+                              block_height is the height of the Babylon block
                               that triggers the state
 
                               update
@@ -9434,7 +9434,7 @@ paths:
                             type: string
                             format: date-time
                             title: >-
-                              block_time is the timestamp in the ybtc block
+                              block_time is the timestamp in the Babylon block
                               that triggers the state
 
                               update
@@ -9560,7 +9560,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/checkpointing/v1/raw_checkpoints/{status}:
+  /babylon/checkpointing/v1/raw_checkpoints/{status}:
     get:
       summary: RawCheckpointList queries all checkpoints that match the given status.
       operationId: RawCheckpointList
@@ -9674,7 +9674,7 @@ paths:
                             type: string
                             format: uint64
                             title: >-
-                              block_height is the height of the ybtc block
+                              block_height is the height of the Babylon block
                               that triggers the state
 
                               update
@@ -9682,7 +9682,7 @@ paths:
                             type: string
                             format: date-time
                             title: >-
-                              block_time is the timestamp in the ybtc block
+                              block_time is the timestamp in the Babylon block
                               that triggers the state
 
                               update
@@ -9817,11 +9817,11 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btcstkconsumer/v1/consumer_registry_list:
+  /babylon/btcstkconsumer/v1/consumer_registry_list:
     get:
       summary: >-
         ConsumerRegistryList queries the list of consumers that are registered
-        to ybtc
+        to Babylon
       operationId: ConsumerRegistryList
       responses:
         '200':
@@ -10121,11 +10121,11 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btcstkconsumer/v1/consumers_registry/{consumer_ids}:
+  /babylon/btcstkconsumer/v1/consumers_registry/{consumer_ids}:
     get:
       summary: >-
         ConsumersRegistry queries the latest info for a given list of consumers
-        in ybtc's view
+        in Babylon's view
       operationId: ConsumersRegistry
       responses:
         '200':
@@ -10392,7 +10392,7 @@ paths:
           minItems: 1
       tags:
         - Query
-  /ybtc/btcstkconsumer/v1/finality_provider/{consumer_id}/{fp_btc_pk_hex}:
+  /babylon/btcstkconsumer/v1/finality_provider/{consumer_id}/{fp_btc_pk_hex}:
     get:
       summary: FinalityProvider info about one finality provider
       operationId: FinalityProviderConsumer
@@ -10441,7 +10441,7 @@ paths:
                   addr:
                     type: string
                     title: >-
-                      ybtc_pk is the ybtc secp256k1 PK of this finality
+                      babylon_pk is the Babylon secp256k1 PK of this finality
                       provider
                   btc_pk:
                     type: string
@@ -10452,7 +10452,7 @@ paths:
 
                       the PK follows encoding in BIP-340 spec
                   pop:
-                    title: pop is the proof of possession of ybtc_pk and btc_pk
+                    title: pop is the proof of possession of babylon_pk and btc_pk
                     type: object
                     properties:
                       btc_sig_type:
@@ -10475,15 +10475,15 @@ paths:
                         format: byte
                         title: >-
                           btc_sig is the signature generated via sign(sk_btc,
-                          ybtc_staker_address)
+                          babylon_staker_address)
 
                           the signature follows encoding in either BIP-340 spec
                           or BIP-322 spec
-                  slashed_ybtc_height:
+                  slashed_babylon_height:
                     type: string
                     format: uint64
                     title: |-
-                      slashed_ybtc_height indicates the ybtc height when
+                      slashed_babylon_height indicates the Babylon height when
                       the finality provider is slashed.
                       if it's 0 then the finality provider is not slashed
                   slashed_btc_height:
@@ -10496,7 +10496,7 @@ paths:
                   height:
                     type: string
                     format: uint64
-                    title: height is the queried ybtc height
+                    title: height is the queried Babylon height
                   voting_power:
                     type: string
                     format: uint64
@@ -10725,7 +10725,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/btcstkconsumer/v1/finality_provider_consumer/{fp_btc_pk_hex}:
+  /babylon/btcstkconsumer/v1/finality_provider_consumer/{fp_btc_pk_hex}:
     get:
       summary: FinalityProviderConsumer info about one finality provider's consumer id
       operationId: FinalityProviderConsumer
@@ -10944,7 +10944,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/btcstkconsumer/v1/finality_providers/{consumer_id}:
+  /babylon/btcstkconsumer/v1/finality_providers/{consumer_id}:
     get:
       summary: FinalityProviders queries all finality providers for a given consumer
       operationId: FinalityProvidersConsumer
@@ -10994,7 +10994,7 @@ paths:
                     addr:
                       type: string
                       title: >-
-                        ybtc_pk is the ybtc secp256k1 PK of this finality
+                        babylon_pk is the Babylon secp256k1 PK of this finality
                         provider
                     btc_pk:
                       type: string
@@ -11005,7 +11005,7 @@ paths:
 
                         the PK follows encoding in BIP-340 spec
                     pop:
-                      title: pop is the proof of possession of ybtc_pk and btc_pk
+                      title: pop is the proof of possession of babylon_pk and btc_pk
                       type: object
                       properties:
                         btc_sig_type:
@@ -11030,15 +11030,15 @@ paths:
                           format: byte
                           title: >-
                             btc_sig is the signature generated via sign(sk_btc,
-                            ybtc_staker_address)
+                            babylon_staker_address)
 
                             the signature follows encoding in either BIP-340
                             spec or BIP-322 spec
-                    slashed_ybtc_height:
+                    slashed_babylon_height:
                       type: string
                       format: uint64
                       title: |-
-                        slashed_ybtc_height indicates the ybtc height when
+                        slashed_babylon_height indicates the Babylon height when
                         the finality provider is slashed.
                         if it's 0 then the finality provider is not slashed
                     slashed_btc_height:
@@ -11051,7 +11051,7 @@ paths:
                     height:
                       type: string
                       format: uint64
-                      title: height is the queried ybtc height
+                      title: height is the queried Babylon height
                     voting_power:
                       type: string
                       format: uint64
@@ -11346,7 +11346,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/btcstkconsumer/v1/params:
+  /babylon/btcstkconsumer/v1/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: BtcStkConsumerParams
@@ -11566,7 +11566,7 @@ paths:
                         }
       tags:
         - Query
-  /ybtc/incentive/address/{address}/reward_gauge:
+  /babylon/incentive/address/{address}/reward_gauge:
     get:
       summary: RewardGauge queries the reward gauge of a given stakeholder address
       operationId: RewardGauges
@@ -11665,7 +11665,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/incentive/btc_staking_gauge/{height}:
+  /babylon/incentive/btc_staking_gauge/{height}:
     get:
       summary: BTCStakingGauge queries the BTC staking gauge of a given height
       operationId: BTCStakingGauge
@@ -11729,14 +11729,14 @@ paths:
                       format: byte
       parameters:
         - name: height
-          description: height is the queried ybtc height
+          description: height is the queried Babylon height
           in: path
           required: true
           type: string
           format: uint64
       tags:
         - Query
-  /ybtc/incentive/delegators/{delegator_address}/withdraw_address:
+  /babylon/incentive/delegators/{delegator_address}/withdraw_address:
     get:
       summary: DelegatorWithdrawAddress queries withdraw address of a delegator.
       operationId: DelegatorWithdrawAddress
@@ -11782,7 +11782,7 @@ paths:
           type: string
       tags:
         - Query
-  /ybtc/incentive/params:
+  /babylon/incentive/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: IncentiveParams
@@ -11845,7 +11845,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/chain_info/{consumer_id}/header/{height}:
+  /babylon/zoneconcierge/v1/chain_info/{consumer_id}/header/{height}:
     get:
       summary: Header queries the CZ header and fork headers at a given height.
       operationId: Header
@@ -11883,37 +11883,37 @@ paths:
                       validators/delegations
 
                       before this timestamp when this header is BTC-finalised
-                  ybtc_header_hash:
+                  babylon_header_hash:
                     type: string
                     format: byte
                     title: >-
-                      ybtc_header_hash is the hash of the ybtc block that
+                      babylon_header_hash is the hash of the babylon block that
                       includes this CZ
 
                       header
-                  ybtc_header_height:
+                  babylon_header_height:
                     type: string
                     format: uint64
                     title: >-
-                      ybtc_header_height is the height of the ybtc block
+                      babylon_header_height is the height of the babylon block
                       that includes this CZ
 
                       header
-                  ybtc_epoch:
+                  babylon_epoch:
                     type: string
                     format: uint64
-                    title: epoch is the epoch number of this header on ybtc ledger
-                  ybtc_tx_hash:
+                    title: epoch is the epoch number of this header on Babylon ledger
+                  babylon_tx_hash:
                     type: string
                     format: byte
                     title: >-
-                      ybtc_tx_hash is the hash of the tx that includes this
+                      babylon_tx_hash is the hash of the tx that includes this
                       header
 
-                      (ybtc_block_height, ybtc_tx_hash) jointly provides
+                      (babylon_block_height, babylon_tx_hash) jointly provides
                       the position of
 
-                      the header on ybtc ledger
+                      the header on Babylon ledger
                 title: IndexedHeader is the metadata of a CZ header
               fork_headers:
                 type: object
@@ -11949,39 +11949,39 @@ paths:
 
                             before this timestamp when this header is
                             BTC-finalised
-                        ybtc_header_hash:
+                        babylon_header_hash:
                           type: string
                           format: byte
                           title: >-
-                            ybtc_header_hash is the hash of the ybtc block
+                            babylon_header_hash is the hash of the babylon block
                             that includes this CZ
 
                             header
-                        ybtc_header_height:
+                        babylon_header_height:
                           type: string
                           format: uint64
                           title: >-
-                            ybtc_header_height is the height of the ybtc
+                            babylon_header_height is the height of the babylon
                             block that includes this CZ
 
                             header
-                        ybtc_epoch:
+                        babylon_epoch:
                           type: string
                           format: uint64
                           title: >-
-                            epoch is the epoch number of this header on ybtc
+                            epoch is the epoch number of this header on Babylon
                             ledger
-                        ybtc_tx_hash:
+                        babylon_tx_hash:
                           type: string
                           format: byte
                           title: >-
-                            ybtc_tx_hash is the hash of the tx that includes
+                            babylon_tx_hash is the hash of the tx that includes
                             this header
 
-                            (ybtc_block_height, ybtc_tx_hash) jointly
+                            (babylon_block_height, babylon_tx_hash) jointly
                             provides the position of
 
-                            the header on ybtc ledger
+                            the header on Babylon ledger
                       title: IndexedHeader is the metadata of a CZ header
                     title: >-
                       blocks is the list of non-canonical indexed headers at the
@@ -12006,7 +12006,7 @@ paths:
                   Note that each `IndexedHeader` in the fork should have a valid
                   quorum
 
-                  certificate. Such forks exist since ybtc considers CZs
+                  certificate. Such forks exist since Babylon considers CZs
                   might have
 
                   dishonest majority. Also note that the IBC-Go implementation
@@ -12226,9 +12226,9 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/chains:
+  /babylon/zoneconcierge/v1/chains:
     get:
-      summary: ChainList queries the list of chains that checkpoint to ybtc
+      summary: ChainList queries the list of chains that checkpoint to Babylon
       operationId: ChainList
       responses:
         '200':
@@ -12528,11 +12528,11 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/chains_info:
+  /babylon/zoneconcierge/v1/chains_info:
     get:
       summary: >-
         ChainsInfo queries the latest info for a given list of chains in
-        ybtc's view
+        Babylon's view
       operationId: ChainsInfo
       responses:
         '200':
@@ -12577,39 +12577,39 @@ paths:
 
                             before this timestamp when this header is
                             BTC-finalised
-                        ybtc_header_hash:
+                        babylon_header_hash:
                           type: string
                           format: byte
                           title: >-
-                            ybtc_header_hash is the hash of the ybtc block
+                            babylon_header_hash is the hash of the babylon block
                             that includes this CZ
 
                             header
-                        ybtc_header_height:
+                        babylon_header_height:
                           type: string
                           format: uint64
                           title: >-
-                            ybtc_header_height is the height of the ybtc
+                            babylon_header_height is the height of the babylon
                             block that includes this CZ
 
                             header
-                        ybtc_epoch:
+                        babylon_epoch:
                           type: string
                           format: uint64
                           title: >-
-                            epoch is the epoch number of this header on ybtc
+                            epoch is the epoch number of this header on Babylon
                             ledger
-                        ybtc_tx_hash:
+                        babylon_tx_hash:
                           type: string
                           format: byte
                           title: >-
-                            ybtc_tx_hash is the hash of the tx that includes
+                            babylon_tx_hash is the hash of the tx that includes
                             this header
 
-                            (ybtc_block_height, ybtc_tx_hash) jointly
+                            (babylon_block_height, babylon_tx_hash) jointly
                             provides the position of
 
-                            the header on ybtc ledger
+                            the header on Babylon ledger
                       title: IndexedHeader is the metadata of a CZ header
                     latest_forks:
                       type: object
@@ -12647,39 +12647,39 @@ paths:
 
                                   before this timestamp when this header is
                                   BTC-finalised
-                              ybtc_header_hash:
+                              babylon_header_hash:
                                 type: string
                                 format: byte
                                 title: >-
-                                  ybtc_header_hash is the hash of the ybtc
+                                  babylon_header_hash is the hash of the babylon
                                   block that includes this CZ
 
                                   header
-                              ybtc_header_height:
+                              babylon_header_height:
                                 type: string
                                 format: uint64
                                 title: >-
-                                  ybtc_header_height is the height of the
-                                  ybtc block that includes this CZ
+                                  babylon_header_height is the height of the
+                                  babylon block that includes this CZ
 
                                   header
-                              ybtc_epoch:
+                              babylon_epoch:
                                 type: string
                                 format: uint64
                                 title: >-
                                   epoch is the epoch number of this header on
-                                  ybtc ledger
-                              ybtc_tx_hash:
+                                  Babylon ledger
+                              babylon_tx_hash:
                                 type: string
                                 format: byte
                                 title: >-
-                                  ybtc_tx_hash is the hash of the tx that
+                                  babylon_tx_hash is the hash of the tx that
                                   includes this header
 
-                                  (ybtc_block_height, ybtc_tx_hash)
+                                  (babylon_block_height, babylon_tx_hash)
                                   jointly provides the position of
 
-                                  the header on ybtc ledger
+                                  the header on Babylon ledger
                             title: IndexedHeader is the metadata of a CZ header
                           title: >-
                             blocks is the list of non-canonical indexed headers
@@ -12704,7 +12704,7 @@ paths:
                         Note that each `IndexedHeader` in the fork should have a
                         valid quorum
 
-                        certificate. Such forks exist since ybtc considers
+                        certificate. Such forks exist since Babylon considers
                         CZs might have
 
                         dishonest majority. Also note that the IBC-Go
@@ -12936,11 +12936,11 @@ paths:
           collectionFormat: multi
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/epoch_chains_info:
+  /babylon/zoneconcierge/v1/epoch_chains_info:
     get:
       summary: |-
         EpochChainsInfo queries the latest info for a list of chains
-        in a given epoch in ybtc's view
+        in a given epoch in Babylon's view
       operationId: EpochChainsInfo
       responses:
         '200':
@@ -12985,39 +12985,39 @@ paths:
 
                             before this timestamp when this header is
                             BTC-finalised
-                        ybtc_header_hash:
+                        babylon_header_hash:
                           type: string
                           format: byte
                           title: >-
-                            ybtc_header_hash is the hash of the ybtc block
+                            babylon_header_hash is the hash of the babylon block
                             that includes this CZ
 
                             header
-                        ybtc_header_height:
+                        babylon_header_height:
                           type: string
                           format: uint64
                           title: >-
-                            ybtc_header_height is the height of the ybtc
+                            babylon_header_height is the height of the babylon
                             block that includes this CZ
 
                             header
-                        ybtc_epoch:
+                        babylon_epoch:
                           type: string
                           format: uint64
                           title: >-
-                            epoch is the epoch number of this header on ybtc
+                            epoch is the epoch number of this header on Babylon
                             ledger
-                        ybtc_tx_hash:
+                        babylon_tx_hash:
                           type: string
                           format: byte
                           title: >-
-                            ybtc_tx_hash is the hash of the tx that includes
+                            babylon_tx_hash is the hash of the tx that includes
                             this header
 
-                            (ybtc_block_height, ybtc_tx_hash) jointly
+                            (babylon_block_height, babylon_tx_hash) jointly
                             provides the position of
 
-                            the header on ybtc ledger
+                            the header on Babylon ledger
                       title: IndexedHeader is the metadata of a CZ header
                     latest_forks:
                       type: object
@@ -13055,39 +13055,39 @@ paths:
 
                                   before this timestamp when this header is
                                   BTC-finalised
-                              ybtc_header_hash:
+                              babylon_header_hash:
                                 type: string
                                 format: byte
                                 title: >-
-                                  ybtc_header_hash is the hash of the ybtc
+                                  babylon_header_hash is the hash of the babylon
                                   block that includes this CZ
 
                                   header
-                              ybtc_header_height:
+                              babylon_header_height:
                                 type: string
                                 format: uint64
                                 title: >-
-                                  ybtc_header_height is the height of the
-                                  ybtc block that includes this CZ
+                                  babylon_header_height is the height of the
+                                  babylon block that includes this CZ
 
                                   header
-                              ybtc_epoch:
+                              babylon_epoch:
                                 type: string
                                 format: uint64
                                 title: >-
                                   epoch is the epoch number of this header on
-                                  ybtc ledger
-                              ybtc_tx_hash:
+                                  Babylon ledger
+                              babylon_tx_hash:
                                 type: string
                                 format: byte
                                 title: >-
-                                  ybtc_tx_hash is the hash of the tx that
+                                  babylon_tx_hash is the hash of the tx that
                                   includes this header
 
-                                  (ybtc_block_height, ybtc_tx_hash)
+                                  (babylon_block_height, babylon_tx_hash)
                                   jointly provides the position of
 
-                                  the header on ybtc ledger
+                                  the header on Babylon ledger
                             title: IndexedHeader is the metadata of a CZ header
                           title: >-
                             blocks is the list of non-canonical indexed headers
@@ -13112,7 +13112,7 @@ paths:
                         Note that each `IndexedHeader` in the fork should have a
                         valid quorum
 
-                        certificate. Such forks exist since ybtc considers
+                        certificate. Such forks exist since Babylon considers
                         CZs might have
 
                         dishonest majority. Also note that the IBC-Go
@@ -13352,7 +13352,7 @@ paths:
           collectionFormat: multi
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/finalized_chain_info/{consumer_id}/height/{height}:
+  /babylon/zoneconcierge/v1/finalized_chain_info/{consumer_id}/height/{height}:
     get:
       summary: >-
         FinalizedChainInfoUntilHeight queries the BTC-finalised info no later
@@ -13401,39 +13401,39 @@ paths:
 
                           before this timestamp when this header is
                           BTC-finalised
-                      ybtc_header_hash:
+                      babylon_header_hash:
                         type: string
                         format: byte
                         title: >-
-                          ybtc_header_hash is the hash of the ybtc block
+                          babylon_header_hash is the hash of the babylon block
                           that includes this CZ
 
                           header
-                      ybtc_header_height:
+                      babylon_header_height:
                         type: string
                         format: uint64
                         title: >-
-                          ybtc_header_height is the height of the ybtc
+                          babylon_header_height is the height of the babylon
                           block that includes this CZ
 
                           header
-                      ybtc_epoch:
+                      babylon_epoch:
                         type: string
                         format: uint64
                         title: >-
-                          epoch is the epoch number of this header on ybtc
+                          epoch is the epoch number of this header on Babylon
                           ledger
-                      ybtc_tx_hash:
+                      babylon_tx_hash:
                         type: string
                         format: byte
                         title: >-
-                          ybtc_tx_hash is the hash of the tx that includes
+                          babylon_tx_hash is the hash of the tx that includes
                           this header
 
-                          (ybtc_block_height, ybtc_tx_hash) jointly
+                          (babylon_block_height, babylon_tx_hash) jointly
                           provides the position of
 
-                          the header on ybtc ledger
+                          the header on Babylon ledger
                     title: IndexedHeader is the metadata of a CZ header
                   latest_forks:
                     type: object
@@ -13470,39 +13470,39 @@ paths:
 
                                 before this timestamp when this header is
                                 BTC-finalised
-                            ybtc_header_hash:
+                            babylon_header_hash:
                               type: string
                               format: byte
                               title: >-
-                                ybtc_header_hash is the hash of the ybtc
+                                babylon_header_hash is the hash of the babylon
                                 block that includes this CZ
 
                                 header
-                            ybtc_header_height:
+                            babylon_header_height:
                               type: string
                               format: uint64
                               title: >-
-                                ybtc_header_height is the height of the
-                                ybtc block that includes this CZ
+                                babylon_header_height is the height of the
+                                babylon block that includes this CZ
 
                                 header
-                            ybtc_epoch:
+                            babylon_epoch:
                               type: string
                               format: uint64
                               title: >-
                                 epoch is the epoch number of this header on
-                                ybtc ledger
-                            ybtc_tx_hash:
+                                Babylon ledger
+                            babylon_tx_hash:
                               type: string
                               format: byte
                               title: >-
-                                ybtc_tx_hash is the hash of the tx that
+                                babylon_tx_hash is the hash of the tx that
                                 includes this header
 
-                                (ybtc_block_height, ybtc_tx_hash) jointly
+                                (babylon_block_height, babylon_tx_hash) jointly
                                 provides the position of
 
-                                the header on ybtc ledger
+                                the header on Babylon ledger
                           title: IndexedHeader is the metadata of a CZ header
                         title: >-
                           blocks is the list of non-canonical indexed headers at
@@ -13527,7 +13527,7 @@ paths:
                       Note that each `IndexedHeader` in the fork should have a
                       valid quorum
 
-                      certificate. Such forks exist since ybtc considers CZs
+                      certificate. Such forks exist since Babylon considers CZs
                       might have
 
                       dishonest majority. Also note that the IBC-Go
@@ -13579,7 +13579,7 @@ paths:
                       last_block_time is the time of the last block in this
                       epoch.
 
-                      ybtc needs to remember the last header's time of each
+                      Babylon needs to remember the last header's time of each
                       epoch to complete
 
                       unbonding validators/delegations when a previous epoch's
@@ -14086,7 +14086,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/finalized_chains_info:
+  /babylon/zoneconcierge/v1/finalized_chains_info:
     get:
       summary: >-
         FinalizedChainsInfo queries the BTC-finalised info of chains with given
@@ -14142,39 +14142,39 @@ paths:
 
                                 before this timestamp when this header is
                                 BTC-finalised
-                            ybtc_header_hash:
+                            babylon_header_hash:
                               type: string
                               format: byte
                               title: >-
-                                ybtc_header_hash is the hash of the ybtc
+                                babylon_header_hash is the hash of the babylon
                                 block that includes this CZ
 
                                 header
-                            ybtc_header_height:
+                            babylon_header_height:
                               type: string
                               format: uint64
                               title: >-
-                                ybtc_header_height is the height of the
-                                ybtc block that includes this CZ
+                                babylon_header_height is the height of the
+                                babylon block that includes this CZ
 
                                 header
-                            ybtc_epoch:
+                            babylon_epoch:
                               type: string
                               format: uint64
                               title: >-
                                 epoch is the epoch number of this header on
-                                ybtc ledger
-                            ybtc_tx_hash:
+                                Babylon ledger
+                            babylon_tx_hash:
                               type: string
                               format: byte
                               title: >-
-                                ybtc_tx_hash is the hash of the tx that
+                                babylon_tx_hash is the hash of the tx that
                                 includes this header
 
-                                (ybtc_block_height, ybtc_tx_hash) jointly
+                                (babylon_block_height, babylon_tx_hash) jointly
                                 provides the position of
 
-                                the header on ybtc ledger
+                                the header on Babylon ledger
                           title: IndexedHeader is the metadata of a CZ header
                         latest_forks:
                           type: object
@@ -14214,39 +14214,39 @@ paths:
 
                                       before this timestamp when this header is
                                       BTC-finalised
-                                  ybtc_header_hash:
+                                  babylon_header_hash:
                                     type: string
                                     format: byte
                                     title: >-
-                                      ybtc_header_hash is the hash of the
-                                      ybtc block that includes this CZ
+                                      babylon_header_hash is the hash of the
+                                      babylon block that includes this CZ
 
                                       header
-                                  ybtc_header_height:
+                                  babylon_header_height:
                                     type: string
                                     format: uint64
                                     title: >-
-                                      ybtc_header_height is the height of the
-                                      ybtc block that includes this CZ
+                                      babylon_header_height is the height of the
+                                      babylon block that includes this CZ
 
                                       header
-                                  ybtc_epoch:
+                                  babylon_epoch:
                                     type: string
                                     format: uint64
                                     title: >-
                                       epoch is the epoch number of this header
-                                      on ybtc ledger
-                                  ybtc_tx_hash:
+                                      on Babylon ledger
+                                  babylon_tx_hash:
                                     type: string
                                     format: byte
                                     title: >-
-                                      ybtc_tx_hash is the hash of the tx that
+                                      babylon_tx_hash is the hash of the tx that
                                       includes this header
 
-                                      (ybtc_block_height, ybtc_tx_hash)
+                                      (babylon_block_height, babylon_tx_hash)
                                       jointly provides the position of
 
-                                      the header on ybtc ledger
+                                      the header on Babylon ledger
                                 title: IndexedHeader is the metadata of a CZ header
                               title: >-
                                 blocks is the list of non-canonical indexed
@@ -14271,7 +14271,7 @@ paths:
                             Note that each `IndexedHeader` in the fork should
                             have a valid quorum
 
-                            certificate. Such forks exist since ybtc
+                            certificate. Such forks exist since Babylon
                             considers CZs might have
 
                             dishonest majority. Also note that the IBC-Go
@@ -14325,7 +14325,7 @@ paths:
                             last_block_time is the time of the last block in
                             this epoch.
 
-                            ybtc needs to remember the last header's time of
+                            Babylon needs to remember the last header's time of
                             each epoch to complete
 
                             unbonding validators/delegations when a previous
@@ -14832,10 +14832,10 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/headers/{consumer_id}:
+  /babylon/zoneconcierge/v1/headers/{consumer_id}:
     get:
       summary: |-
-        ListHeaders queries the headers of a chain in ybtc's view, with
+        ListHeaders queries the headers of a chain in Babylon's view, with
         pagination support
       operationId: ListHeaders
       responses:
@@ -14874,39 +14874,39 @@ paths:
                         validators/delegations
 
                         before this timestamp when this header is BTC-finalised
-                    ybtc_header_hash:
+                    babylon_header_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_header_hash is the hash of the ybtc block
+                        babylon_header_hash is the hash of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_header_height:
+                    babylon_header_height:
                       type: string
                       format: uint64
                       title: >-
-                        ybtc_header_height is the height of the ybtc block
+                        babylon_header_height is the height of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_epoch:
+                    babylon_epoch:
                       type: string
                       format: uint64
                       title: >-
-                        epoch is the epoch number of this header on ybtc
+                        epoch is the epoch number of this header on Babylon
                         ledger
-                    ybtc_tx_hash:
+                    babylon_tx_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_tx_hash is the hash of the tx that includes this
+                        babylon_tx_hash is the hash of the tx that includes this
                         header
 
-                        (ybtc_block_height, ybtc_tx_hash) jointly provides
+                        (babylon_block_height, babylon_tx_hash) jointly provides
                         the position of
 
-                        the header on ybtc ledger
+                        the header on Babylon ledger
                   title: IndexedHeader is the metadata of a CZ header
                 title: headers is the list of headers
               pagination:
@@ -15200,11 +15200,11 @@ paths:
           type: boolean
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/headers/{consumer_id}/epochs/{epoch_num}:
+  /babylon/zoneconcierge/v1/headers/{consumer_id}/epochs/{epoch_num}:
     get:
       summary: |-
         ListEpochHeaders queries the headers of a chain timestamped in a given
-        epoch of ybtc, with pagination support
+        epoch of Babylon, with pagination support
       operationId: ListEpochHeaders
       responses:
         '200':
@@ -15242,39 +15242,39 @@ paths:
                         validators/delegations
 
                         before this timestamp when this header is BTC-finalised
-                    ybtc_header_hash:
+                    babylon_header_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_header_hash is the hash of the ybtc block
+                        babylon_header_hash is the hash of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_header_height:
+                    babylon_header_height:
                       type: string
                       format: uint64
                       title: >-
-                        ybtc_header_height is the height of the ybtc block
+                        babylon_header_height is the height of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_epoch:
+                    babylon_epoch:
                       type: string
                       format: uint64
                       title: >-
-                        epoch is the epoch number of this header on ybtc
+                        epoch is the epoch number of this header on Babylon
                         ledger
-                    ybtc_tx_hash:
+                    babylon_tx_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_tx_hash is the hash of the tx that includes this
+                        babylon_tx_hash is the hash of the tx that includes this
                         header
 
-                        (ybtc_block_height, ybtc_tx_hash) jointly provides
+                        (babylon_block_height, babylon_tx_hash) jointly provides
                         the position of
 
-                        the header on ybtc ledger
+                        the header on Babylon ledger
                   title: IndexedHeader is the metadata of a CZ header
                 title: headers is the list of headers
             description: >-
@@ -15488,7 +15488,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /ybtc/zoneconcierge/v1/params:
+  /babylon/zoneconcierge/v1/params:
     get:
       summary: Params queries the parameters of the module.
       operationId: ZoneConciergeParams
@@ -15710,7 +15710,7 @@ paths:
       tags:
         - Query
 definitions:
-  ybtc.btccheckpoint.v1.BTCCheckpointInfoResponse:
+  babylon.btccheckpoint.v1.BTCCheckpointInfoResponse:
     type: object
     properties:
       epoch_number:
@@ -15786,7 +15786,7 @@ definitions:
 
       given epoch. Best submission is the submission which is deeper in btc
       ledger.
-  ybtc.btccheckpoint.v1.CheckpointAddressesResponse:
+  babylon.btccheckpoint.v1.CheckpointAddressesResponse:
     type: object
     properties:
       submitter:
@@ -15806,7 +15806,7 @@ definitions:
       reporter of a
 
       given checkpoint
-  ybtc.btccheckpoint.v1.Params:
+  babylon.btccheckpoint.v1.Params:
     type: object
     properties:
       btc_confirmation_depth:
@@ -15843,9 +15843,9 @@ definitions:
           4byte tag in hex format, required to be present in the OP_RETURN
           transaction
 
-          related to ybtc
+          related to babylon
     description: Params defines the parameters for the module.
-  ybtc.btccheckpoint.v1.QueryBtcCheckpointInfoResponse:
+  babylon.btccheckpoint.v1.QueryBtcCheckpointInfoResponse:
     type: object
     properties:
       info:
@@ -15928,7 +15928,7 @@ definitions:
     title: |-
       QueryBtcCheckpointInfoResponse is response type for the
       Query/BtcCheckpointInfo RPC method
-  ybtc.btccheckpoint.v1.QueryBtcCheckpointsInfoResponse:
+  babylon.btccheckpoint.v1.QueryBtcCheckpointsInfoResponse:
     type: object
     properties:
       info_list:
@@ -16040,7 +16040,7 @@ definitions:
     title: |-
       QueryBtcCheckpointsInfoResponse is response type for the
       Query/BtcCheckpointsInfo RPC method
-  ybtc.btccheckpoint.v1.QueryEpochSubmissionsResponse:
+  babylon.btccheckpoint.v1.QueryEpochSubmissionsResponse:
     type: object
     properties:
       keys:
@@ -16082,7 +16082,7 @@ definitions:
     title: |-
       QueryEpochSubmissionsResponse defines a response to get all submissions in
       given epoch (QueryEpochSubmissionsRequest)
-  ybtc.btccheckpoint.v1.QueryParamsResponse:
+  babylon.btccheckpoint.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -16123,9 +16123,9 @@ definitions:
               4byte tag in hex format, required to be present in the OP_RETURN
               transaction
 
-              related to ybtc
+              related to babylon
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  ybtc.btccheckpoint.v1.SubmissionKeyResponse:
+  babylon.btccheckpoint.v1.SubmissionKeyResponse:
     type: object
     properties:
       first_tx_block_hash:
@@ -16158,7 +16158,7 @@ definitions:
       hash),
 
       so there should be other strong arguments for this optimization
-  ybtc.btccheckpoint.v1.TransactionInfoResponse:
+  babylon.btccheckpoint.v1.TransactionInfoResponse:
     type: object
     properties:
       index:
@@ -16598,7 +16598,7 @@ definitions:
                   "@type": "type.googleapis.com/google.protobuf.Duration",
                   "value": "1.212s"
                 }
-  ybtc.btclightclient.v1.BTCHeaderInfoResponse:
+  babylon.btclightclient.v1.BTCHeaderInfoResponse:
     type: object
     properties:
       header_hex:
@@ -16622,7 +16622,7 @@ definitions:
        - Total work spent on the header. This is the sum of the work corresponding
        to the header Bits field
          and the total work of the header.
-  ybtc.btclightclient.v1.Params:
+  babylon.btclightclient.v1.Params:
     type: object
     properties:
       insert_headers_allow_list:
@@ -16635,7 +16635,7 @@ definitions:
 
           if the list is empty, any address can insert headers
     description: Params defines the parameters for the module.
-  ybtc.btclightclient.v1.QueryBaseHeaderResponse:
+  babylon.btclightclient.v1.QueryBaseHeaderResponse:
     type: object
     properties:
       header:
@@ -16665,7 +16665,7 @@ definitions:
     description: |-
       QueryBaseHeaderResponse is the response type for the Query/BaseHeader RPC
       method.
-  ybtc.btclightclient.v1.QueryContainsBytesResponse:
+  babylon.btclightclient.v1.QueryContainsBytesResponse:
     type: object
     properties:
       contains:
@@ -16675,13 +16675,13 @@ definitions:
       Query/ContainsBytes
 
       RPC method.
-  ybtc.btclightclient.v1.QueryContainsResponse:
+  babylon.btclightclient.v1.QueryContainsResponse:
     type: object
     properties:
       contains:
         type: boolean
     description: QueryContainsResponse is response type for the Query/Contains RPC method.
-  ybtc.btclightclient.v1.QueryHashesResponse:
+  babylon.btclightclient.v1.QueryHashesResponse:
     type: object
     properties:
       hashes:
@@ -16716,7 +16716,7 @@ definitions:
                    PageResponse page = 2;
            }
     description: QueryHashesResponse is response type for the Query/Hashes RPC method.
-  ybtc.btclightclient.v1.QueryHeaderDepthResponse:
+  babylon.btclightclient.v1.QueryHeaderDepthResponse:
     type: object
     properties:
       depth:
@@ -16727,7 +16727,7 @@ definitions:
       Query/MainChainDepth RPC
 
       it contains depth of the block in main chain
-  ybtc.btclightclient.v1.QueryMainChainResponse:
+  babylon.btclightclient.v1.QueryMainChainResponse:
     type: object
     properties:
       headers:
@@ -16785,7 +16785,7 @@ definitions:
     description: >-
       QueryMainChainResponse is response type for the Query/MainChain RPC
       method.
-  ybtc.btclightclient.v1.QueryParamsResponse:
+  babylon.btclightclient.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -16802,7 +16802,7 @@ definitions:
 
               if the list is empty, any address can insert headers
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
-  ybtc.btclightclient.v1.QueryTipResponse:
+  babylon.btclightclient.v1.QueryTipResponse:
     type: object
     properties:
       header:
@@ -16830,7 +16830,7 @@ definitions:
            to the header Bits field
              and the total work of the header.
     description: QueryTipResponse is the response type for the Query/Tip RPC method.
-  ybtc.epoching.v1.BondState:
+  babylon.epoching.v1.BondState:
     type: string
     enum:
       - CREATED
@@ -16846,7 +16846,7 @@ definitions:
        - UNBONDED: CREATED is when the validator/delegation has become unbonded
        - REMOVED: CREATED is when the validator/delegation has been removed
     title: BondState is the bond state of a validator or delegation
-  ybtc.epoching.v1.DelegationLifecycle:
+  babylon.epoching.v1.DelegationLifecycle:
     type: object
     properties:
       del_addr:
@@ -16904,7 +16904,7 @@ definitions:
     title: |-
       ValidatorLifecycle is a message that records the lifecycle of
       a delegation
-  ybtc.epoching.v1.DelegationStateUpdate:
+  babylon.epoching.v1.DelegationStateUpdate:
     type: object
     properties:
       state:
@@ -16946,7 +16946,7 @@ definitions:
     title: |-
       DelegationStateUpdate is the message that records a state update of a
       delegation
-  ybtc.epoching.v1.EpochResponse:
+  babylon.epoching.v1.EpochResponse:
     type: object
     properties:
       epoch_number:
@@ -16967,7 +16967,7 @@ definitions:
         description: >-
           last_block_time is the time of the last block in this epoch.
 
-          ybtc needs to remember the last header's time of each epoch to
+          Babylon needs to remember the last header's time of each epoch to
           complete
 
           unbonding validators/delegations when a previous epoch's checkpoint is
@@ -16989,7 +16989,7 @@ definitions:
           the validator set has generated a BLS multisig on the hash,
           i.e., hash of the last block in the epoch as hex string.
     title: EpochResponse is a structure that contains the metadata of an epoch
-  ybtc.epoching.v1.Params:
+  babylon.epoching.v1.Params:
     type: object
     properties:
       epoch_interval:
@@ -16997,7 +16997,7 @@ definitions:
         format: uint64
         title: epoch_interval is the number of consecutive blocks to form an epoch
     description: Params defines the parameters for the module.
-  ybtc.epoching.v1.QueryCurrentEpochResponse:
+  babylon.epoching.v1.QueryCurrentEpochResponse:
     type: object
     properties:
       current_epoch:
@@ -17013,7 +17013,7 @@ definitions:
       RPC
 
       method
-  ybtc.epoching.v1.QueryDelegationLifecycleResponse:
+  babylon.epoching.v1.QueryDelegationLifecycleResponse:
     type: object
     properties:
       del_life:
@@ -17077,7 +17077,7 @@ definitions:
     title: |-
       QueryDelegationLifecycleRequest is the response type for the
       Query/DelegationLifecycle RPC method
-  ybtc.epoching.v1.QueryEpochInfoResponse:
+  babylon.epoching.v1.QueryEpochInfoResponse:
     type: object
     properties:
       epoch:
@@ -17103,7 +17103,7 @@ definitions:
             description: >-
               last_block_time is the time of the last block in this epoch.
 
-              ybtc needs to remember the last header's time of each epoch to
+              Babylon needs to remember the last header's time of each epoch to
               complete
 
               unbonding validators/delegations when a previous epoch's
@@ -17127,7 +17127,7 @@ definitions:
               i.e., hash of the last block in the epoch as hex string.
         title: EpochResponse is a structure that contains the metadata of an epoch
     title: QueryEpochInfoRequest is the response type for the Query/EpochInfo method
-  ybtc.epoching.v1.QueryEpochMsgsResponse:
+  babylon.epoching.v1.QueryEpochMsgsResponse:
     type: object
     properties:
       msgs:
@@ -17146,13 +17146,13 @@ definitions:
             block_height:
               type: string
               format: uint64
-              title: block_height is the height when this msg is submitted to ybtc
+              title: block_height is the height when this msg is submitted to Babylon
             block_time:
               type: string
               format: date-time
               title: >-
                 block_time is the timestamp when this msg is submitted to
-                ybtc
+                Babylon
             msg:
               type: string
               description: >-
@@ -17196,7 +17196,7 @@ definitions:
     title: |-
       QueryEpochMsgsResponse is the response type for the Query/EpochMsgs RPC
       method
-  ybtc.epoching.v1.QueryEpochValSetResponse:
+  babylon.epoching.v1.QueryEpochValSetResponse:
     type: object
     properties:
       validators:
@@ -17245,7 +17245,7 @@ definitions:
     title: |-
       QueryEpochValSetRequest is the response type for the Query/EpochValSet RPC
       method
-  ybtc.epoching.v1.QueryEpochsInfoResponse:
+  babylon.epoching.v1.QueryEpochsInfoResponse:
     type: object
     properties:
       epochs:
@@ -17275,7 +17275,7 @@ definitions:
               description: >-
                 last_block_time is the time of the last block in this epoch.
 
-                ybtc needs to remember the last header's time of each epoch
+                Babylon needs to remember the last header's time of each epoch
                 to complete
 
                 unbonding validators/delegations when a previous epoch's
@@ -17331,7 +17331,7 @@ definitions:
     title: >-
       QueryEpochsInfoResponse is the response type for the Query/EpochInfos
       method
-  ybtc.epoching.v1.QueryLatestEpochMsgsResponse:
+  babylon.epoching.v1.QueryLatestEpochMsgsResponse:
     type: object
     properties:
       latest_epoch_msgs:
@@ -17362,13 +17362,13 @@ definitions:
                     format: uint64
                     title: >-
                       block_height is the height when this msg is submitted to
-                      ybtc
+                      Babylon
                   block_time:
                     type: string
                     format: date-time
                     title: >-
                       block_time is the timestamp when this msg is submitted to
-                      ybtc
+                      Babylon
                   msg:
                     type: string
                     description: >-
@@ -17418,7 +17418,7 @@ definitions:
     title: |-
       QueryLatestEpochMsgsResponse is the response type for the
       Query/LatestEpochMsgs RPC method
-  ybtc.epoching.v1.QueryParamsResponse:
+  babylon.epoching.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -17432,7 +17432,7 @@ definitions:
               epoch_interval is the number of consecutive blocks to form an
               epoch
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
-  ybtc.epoching.v1.QueryValidatorLifecycleResponse:
+  babylon.epoching.v1.QueryValidatorLifecycleResponse:
     type: object
     properties:
       val_addr:
@@ -17457,7 +17457,7 @@ definitions:
     title: |-
       QueryValidatorLifecycleResponse is the response type for the
       Query/ValidatorLifecycle RPC method
-  ybtc.epoching.v1.QueuedMessageList:
+  babylon.epoching.v1.QueuedMessageList:
     type: object
     properties:
       epoch_number:
@@ -17479,13 +17479,13 @@ definitions:
             block_height:
               type: string
               format: uint64
-              title: block_height is the height when this msg is submitted to ybtc
+              title: block_height is the height when this msg is submitted to Babylon
             block_time:
               type: string
               format: date-time
               title: >-
                 block_time is the timestamp when this msg is submitted to
-                ybtc
+                Babylon
             msg:
               type: string
               description: >-
@@ -17501,7 +17501,7 @@ definitions:
     title: |-
       QueuedMessageList is a message that contains a list of staking-related
       messages queued for an epoch
-  ybtc.epoching.v1.QueuedMessageResponse:
+  babylon.epoching.v1.QueuedMessageResponse:
     type: object
     properties:
       tx_id:
@@ -17515,11 +17515,11 @@ definitions:
       block_height:
         type: string
         format: uint64
-        title: block_height is the height when this msg is submitted to ybtc
+        title: block_height is the height when this msg is submitted to Babylon
       block_time:
         type: string
         format: date-time
-        title: block_time is the timestamp when this msg is submitted to ybtc
+        title: block_time is the timestamp when this msg is submitted to Babylon
       msg:
         type: string
         description: |-
@@ -17530,7 +17530,7 @@ definitions:
       is delayed
 
       to the end of an epoch
-  ybtc.epoching.v1.ValStateUpdateResponse:
+  babylon.epoching.v1.ValStateUpdateResponse:
     type: object
     properties:
       state_desc:
@@ -17545,7 +17545,7 @@ definitions:
     description: >-
       ValStateUpdateResponse is a message response that records a state update
       of a validator.
-  ybtc.epoching.v1.Validator:
+  babylon.epoching.v1.Validator:
     type: object
     properties:
       addr:
@@ -17569,7 +17569,7 @@ definitions:
 
       NOTE: The amount field is an Int which implements the custom method
       signatures required by gogoproto.
-  ybtc.btcstaking.v1.BTCDelegationResponse:
+  babylon.btcstaking.v1.BTCDelegationResponse:
     type: object
     properties:
       staker_addr:
@@ -17773,7 +17773,7 @@ definitions:
     description: >-
       BTCDelegationResponse is the client needed information from a
       BTCDelegation with the current status based on parameters.
-  ybtc.btcstaking.v1.BTCDelegationStatus:
+  babylon.btcstaking.v1.BTCDelegationStatus:
     type: string
     enum:
       - PENDING
@@ -17796,7 +17796,7 @@ definitions:
 
       - PENDING -> VERIFIED -> UNBONDED i.e the staker unbonded before
 
-      activating delegation on ybtc chain.
+      activating delegation on Babylon chain.
 
       In valid transition paths, the delegation becomes UNBONDED when:
 
@@ -17815,7 +17815,7 @@ definitions:
        - EXPIRED: EXPIRED defines a delegation no longer has voting power
       for reaching the end of staking transaction timelock
        - ANY: ANY is any of the above status
-  ybtc.btcstaking.v1.BTCDelegatorDelegationsResponse:
+  babylon.btcstaking.v1.BTCDelegatorDelegationsResponse:
     type: object
     properties:
       dels:
@@ -18043,7 +18043,7 @@ definitions:
     description: >-
       BTCDelegatorDelegationsResponse is a collection of BTC delegations
       responses from the same delegator.
-  ybtc.btcstaking.v1.BTCSigType:
+  babylon.btcstaking.v1.BTCSigType:
     type: string
     enum:
       - BIP340
@@ -18057,7 +18057,7 @@ definitions:
       ref:
       https://github.com/okx/js-wallet-sdk/blob/a57c2acbe6ce917c0aa4e951d96c4e562ad58444/packages/coin-bitcoin/src/BtcWallet.ts#L331
     title: BTCSigType indicates the type of btc_sig in a pop
-  ybtc.btcstaking.v1.BTCUndelegationResponse:
+  babylon.btcstaking.v1.BTCUndelegationResponse:
     type: object
     properties:
       unbonding_tx_hex:
@@ -18146,7 +18146,7 @@ definitions:
     title: >-
       BTCUndelegationResponse provides all necessary info about the
       undeleagation
-  ybtc.btcstaking.v1.CovenantAdaptorSignatures:
+  babylon.btcstaking.v1.CovenantAdaptorSignatures:
     type: object
     properties:
       cov_pk:
@@ -18166,7 +18166,7 @@ definitions:
     title: |-
       CovenantAdaptorSignatures is a list adaptor signatures signed by the
       covenant with different finality provider's public keys as encryption keys
-  ybtc.btcstaking.v1.DelegatorUnbondingInfoResponse:
+  babylon.btcstaking.v1.DelegatorUnbondingInfoResponse:
     type: object
     properties:
       spend_stake_tx_hex:
@@ -18182,7 +18182,7 @@ definitions:
       transaction
 
       which spent the staking output
-  ybtc.btcstaking.v1.FinalityProviderResponse:
+  babylon.btcstaking.v1.FinalityProviderResponse:
     type: object
     properties:
       description:
@@ -18244,19 +18244,19 @@ definitions:
             format: byte
             title: >-
               btc_sig is the signature generated via sign(sk_btc,
-              ybtc_staker_address)
+              babylon_staker_address)
 
               the signature follows encoding in either BIP-340 spec or BIP-322
               spec
         title: |-
-          ProofOfPossessionBTC is the proof of possession that a ybtc
+          ProofOfPossessionBTC is the proof of possession that a Babylon
           address and a Bitcoin secp256k1 secret key are held by the same
           person
-      slashed_ybtc_height:
+      slashed_babylon_height:
         type: string
         format: uint64
         title: |-
-          slashed_ybtc_height indicates the ybtc height when
+          slashed_babylon_height indicates the Babylon height when
           the finality provider is slashed.
           if it's 0 then the finality provider is not slashed
       slashed_btc_height:
@@ -18269,7 +18269,7 @@ definitions:
       height:
         type: string
         format: uint64
-        title: height is the queried ybtc height
+        title: height is the queried Babylon height
       jailed:
         type: boolean
         title: jailed defines whether the finality provider is jailed
@@ -18282,7 +18282,7 @@ definitions:
     description: >-
       FinalityProviderResponse defines a finality provider with voting power
       information.
-  ybtc.btcstaking.v1.Params:
+  babylon.btcstaking.v1.Params:
     type: object
     properties:
       covenant_pks:
@@ -18391,7 +18391,7 @@ definitions:
           allow_list_expiration_height is the height at which the allow list
           expires
 
-          i.e all staking transactions are allowed to enter ybtc chain
+          i.e all staking transactions are allowed to enter Babylon chain
           afterwards
 
           setting it to 0 means allow list is disabled
@@ -18402,7 +18402,7 @@ definitions:
           btc_activation_height is the btc height from which parameters are
           activated (inclusive)
     description: Params defines the parameters for the module.
-  ybtc.btcstaking.v1.ProofOfPossessionBTC:
+  babylon.btcstaking.v1.ProofOfPossessionBTC:
     type: object
     properties:
       btc_sig_type:
@@ -18424,14 +18424,14 @@ definitions:
         format: byte
         title: >-
           btc_sig is the signature generated via sign(sk_btc,
-          ybtc_staker_address)
+          babylon_staker_address)
 
           the signature follows encoding in either BIP-340 spec or BIP-322 spec
     title: |-
-      ProofOfPossessionBTC is the proof of possession that a ybtc
+      ProofOfPossessionBTC is the proof of possession that a Babylon
       address and a Bitcoin secp256k1 secret key are held by the same
       person
-  ybtc.btcstaking.v1.QueryBTCDelegationResponse:
+  babylon.btcstaking.v1.QueryBTCDelegationResponse:
     type: object
     properties:
       btc_delegation:
@@ -18645,7 +18645,7 @@ definitions:
       QueryBTCDelegationRequest
 
       and containing BTC delegation information
-  ybtc.btcstaking.v1.QueryBTCDelegationsResponse:
+  babylon.btcstaking.v1.QueryBTCDelegationsResponse:
     type: object
     properties:
       btc_delegations:
@@ -18895,7 +18895,7 @@ definitions:
     description: |-
       QueryBTCDelegationsResponse is the response type for the
       Query/BTCDelegations RPC method.
-  ybtc.btcstaking.v1.QueryFinalityProviderDelegationsResponse:
+  babylon.btcstaking.v1.QueryFinalityProviderDelegationsResponse:
     type: object
     properties:
       btc_delegator_delegations:
@@ -19163,7 +19163,7 @@ definitions:
     description: |-
       QueryFinalityProviderDelegationsResponse is the response type for the
       Query/FinalityProviderDelegations RPC method.
-  ybtc.btcstaking.v1.QueryFinalityProviderResponse:
+  babylon.btcstaking.v1.QueryFinalityProviderResponse:
     type: object
     properties:
       finality_provider:
@@ -19232,19 +19232,19 @@ definitions:
                 format: byte
                 title: >-
                   btc_sig is the signature generated via sign(sk_btc,
-                  ybtc_staker_address)
+                  babylon_staker_address)
 
                   the signature follows encoding in either BIP-340 spec or
                   BIP-322 spec
             title: |-
-              ProofOfPossessionBTC is the proof of possession that a ybtc
+              ProofOfPossessionBTC is the proof of possession that a Babylon
               address and a Bitcoin secp256k1 secret key are held by the same
               person
-          slashed_ybtc_height:
+          slashed_babylon_height:
             type: string
             format: uint64
             title: |-
-              slashed_ybtc_height indicates the ybtc height when
+              slashed_babylon_height indicates the Babylon height when
               the finality provider is slashed.
               if it's 0 then the finality provider is not slashed
           slashed_btc_height:
@@ -19257,7 +19257,7 @@ definitions:
           height:
             type: string
             format: uint64
-            title: height is the queried ybtc height
+            title: height is the queried Babylon height
           jailed:
             type: boolean
             title: jailed defines whether the finality provider is jailed
@@ -19274,7 +19274,7 @@ definitions:
     title: >-
       QueryFinalityProviderResponse contains information about a finality
       provider
-  ybtc.btcstaking.v1.QueryFinalityProvidersResponse:
+  babylon.btcstaking.v1.QueryFinalityProvidersResponse:
     type: object
     properties:
       finality_providers:
@@ -19345,19 +19345,19 @@ definitions:
                   format: byte
                   title: >-
                     btc_sig is the signature generated via sign(sk_btc,
-                    ybtc_staker_address)
+                    babylon_staker_address)
 
                     the signature follows encoding in either BIP-340 spec or
                     BIP-322 spec
               title: |-
-                ProofOfPossessionBTC is the proof of possession that a ybtc
+                ProofOfPossessionBTC is the proof of possession that a Babylon
                 address and a Bitcoin secp256k1 secret key are held by the same
                 person
-            slashed_ybtc_height:
+            slashed_babylon_height:
               type: string
               format: uint64
               title: |-
-                slashed_ybtc_height indicates the ybtc height when
+                slashed_babylon_height indicates the Babylon height when
                 the finality provider is slashed.
                 if it's 0 then the finality provider is not slashed
             slashed_btc_height:
@@ -19370,7 +19370,7 @@ definitions:
             height:
               type: string
               format: uint64
-              title: height is the queried ybtc height
+              title: height is the queried Babylon height
             jailed:
               type: boolean
               title: jailed defines whether the finality provider is jailed
@@ -19406,7 +19406,7 @@ definitions:
     description: |-
       QueryFinalityProvidersResponse is the response type for the
       Query/FinalityProviders RPC method.
-  ybtc.btcstaking.v1.QueryParamsByBTCHeightResponse:
+  babylon.btcstaking.v1.QueryParamsByBTCHeightResponse:
     type: object
     properties:
       params:
@@ -19525,7 +19525,7 @@ definitions:
               allow_list_expiration_height is the height at which the allow list
               expires
 
-              i.e all staking transactions are allowed to enter ybtc chain
+              i.e all staking transactions are allowed to enter Babylon chain
               afterwards
 
               setting it to 0 means allow list is disabled
@@ -19542,7 +19542,7 @@ definitions:
     description: >-
       QueryParamsByBTCHeightResponse is response type for the
       Query/QueryParamsByBTCHeightResponse RPC method.
-  ybtc.btcstaking.v1.QueryParamsByVersionResponse:
+  babylon.btcstaking.v1.QueryParamsByVersionResponse:
     type: object
     properties:
       params:
@@ -19661,7 +19661,7 @@ definitions:
               allow_list_expiration_height is the height at which the allow list
               expires
 
-              i.e all staking transactions are allowed to enter ybtc chain
+              i.e all staking transactions are allowed to enter Babylon chain
               afterwards
 
               setting it to 0 means allow list is disabled
@@ -19672,7 +19672,7 @@ definitions:
               btc_activation_height is the btc height from which parameters are
               activated (inclusive)
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  ybtc.btcstaking.v1.QueryParamsResponse:
+  babylon.btcstaking.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -19791,7 +19791,7 @@ definitions:
               allow_list_expiration_height is the height at which the allow list
               expires
 
-              i.e all staking transactions are allowed to enter ybtc chain
+              i.e all staking transactions are allowed to enter Babylon chain
               afterwards
 
               setting it to 0 means allow list is disabled
@@ -19802,7 +19802,7 @@ definitions:
               btc_activation_height is the btc height from which parameters are
               activated (inclusive)
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  ybtc.btcstaking.v1.SignatureInfo:
+  babylon.btcstaking.v1.SignatureInfo:
     type: object
     properties:
       pk:
@@ -19833,7 +19833,7 @@ definitions:
         type: string
         description: details define other optional details.
     description: Description defines a validator description.
-  ybtc.finality.v1.ActiveFinalityProvidersAtHeightResponse:
+  babylon.finality.v1.ActiveFinalityProvidersAtHeightResponse:
     type: object
     properties:
       btc_pk_hex:
@@ -19844,18 +19844,18 @@ definitions:
       height:
         type: string
         format: uint64
-        title: height is the queried ybtc height
+        title: height is the queried Babylon height
       voting_power:
         type: string
         format: uint64
         title: >-
           voting_power is the voting power of this finality provider at the
           given height
-      slashed_ybtc_height:
+      slashed_babylon_height:
         type: string
         format: uint64
         title: |-
-          slashed_ybtc_height indicates the ybtc height when
+          slashed_babylon_height indicates the Babylon height when
           the finality provider is slashed.
           if it's 0 then the finality provider is not slashed
       slashed_btc_height:
@@ -19877,7 +19877,7 @@ definitions:
     description: >-
       ActiveFinalityProvidersAtHeightResponse wraps the FinalityProvider with
       metadata.
-  ybtc.finality.v1.EvidenceResponse:
+  babylon.finality.v1.EvidenceResponse:
     type: object
     properties:
       fp_btc_pk_hex:
@@ -19925,9 +19925,9 @@ definitions:
     title: >-
       Evidence is the evidence that a finality provider has signed finality
 
-      signatures with correct public randomness on two conflicting ybtc
+      signatures with correct public randomness on two conflicting Babylon
       headers
-  ybtc.finality.v1.IndexedBlock:
+  babylon.finality.v1.IndexedBlock:
     type: object
     properties:
       height:
@@ -19944,7 +19944,7 @@ definitions:
           finalized indicates whether the IndexedBlock is finalised by 2/3
           finality providers or not
     title: IndexedBlock is the necessary metadata and finalization status of a block
-  ybtc.finality.v1.Params:
+  babylon.finality.v1.Params:
     type: object
     properties:
       max_active_finality_providers:
@@ -19991,7 +19991,7 @@ definitions:
         type: string
         format: uint64
         description: >-
-          finality_activation_height is the ybtc block height which the
+          finality_activation_height is the babylon block height which the
           finality module will
 
           start to accept finality voting and the minimum allowed value for the
@@ -19999,7 +19999,7 @@ definitions:
 
           commit start height.
     description: Params defines the parameters for the module.
-  ybtc.finality.v1.PubRandCommitResponse:
+  babylon.finality.v1.PubRandCommitResponse:
     type: object
     properties:
       num_pub_rand:
@@ -20017,7 +20017,7 @@ definitions:
     title: >-
       PubRandCommitResponse is the response type for a public randomness
       commitment
-  ybtc.finality.v1.QueriedBlockStatus:
+  babylon.finality.v1.QueriedBlockStatus:
     type: string
     enum:
       - NON_FINALIZED
@@ -20031,7 +20031,7 @@ definitions:
        - NON_FINALIZED: NON_FINALIZED means the block is not finalised
        - FINALIZED: FINALIZED means the block is finalized
        - ANY: ANY means the block can be in any status
-  ybtc.finality.v1.QueryActivatedHeightResponse:
+  babylon.finality.v1.QueryActivatedHeightResponse:
     type: object
     properties:
       height:
@@ -20040,7 +20040,7 @@ definitions:
     description: >-
       QueryActivatedHeightResponse is the response type for the
       Query/ActivatedHeight RPC method.
-  ybtc.finality.v1.QueryActiveFinalityProvidersAtHeightResponse:
+  babylon.finality.v1.QueryActiveFinalityProvidersAtHeightResponse:
     type: object
     properties:
       finality_providers:
@@ -20056,18 +20056,18 @@ definitions:
             height:
               type: string
               format: uint64
-              title: height is the queried ybtc height
+              title: height is the queried Babylon height
             voting_power:
               type: string
               format: uint64
               title: >-
                 voting_power is the voting power of this finality provider at
                 the given height
-            slashed_ybtc_height:
+            slashed_babylon_height:
               type: string
               format: uint64
               title: |-
-                slashed_ybtc_height indicates the ybtc height when
+                slashed_babylon_height indicates the Babylon height when
                 the finality provider is slashed.
                 if it's 0 then the finality provider is not slashed
             slashed_btc_height:
@@ -20112,7 +20112,7 @@ definitions:
     description: |-
       QueryActiveFinalityProvidersAtHeightResponse is the response type for the
       Query/ActiveFinalityProvidersAtHeight RPC method.
-  ybtc.finality.v1.QueryBlockResponse:
+  babylon.finality.v1.QueryBlockResponse:
     type: object
     properties:
       block:
@@ -20137,7 +20137,7 @@ definitions:
     description: |-
       QueryBlockResponse is the response type for the
       Query/Block RPC method.
-  ybtc.finality.v1.QueryEvidenceResponse:
+  babylon.finality.v1.QueryEvidenceResponse:
     type: object
     properties:
       evidence:
@@ -20188,12 +20188,12 @@ definitions:
         title: >-
           Evidence is the evidence that a finality provider has signed finality
 
-          signatures with correct public randomness on two conflicting ybtc
+          signatures with correct public randomness on two conflicting Babylon
           headers
     description: |-
       QueryEvidenceResponse is the response type for the
       Query/Evidence RPC method.
-  ybtc.finality.v1.QueryFinalityProviderCurrentPowerResponse:
+  babylon.finality.v1.QueryFinalityProviderCurrentPowerResponse:
     type: object
     properties:
       height:
@@ -20207,7 +20207,7 @@ definitions:
     description: |-
       QueryFinalityProviderCurrentPowerResponse is the response type for the
       Query/FinalityProviderCurrentPower RPC method.
-  ybtc.finality.v1.QueryFinalityProviderPowerAtHeightResponse:
+  babylon.finality.v1.QueryFinalityProviderPowerAtHeightResponse:
     type: object
     properties:
       voting_power:
@@ -20217,7 +20217,7 @@ definitions:
     description: |-
       QueryFinalityProviderPowerAtHeightResponse is the response type for the
       Query/FinalityProviderPowerAtHeight RPC method.
-  ybtc.finality.v1.QueryListBlocksResponse:
+  babylon.finality.v1.QueryListBlocksResponse:
     type: object
     properties:
       blocks:
@@ -20264,7 +20264,7 @@ definitions:
     description: |-
       QueryListBlocksResponse is the response type for the
       Query/ListBlocks RPC method.
-  ybtc.finality.v1.QueryListEvidencesResponse:
+  babylon.finality.v1.QueryListEvidencesResponse:
     type: object
     properties:
       evidences:
@@ -20318,7 +20318,7 @@ definitions:
             Evidence is the evidence that a finality provider has signed
             finality
 
-            signatures with correct public randomness on two conflicting ybtc
+            signatures with correct public randomness on two conflicting Babylon
             headers
         title: blocks is the list of evidences
       pagination:
@@ -20343,7 +20343,7 @@ definitions:
     description: |-
       QueryListEvidencesResponse is the response type for the
       Query/ListEvidences RPC method.
-  ybtc.finality.v1.QueryListPubRandCommitResponse:
+  babylon.finality.v1.QueryListPubRandCommitResponse:
     type: object
     properties:
       pub_rand_commit_map:
@@ -20394,7 +20394,7 @@ definitions:
     description: |-
       QueryListPubRandCommitResponse is the response type for the
       Query/ListPubRandCommit RPC method.
-  ybtc.finality.v1.QueryListPublicRandomnessResponse:
+  babylon.finality.v1.QueryListPublicRandomnessResponse:
     type: object
     properties:
       pub_rand_map:
@@ -20429,7 +20429,7 @@ definitions:
     description: |-
       QueryListPublicRandomnessResponse is the response type for the
       Query/ListPublicRandomness RPC method.
-  ybtc.finality.v1.QueryParamsResponse:
+  babylon.finality.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -20480,7 +20480,7 @@ definitions:
             type: string
             format: uint64
             description: >-
-              finality_activation_height is the ybtc block height which the
+              finality_activation_height is the babylon block height which the
               finality module will
 
               start to accept finality voting and the minimum allowed value for
@@ -20488,7 +20488,7 @@ definitions:
 
               commit start height.
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  ybtc.finality.v1.QuerySigningInfoResponse:
+  babylon.finality.v1.QuerySigningInfoResponse:
     type: object
     properties:
       signing_info:
@@ -20530,7 +20530,7 @@ definitions:
       RPC
 
       method
-  ybtc.finality.v1.QuerySigningInfosResponse:
+  babylon.finality.v1.QuerySigningInfosResponse:
     type: object
     properties:
       signing_infos:
@@ -20601,7 +20601,7 @@ definitions:
       RPC
 
       method
-  ybtc.finality.v1.QueryVotesAtHeightResponse:
+  babylon.finality.v1.QueryVotesAtHeightResponse:
     type: object
     properties:
       btc_pks:
@@ -20617,7 +20617,7 @@ definitions:
     description: |-
       QueryVotesAtHeightResponse is the response type for the
       Query/VotesAtHeight RPC method.
-  ybtc.finality.v1.SigningInfoResponse:
+  babylon.finality.v1.SigningInfoResponse:
     type: object
     properties:
       fp_btc_pk_hex:
@@ -20649,7 +20649,7 @@ definitions:
       provider's signing info
 
       for monitoring their liveness activity.
-  ybtc.mint.v1.QueryAnnualProvisionsResponse:
+  babylon.mint.v1.QueryAnnualProvisionsResponse:
     type: object
     properties:
       annual_provisions:
@@ -20659,7 +20659,7 @@ definitions:
     description: |-
       QueryAnnualProvisionsResponse is the response type for the
       Query/AnnualProvisions RPC method.
-  ybtc.mint.v1.QueryGenesisTimeResponse:
+  babylon.mint.v1.QueryGenesisTimeResponse:
     type: object
     properties:
       genesis_time:
@@ -20671,7 +20671,7 @@ definitions:
       RPC
 
       method.
-  ybtc.mint.v1.QueryInflationRateResponse:
+  babylon.mint.v1.QueryInflationRateResponse:
     type: object
     properties:
       inflation_rate:
@@ -20683,7 +20683,7 @@ definitions:
       Query/InflationRate
 
       RPC method.
-  ybtc.monitor.v1.QueryEndedEpochBtcHeightResponse:
+  babylon.monitor.v1.QueryEndedEpochBtcHeightResponse:
     type: object
     properties:
       btc_light_client_height:
@@ -20693,7 +20693,7 @@ definitions:
     title: |-
       QueryEndedEpochBtcHeightResponse defines a response type for
       EndedEpochBtcHeight RPC method
-  ybtc.monitor.v1.QueryReportedCheckpointBtcHeightResponse:
+  babylon.monitor.v1.QueryReportedCheckpointBtcHeightResponse:
     type: object
     properties:
       btc_light_client_height:
@@ -20703,7 +20703,7 @@ definitions:
     title: |-
       QueryReportedCheckpointBtcHeightResponse defines a response type for
       ReportedCheckpointBtcHeight RPC method
-  ybtc.checkpointing.v1.BlsPublicKeyListResponse:
+  babylon.checkpointing.v1.BlsPublicKeyListResponse:
     type: object
     properties:
       validator_address:
@@ -20721,7 +20721,7 @@ definitions:
       bls
 
       public key
-  ybtc.checkpointing.v1.CheckpointStateUpdateResponse:
+  babylon.checkpointing.v1.CheckpointStateUpdateResponse:
     type: object
     properties:
       state:
@@ -20749,7 +20749,7 @@ definitions:
         type: string
         format: uint64
         title: >-
-          block_height is the height of the ybtc block that triggers the
+          block_height is the height of the Babylon block that triggers the
           state
 
           update
@@ -20757,14 +20757,14 @@ definitions:
         type: string
         format: date-time
         title: >-
-          block_time is the timestamp in the ybtc block that triggers the
+          block_time is the timestamp in the Babylon block that triggers the
           state
 
           update
     description: >-
       CheckpointStateUpdateResponse defines a state transition on the
       checkpoint.
-  ybtc.checkpointing.v1.CheckpointStatus:
+  babylon.checkpointing.v1.CheckpointStatus:
     type: string
     enum:
       - CKPT_STATUS_ACCUMULATING
@@ -20781,7 +20781,7 @@ definitions:
        - CKPT_STATUS_SUBMITTED: SUBMITTED defines a checkpoint that is included on BTC.
        - CKPT_STATUS_CONFIRMED: CONFIRMED defines a checkpoint that is k-deep on BTC.
        - CKPT_STATUS_FINALIZED: FINALIZED defines a checkpoint that is w-deep on BTC.
-  ybtc.checkpointing.v1.QueryBlsPublicKeyListResponse:
+  babylon.checkpointing.v1.QueryBlsPublicKeyListResponse:
     type: object
     properties:
       validator_with_bls_keys:
@@ -20828,7 +20828,7 @@ definitions:
     description: |-
       QueryBlsPublicKeyListResponse is the response type for the
       Query/BlsPublicKeys RPC method.
-  ybtc.checkpointing.v1.QueryEpochStatusResponse:
+  babylon.checkpointing.v1.QueryEpochStatusResponse:
     type: object
     properties:
       status:
@@ -20851,7 +20851,7 @@ definitions:
     description: |-
       QueryEpochStatusResponse is the response type for the Query/EpochStatus
       RPC method.
-  ybtc.checkpointing.v1.QueryLastCheckpointWithStatusResponse:
+  babylon.checkpointing.v1.QueryLastCheckpointWithStatusResponse:
     type: object
     properties:
       raw_checkpoint:
@@ -20884,7 +20884,7 @@ definitions:
     description: |-
       QueryLastCheckpointWithStatusResponse is the response type for the
       Query/LastCheckpointWithStatus RPC method.
-  ybtc.checkpointing.v1.QueryRawCheckpointListResponse:
+  babylon.checkpointing.v1.QueryRawCheckpointListResponse:
     type: object
     properties:
       raw_checkpoints:
@@ -20985,7 +20985,7 @@ definitions:
                     type: string
                     format: uint64
                     title: >-
-                      block_height is the height of the ybtc block that
+                      block_height is the height of the Babylon block that
                       triggers the state
 
                       update
@@ -20993,7 +20993,7 @@ definitions:
                     type: string
                     format: date-time
                     title: >-
-                      block_time is the timestamp in the ybtc block that
+                      block_time is the timestamp in the Babylon block that
                       triggers the state
 
                       update
@@ -21034,7 +21034,7 @@ definitions:
     description: |-
       QueryRawCheckpointListResponse is the response type for the
       Query/RawCheckpoints RPC method.
-  ybtc.checkpointing.v1.QueryRawCheckpointResponse:
+  babylon.checkpointing.v1.QueryRawCheckpointResponse:
     type: object
     properties:
       raw_checkpoint:
@@ -21130,7 +21130,7 @@ definitions:
                   type: string
                   format: uint64
                   title: >-
-                    block_height is the height of the ybtc block that
+                    block_height is the height of the Babylon block that
                     triggers the state
 
                     update
@@ -21138,7 +21138,7 @@ definitions:
                   type: string
                   format: date-time
                   title: >-
-                    block_time is the timestamp in the ybtc block that
+                    block_time is the timestamp in the Babylon block that
                     triggers the state
 
                     update
@@ -21159,7 +21159,7 @@ definitions:
       Query/RawCheckpoint
 
       RPC method.
-  ybtc.checkpointing.v1.QueryRawCheckpointsResponse:
+  babylon.checkpointing.v1.QueryRawCheckpointsResponse:
     type: object
     properties:
       raw_checkpoints:
@@ -21260,7 +21260,7 @@ definitions:
                     type: string
                     format: uint64
                     title: >-
-                      block_height is the height of the ybtc block that
+                      block_height is the height of the Babylon block that
                       triggers the state
 
                       update
@@ -21268,7 +21268,7 @@ definitions:
                     type: string
                     format: date-time
                     title: >-
-                      block_time is the timestamp in the ybtc block that
+                      block_time is the timestamp in the Babylon block that
                       triggers the state
 
                       update
@@ -21311,7 +21311,7 @@ definitions:
       Query/RawCheckpoints
 
       RPC method.
-  ybtc.checkpointing.v1.QueryRecentEpochStatusCountResponse:
+  babylon.checkpointing.v1.QueryRecentEpochStatusCountResponse:
     type: object
     properties:
       tip_epoch:
@@ -21328,7 +21328,7 @@ definitions:
     description: |-
       QueryRecentEpochStatusCountResponse is the response type for the
       Query/EpochStatusCount RPC method.
-  ybtc.checkpointing.v1.RawCheckpointResponse:
+  babylon.checkpointing.v1.RawCheckpointResponse:
     type: object
     properties:
       epoch_num:
@@ -21355,7 +21355,7 @@ definitions:
 
           sigs
     title: RawCheckpointResponse wraps the BLS multi sig with metadata
-  ybtc.checkpointing.v1.RawCheckpointWithMetaResponse:
+  babylon.checkpointing.v1.RawCheckpointWithMetaResponse:
     type: object
     properties:
       ckpt:
@@ -21444,7 +21444,7 @@ definitions:
               type: string
               format: uint64
               title: >-
-                block_height is the height of the ybtc block that triggers
+                block_height is the height of the Babylon block that triggers
                 the state
 
                 update
@@ -21452,7 +21452,7 @@ definitions:
               type: string
               format: date-time
               title: >-
-                block_time is the timestamp in the ybtc block that triggers
+                block_time is the timestamp in the Babylon block that triggers
                 the state
 
                 update
@@ -21464,7 +21464,7 @@ definitions:
           transition and the time (in both timestamp and block height) of this
           transition.
     description: RawCheckpointWithMetaResponse wraps the raw checkpoint with metadata.
-  ybtc.btcstkconsumer.v1.ConsumerRegister:
+  babylon.btcstkconsumer.v1.ConsumerRegister:
     type: object
     properties:
       consumer_id:
@@ -21502,14 +21502,14 @@ definitions:
               the ETH L2 integration
         title: ETHL2ConsumerMetadata is the metadata for the ETH L2 integration
     title: ConsumerRegister is the registration information of a consumer
-  ybtc.btcstkconsumer.v1.CosmosConsumerMetadata:
+  babylon.btcstkconsumer.v1.CosmosConsumerMetadata:
     type: object
     properties:
       channel_id:
         type: string
         title: channel_id defines the IBC channel ID for the consumer chain
     title: CosmosConsumerMetadata is the metadata for the Cosmos integration
-  ybtc.btcstkconsumer.v1.ETHL2ConsumerMetadata:
+  babylon.btcstkconsumer.v1.ETHL2ConsumerMetadata:
     type: object
     properties:
       finality_contract_address:
@@ -21518,7 +21518,7 @@ definitions:
           finality_contract_address is the address of the finality contract for
           the ETH L2 integration
     title: ETHL2ConsumerMetadata is the metadata for the ETH L2 integration
-  ybtc.btcstkconsumer.v1.FinalityProviderResponse:
+  babylon.btcstkconsumer.v1.FinalityProviderResponse:
     type: object
     properties:
       description:
@@ -21547,7 +21547,7 @@ definitions:
         description: commission defines the commission rate of the finality provider.
       addr:
         type: string
-        title: ybtc_pk is the ybtc secp256k1 PK of this finality provider
+        title: babylon_pk is the Babylon secp256k1 PK of this finality provider
       btc_pk:
         type: string
         format: byte
@@ -21555,7 +21555,7 @@ definitions:
           btc_pk is the Bitcoin secp256k1 PK of this finality provider
           the PK follows encoding in BIP-340 spec
       pop:
-        title: pop is the proof of possession of ybtc_pk and btc_pk
+        title: pop is the proof of possession of babylon_pk and btc_pk
         type: object
         properties:
           btc_sig_type:
@@ -21578,15 +21578,15 @@ definitions:
             format: byte
             title: >-
               btc_sig is the signature generated via sign(sk_btc,
-              ybtc_staker_address)
+              babylon_staker_address)
 
               the signature follows encoding in either BIP-340 spec or BIP-322
               spec
-      slashed_ybtc_height:
+      slashed_babylon_height:
         type: string
         format: uint64
         title: |-
-          slashed_ybtc_height indicates the ybtc height when
+          slashed_babylon_height indicates the Babylon height when
           the finality provider is slashed.
           if it's 0 then the finality provider is not slashed
       slashed_btc_height:
@@ -21599,7 +21599,7 @@ definitions:
       height:
         type: string
         format: uint64
-        title: height is the queried ybtc height
+        title: height is the queried Babylon height
       voting_power:
         type: string
         format: uint64
@@ -21612,7 +21612,7 @@ definitions:
     description: >-
       FinalityProviderResponse defines a finality provider with voting power
       information.
-  ybtc.btcstkconsumer.v1.Params:
+  babylon.btcstkconsumer.v1.Params:
     type: object
     properties:
       permissioned_integration:
@@ -21623,7 +21623,7 @@ definitions:
 
           requiring governance proposal to approve new integrations.
     description: Params defines the parameters for the module.
-  ybtc.btcstkconsumer.v1.QueryConsumerRegistryListResponse:
+  babylon.btcstkconsumer.v1.QueryConsumerRegistryListResponse:
     type: object
     properties:
       consumer_ids:
@@ -21661,7 +21661,7 @@ definitions:
     title: >-
       QueryConsumerRegistryListResponse is response type for the
       Query/ConsumerRegistryList RPC method
-  ybtc.btcstkconsumer.v1.QueryConsumersRegistryResponse:
+  babylon.btcstkconsumer.v1.QueryConsumersRegistryResponse:
     type: object
     properties:
       consumers_register:
@@ -21712,7 +21712,7 @@ definitions:
     description: >-
       QueryConsumersRegistryResponse is response type for the
       Query/ConsumersRegistry RPC method.
-  ybtc.btcstkconsumer.v1.QueryFinalityProviderConsumerResponse:
+  babylon.btcstkconsumer.v1.QueryFinalityProviderConsumerResponse:
     type: object
     properties:
       consumer_id:
@@ -21720,7 +21720,7 @@ definitions:
     title: >-
       QueryFinalityProviderConsumerResponse returns the CZ finality provier
       consumer id
-  ybtc.btcstkconsumer.v1.QueryFinalityProviderResponse:
+  babylon.btcstkconsumer.v1.QueryFinalityProviderResponse:
     type: object
     properties:
       finality_provider:
@@ -21757,7 +21757,7 @@ definitions:
             description: commission defines the commission rate of the finality provider.
           addr:
             type: string
-            title: ybtc_pk is the ybtc secp256k1 PK of this finality provider
+            title: babylon_pk is the Babylon secp256k1 PK of this finality provider
           btc_pk:
             type: string
             format: byte
@@ -21765,7 +21765,7 @@ definitions:
               btc_pk is the Bitcoin secp256k1 PK of this finality provider
               the PK follows encoding in BIP-340 spec
           pop:
-            title: pop is the proof of possession of ybtc_pk and btc_pk
+            title: pop is the proof of possession of babylon_pk and btc_pk
             type: object
             properties:
               btc_sig_type:
@@ -21788,15 +21788,15 @@ definitions:
                 format: byte
                 title: >-
                   btc_sig is the signature generated via sign(sk_btc,
-                  ybtc_staker_address)
+                  babylon_staker_address)
 
                   the signature follows encoding in either BIP-340 spec or
                   BIP-322 spec
-          slashed_ybtc_height:
+          slashed_babylon_height:
             type: string
             format: uint64
             title: |-
-              slashed_ybtc_height indicates the ybtc height when
+              slashed_babylon_height indicates the Babylon height when
               the finality provider is slashed.
               if it's 0 then the finality provider is not slashed
           slashed_btc_height:
@@ -21809,7 +21809,7 @@ definitions:
           height:
             type: string
             format: uint64
-            title: height is the queried ybtc height
+            title: height is the queried Babylon height
           voting_power:
             type: string
             format: uint64
@@ -21827,7 +21827,7 @@ definitions:
     title: >-
       QueryFinalityProviderResponse contains information about a finality
       provider
-  ybtc.btcstkconsumer.v1.QueryFinalityProvidersResponse:
+  babylon.btcstkconsumer.v1.QueryFinalityProvidersResponse:
     type: object
     properties:
       finality_providers:
@@ -21865,7 +21865,7 @@ definitions:
               description: commission defines the commission rate of the finality provider.
             addr:
               type: string
-              title: ybtc_pk is the ybtc secp256k1 PK of this finality provider
+              title: babylon_pk is the Babylon secp256k1 PK of this finality provider
             btc_pk:
               type: string
               format: byte
@@ -21873,7 +21873,7 @@ definitions:
                 btc_pk is the Bitcoin secp256k1 PK of this finality provider
                 the PK follows encoding in BIP-340 spec
             pop:
-              title: pop is the proof of possession of ybtc_pk and btc_pk
+              title: pop is the proof of possession of babylon_pk and btc_pk
               type: object
               properties:
                 btc_sig_type:
@@ -21896,15 +21896,15 @@ definitions:
                   format: byte
                   title: >-
                     btc_sig is the signature generated via sign(sk_btc,
-                    ybtc_staker_address)
+                    babylon_staker_address)
 
                     the signature follows encoding in either BIP-340 spec or
                     BIP-322 spec
-            slashed_ybtc_height:
+            slashed_babylon_height:
               type: string
               format: uint64
               title: |-
-                slashed_ybtc_height indicates the ybtc height when
+                slashed_babylon_height indicates the Babylon height when
                 the finality provider is slashed.
                 if it's 0 then the finality provider is not slashed
             slashed_btc_height:
@@ -21917,7 +21917,7 @@ definitions:
             height:
               type: string
               format: uint64
-              title: height is the queried ybtc height
+              title: height is the queried Babylon height
             voting_power:
               type: string
               format: uint64
@@ -21955,7 +21955,7 @@ definitions:
     description: |-
       QueryFinalityProvidersResponse is the response type for the
       Query/FinalityProviders RPC method.
-  ybtc.btcstkconsumer.v1.QueryParamsResponse:
+  babylon.btcstkconsumer.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -21970,7 +21970,7 @@ definitions:
 
               requiring governance proposal to approve new integrations.
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  ybtc.incentive.BTCStakingGaugeResponse:
+  babylon.incentive.BTCStakingGaugeResponse:
     type: object
     properties:
       coins:
@@ -21993,7 +21993,7 @@ definitions:
     description: >-
       BTCStakingGaugeResponse is response type for the Query/BTCStakingGauge RPC
       method.
-  ybtc.incentive.Params:
+  babylon.incentive.Params:
     type: object
     properties:
       btc_staking_portion:
@@ -22018,7 +22018,7 @@ definitions:
 
       adapted from
       https://github.com/cosmos/cosmos-sdk/blob/release/v0.47.x/proto/cosmos/distribution/v1beta1/distribution.proto
-  ybtc.incentive.QueryBTCStakingGaugeResponse:
+  babylon.incentive.QueryBTCStakingGaugeResponse:
     type: object
     properties:
       gauge:
@@ -22051,7 +22051,7 @@ definitions:
     description: >-
       QueryBTCStakingGaugeResponse is response type for the
       Query/BTCStakingGauge RPC method.
-  ybtc.incentive.QueryDelegatorWithdrawAddressResponse:
+  babylon.incentive.QueryDelegatorWithdrawAddressResponse:
     type: object
     properties:
       withdraw_address:
@@ -22060,7 +22060,7 @@ definitions:
     description: |-
       QueryDelegatorWithdrawAddressResponse is the response type for the
       Query/DelegatorWithdrawAddress RPC method.
-  ybtc.incentive.QueryParamsResponse:
+  babylon.incentive.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -22090,7 +22090,7 @@ definitions:
           adapted from
           https://github.com/cosmos/cosmos-sdk/blob/release/v0.47.x/proto/cosmos/distribution/v1beta1/distribution.proto
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  ybtc.incentive.QueryRewardGaugesResponse:
+  babylon.incentive.QueryRewardGaugesResponse:
     type: object
     properties:
       reward_gauges:
@@ -22150,7 +22150,7 @@ definitions:
     description: >-
       QueryRewardGaugesResponse is response type for the Query/RewardGauges RPC
       method.
-  ybtc.incentive.RewardGaugesResponse:
+  babylon.incentive.RewardGaugesResponse:
     type: object
     properties:
       coins:
@@ -22190,7 +22190,7 @@ definitions:
     title: >-
       RewardGaugesResponse is an object that stores rewards distributed to a BTC
       staking stakeholder
-  ybtc.btccheckpoint.v1.SubmissionKey:
+  babylon.btccheckpoint.v1.SubmissionKey:
     type: object
     properties:
       key:
@@ -22227,7 +22227,7 @@ definitions:
       hash),
 
       so there should be other strong arguments for this optimization
-  ybtc.btccheckpoint.v1.TransactionInfo:
+  babylon.btccheckpoint.v1.TransactionInfo:
     type: object
     properties:
       key:
@@ -22272,7 +22272,7 @@ definitions:
       - the position of the tx on BTC blockchain
       - the full tx content
       - the Merkle proof that this tx is on the above position
-  ybtc.btccheckpoint.v1.TransactionKey:
+  babylon.btccheckpoint.v1.TransactionKey:
     type: object
     properties:
       index:
@@ -22284,7 +22284,7 @@ definitions:
     title: |-
       Each provided OP_RETURN transaction can be identified by hash of block in
       which transaction was included and transaction index in the block
-  ybtc.checkpointing.v1.RawCheckpoint:
+  babylon.checkpointing.v1.RawCheckpoint:
     type: object
     properties:
       epoch_num:
@@ -22312,7 +22312,7 @@ definitions:
 
           sigs
     title: RawCheckpoint wraps the BLS multi sig with metadata
-  ybtc.checkpointing.v1.ValidatorWithBlsKey:
+  babylon.checkpointing.v1.ValidatorWithBlsKey:
     type: object
     properties:
       validator_address:
@@ -22329,7 +22329,7 @@ definitions:
     title: |-
       ValidatorWithBlsKey couples validator address, voting power, and its bls
       public key
-  ybtc.epoching.v1.Epoch:
+  babylon.epoching.v1.Epoch:
     type: object
     properties:
       epoch_number:
@@ -22350,7 +22350,7 @@ definitions:
         description: >-
           last_block_time is the time of the last block in this epoch.
 
-          ybtc needs to remember the last header's time of each epoch to
+          Babylon needs to remember the last header's time of each epoch to
           complete
 
           unbonding validators/delegations when a previous epoch's checkpoint is
@@ -22374,7 +22374,7 @@ definitions:
           the validator set has generated a BLS multisig on the hash,
           i.e., hash of the last block in the epoch
     title: Epoch is a structure that contains the metadata of an epoch
-  ybtc.zoneconcierge.v1.ChainInfo:
+  babylon.zoneconcierge.v1.ChainInfo:
     type: object
     properties:
       consumer_id:
@@ -22405,36 +22405,36 @@ definitions:
               time is the timestamp of this header on CZ ledger
               it is needed for CZ to unbond all mature validators/delegations
               before this timestamp when this header is BTC-finalised
-          ybtc_header_hash:
+          babylon_header_hash:
             type: string
             format: byte
             title: >-
-              ybtc_header_hash is the hash of the ybtc block that includes
+              babylon_header_hash is the hash of the babylon block that includes
               this CZ
 
               header
-          ybtc_header_height:
+          babylon_header_height:
             type: string
             format: uint64
             title: >-
-              ybtc_header_height is the height of the ybtc block that
+              babylon_header_height is the height of the babylon block that
               includes this CZ
 
               header
-          ybtc_epoch:
+          babylon_epoch:
             type: string
             format: uint64
-            title: epoch is the epoch number of this header on ybtc ledger
-          ybtc_tx_hash:
+            title: epoch is the epoch number of this header on Babylon ledger
+          babylon_tx_hash:
             type: string
             format: byte
             title: >-
-              ybtc_tx_hash is the hash of the tx that includes this header
+              babylon_tx_hash is the hash of the tx that includes this header
 
-              (ybtc_block_height, ybtc_tx_hash) jointly provides the
+              (babylon_block_height, babylon_tx_hash) jointly provides the
               position of
 
-              the header on ybtc ledger
+              the header on Babylon ledger
         title: IndexedHeader is the metadata of a CZ header
       latest_forks:
         type: object
@@ -22469,37 +22469,37 @@ definitions:
                     validators/delegations
 
                     before this timestamp when this header is BTC-finalised
-                ybtc_header_hash:
+                babylon_header_hash:
                   type: string
                   format: byte
                   title: >-
-                    ybtc_header_hash is the hash of the ybtc block that
+                    babylon_header_hash is the hash of the babylon block that
                     includes this CZ
 
                     header
-                ybtc_header_height:
+                babylon_header_height:
                   type: string
                   format: uint64
                   title: >-
-                    ybtc_header_height is the height of the ybtc block
+                    babylon_header_height is the height of the babylon block
                     that includes this CZ
 
                     header
-                ybtc_epoch:
+                babylon_epoch:
                   type: string
                   format: uint64
-                  title: epoch is the epoch number of this header on ybtc ledger
-                ybtc_tx_hash:
+                  title: epoch is the epoch number of this header on Babylon ledger
+                babylon_tx_hash:
                   type: string
                   format: byte
                   title: >-
-                    ybtc_tx_hash is the hash of the tx that includes this
+                    babylon_tx_hash is the hash of the tx that includes this
                     header
 
-                    (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                    (babylon_block_height, babylon_tx_hash) jointly provides the
                     position of
 
-                    the header on ybtc ledger
+                    the header on Babylon ledger
               title: IndexedHeader is the metadata of a CZ header
             title: >-
               blocks is the list of non-canonical indexed headers at the same
@@ -22522,7 +22522,7 @@ definitions:
 
           Note that each `IndexedHeader` in the fork should have a valid quorum
 
-          certificate. Such forks exist since ybtc considers CZs might have
+          certificate. Such forks exist since Babylon considers CZs might have
 
           dishonest majority. Also note that the IBC-Go implementation will only
 
@@ -22543,7 +22543,7 @@ definitions:
           timestamped_headers_count is the number of timestamped headers in CZ's
           canonical chain
     title: ChainInfo is the information of a CZ
-  ybtc.zoneconcierge.v1.FinalizedChainInfo:
+  babylon.zoneconcierge.v1.FinalizedChainInfo:
     type: object
     properties:
       consumer_id:
@@ -22583,37 +22583,37 @@ definitions:
                   validators/delegations
 
                   before this timestamp when this header is BTC-finalised
-              ybtc_header_hash:
+              babylon_header_hash:
                 type: string
                 format: byte
                 title: >-
-                  ybtc_header_hash is the hash of the ybtc block that
+                  babylon_header_hash is the hash of the babylon block that
                   includes this CZ
 
                   header
-              ybtc_header_height:
+              babylon_header_height:
                 type: string
                 format: uint64
                 title: >-
-                  ybtc_header_height is the height of the ybtc block that
+                  babylon_header_height is the height of the babylon block that
                   includes this CZ
 
                   header
-              ybtc_epoch:
+              babylon_epoch:
                 type: string
                 format: uint64
-                title: epoch is the epoch number of this header on ybtc ledger
-              ybtc_tx_hash:
+                title: epoch is the epoch number of this header on Babylon ledger
+              babylon_tx_hash:
                 type: string
                 format: byte
                 title: >-
-                  ybtc_tx_hash is the hash of the tx that includes this
+                  babylon_tx_hash is the hash of the tx that includes this
                   header
 
-                  (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                  (babylon_block_height, babylon_tx_hash) jointly provides the
                   position of
 
-                  the header on ybtc ledger
+                  the header on Babylon ledger
             title: IndexedHeader is the metadata of a CZ header
           latest_forks:
             type: object
@@ -22648,39 +22648,39 @@ definitions:
                         validators/delegations
 
                         before this timestamp when this header is BTC-finalised
-                    ybtc_header_hash:
+                    babylon_header_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_header_hash is the hash of the ybtc block
+                        babylon_header_hash is the hash of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_header_height:
+                    babylon_header_height:
                       type: string
                       format: uint64
                       title: >-
-                        ybtc_header_height is the height of the ybtc block
+                        babylon_header_height is the height of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_epoch:
+                    babylon_epoch:
                       type: string
                       format: uint64
                       title: >-
-                        epoch is the epoch number of this header on ybtc
+                        epoch is the epoch number of this header on Babylon
                         ledger
-                    ybtc_tx_hash:
+                    babylon_tx_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_tx_hash is the hash of the tx that includes this
+                        babylon_tx_hash is the hash of the tx that includes this
                         header
 
-                        (ybtc_block_height, ybtc_tx_hash) jointly provides
+                        (babylon_block_height, babylon_tx_hash) jointly provides
                         the position of
 
-                        the header on ybtc ledger
+                        the header on Babylon ledger
                   title: IndexedHeader is the metadata of a CZ header
                 title: >-
                   blocks is the list of non-canonical indexed headers at the
@@ -22705,7 +22705,7 @@ definitions:
               Note that each `IndexedHeader` in the fork should have a valid
               quorum
 
-              certificate. Such forks exist since ybtc considers CZs might
+              certificate. Such forks exist since Babylon considers CZs might
               have
 
               dishonest majority. Also note that the IBC-Go implementation will
@@ -22754,7 +22754,7 @@ definitions:
             description: >-
               last_block_time is the time of the last block in this epoch.
 
-              ybtc needs to remember the last header's time of each epoch to
+              Babylon needs to remember the last header's time of each epoch to
               complete
 
               unbonding validators/delegations when a previous epoch's
@@ -23019,7 +23019,7 @@ definitions:
 
               checkpoint submission
     title: FinalizedChainInfo is the information of a CZ that is BTC-finalised
-  ybtc.zoneconcierge.v1.Forks:
+  babylon.zoneconcierge.v1.Forks:
     type: object
     properties:
       headers:
@@ -23049,36 +23049,36 @@ definitions:
                 time is the timestamp of this header on CZ ledger
                 it is needed for CZ to unbond all mature validators/delegations
                 before this timestamp when this header is BTC-finalised
-            ybtc_header_hash:
+            babylon_header_hash:
               type: string
               format: byte
               title: >-
-                ybtc_header_hash is the hash of the ybtc block that
+                babylon_header_hash is the hash of the babylon block that
                 includes this CZ
 
                 header
-            ybtc_header_height:
+            babylon_header_height:
               type: string
               format: uint64
               title: >-
-                ybtc_header_height is the height of the ybtc block that
+                babylon_header_height is the height of the babylon block that
                 includes this CZ
 
                 header
-            ybtc_epoch:
+            babylon_epoch:
               type: string
               format: uint64
-              title: epoch is the epoch number of this header on ybtc ledger
-            ybtc_tx_hash:
+              title: epoch is the epoch number of this header on Babylon ledger
+            babylon_tx_hash:
               type: string
               format: byte
               title: >-
-                ybtc_tx_hash is the hash of the tx that includes this header
+                babylon_tx_hash is the hash of the tx that includes this header
 
-                (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                (babylon_block_height, babylon_tx_hash) jointly provides the
                 position of
 
-                the header on ybtc ledger
+                the header on Babylon ledger
           title: IndexedHeader is the metadata of a CZ header
         title: blocks is the list of non-canonical indexed headers at the same height
     description: >-
@@ -23099,7 +23099,7 @@ definitions:
 
       Note that each `IndexedHeader` in the fork should have a valid quorum
 
-      certificate. Such forks exist since ybtc considers CZs might have
+      certificate. Such forks exist since Babylon considers CZs might have
 
       dishonest majority. Also note that the IBC-Go implementation will only
 
@@ -23107,7 +23107,7 @@ definitions:
 
       cannot be verified without knowing the validator set in the previous
       header.
-  ybtc.zoneconcierge.v1.IndexedHeader:
+  babylon.zoneconcierge.v1.IndexedHeader:
     type: object
     properties:
       consumer_id:
@@ -23132,38 +23132,38 @@ definitions:
           time is the timestamp of this header on CZ ledger
           it is needed for CZ to unbond all mature validators/delegations
           before this timestamp when this header is BTC-finalised
-      ybtc_header_hash:
+      babylon_header_hash:
         type: string
         format: byte
         title: >-
-          ybtc_header_hash is the hash of the ybtc block that includes
+          babylon_header_hash is the hash of the babylon block that includes
           this CZ
 
           header
-      ybtc_header_height:
+      babylon_header_height:
         type: string
         format: uint64
         title: >-
-          ybtc_header_height is the height of the ybtc block that includes
+          babylon_header_height is the height of the babylon block that includes
           this CZ
 
           header
-      ybtc_epoch:
+      babylon_epoch:
         type: string
         format: uint64
-        title: epoch is the epoch number of this header on ybtc ledger
-      ybtc_tx_hash:
+        title: epoch is the epoch number of this header on Babylon ledger
+      babylon_tx_hash:
         type: string
         format: byte
         title: >-
-          ybtc_tx_hash is the hash of the tx that includes this header
+          babylon_tx_hash is the hash of the tx that includes this header
 
-          (ybtc_block_height, ybtc_tx_hash) jointly provides the position
+          (babylon_block_height, babylon_tx_hash) jointly provides the position
           of
 
-          the header on ybtc ledger
+          the header on Babylon ledger
     title: IndexedHeader is the metadata of a CZ header
-  ybtc.zoneconcierge.v1.Params:
+  babylon.zoneconcierge.v1.Params:
     type: object
     properties:
       ibc_packet_timeout_seconds:
@@ -23175,7 +23175,7 @@ definitions:
 
           IBC packet becomes timeout, measured in seconds
     description: Params defines the parameters for the module.
-  ybtc.zoneconcierge.v1.ProofEpochSealed:
+  babylon.zoneconcierge.v1.ProofEpochSealed:
     type: object
     properties:
       validator_set:
@@ -23274,7 +23274,7 @@ definitions:
       - The epoch metadata is committed to the `app_hash` of the sealer header
 
       - The validator set is committed to the `app_hash` of the sealer header
-  ybtc.zoneconcierge.v1.ProofFinalizedChainInfo:
+  babylon.zoneconcierge.v1.ProofFinalizedChainInfo:
     type: object
     properties:
       proof_cz_header_in_epoch:
@@ -23457,7 +23457,7 @@ definitions:
     title: |-
       ProofFinalizedChainInfo is a set of proofs that attest a chain info is
       BTC-finalised
-  ybtc.zoneconcierge.v1.QueryChainListResponse:
+  babylon.zoneconcierge.v1.QueryChainListResponse:
     type: object
     properties:
       consumer_ids:
@@ -23493,7 +23493,7 @@ definitions:
                    PageResponse page = 2;
            }
     title: QueryChainListResponse is response type for the Query/ChainList RPC method
-  ybtc.zoneconcierge.v1.QueryChainsInfoResponse:
+  babylon.zoneconcierge.v1.QueryChainsInfoResponse:
     type: object
     properties:
       chains_info:
@@ -23532,37 +23532,37 @@ definitions:
                     validators/delegations
 
                     before this timestamp when this header is BTC-finalised
-                ybtc_header_hash:
+                babylon_header_hash:
                   type: string
                   format: byte
                   title: >-
-                    ybtc_header_hash is the hash of the ybtc block that
+                    babylon_header_hash is the hash of the babylon block that
                     includes this CZ
 
                     header
-                ybtc_header_height:
+                babylon_header_height:
                   type: string
                   format: uint64
                   title: >-
-                    ybtc_header_height is the height of the ybtc block
+                    babylon_header_height is the height of the babylon block
                     that includes this CZ
 
                     header
-                ybtc_epoch:
+                babylon_epoch:
                   type: string
                   format: uint64
-                  title: epoch is the epoch number of this header on ybtc ledger
-                ybtc_tx_hash:
+                  title: epoch is the epoch number of this header on Babylon ledger
+                babylon_tx_hash:
                   type: string
                   format: byte
                   title: >-
-                    ybtc_tx_hash is the hash of the tx that includes this
+                    babylon_tx_hash is the hash of the tx that includes this
                     header
 
-                    (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                    (babylon_block_height, babylon_tx_hash) jointly provides the
                     position of
 
-                    the header on ybtc ledger
+                    the header on Babylon ledger
               title: IndexedHeader is the metadata of a CZ header
             latest_forks:
               type: object
@@ -23598,39 +23598,39 @@ definitions:
 
                           before this timestamp when this header is
                           BTC-finalised
-                      ybtc_header_hash:
+                      babylon_header_hash:
                         type: string
                         format: byte
                         title: >-
-                          ybtc_header_hash is the hash of the ybtc block
+                          babylon_header_hash is the hash of the babylon block
                           that includes this CZ
 
                           header
-                      ybtc_header_height:
+                      babylon_header_height:
                         type: string
                         format: uint64
                         title: >-
-                          ybtc_header_height is the height of the ybtc
+                          babylon_header_height is the height of the babylon
                           block that includes this CZ
 
                           header
-                      ybtc_epoch:
+                      babylon_epoch:
                         type: string
                         format: uint64
                         title: >-
-                          epoch is the epoch number of this header on ybtc
+                          epoch is the epoch number of this header on Babylon
                           ledger
-                      ybtc_tx_hash:
+                      babylon_tx_hash:
                         type: string
                         format: byte
                         title: >-
-                          ybtc_tx_hash is the hash of the tx that includes
+                          babylon_tx_hash is the hash of the tx that includes
                           this header
 
-                          (ybtc_block_height, ybtc_tx_hash) jointly
+                          (babylon_block_height, babylon_tx_hash) jointly
                           provides the position of
 
-                          the header on ybtc ledger
+                          the header on Babylon ledger
                     title: IndexedHeader is the metadata of a CZ header
                   title: >-
                     blocks is the list of non-canonical indexed headers at the
@@ -23655,7 +23655,7 @@ definitions:
                 Note that each `IndexedHeader` in the fork should have a valid
                 quorum
 
-                certificate. Such forks exist since ybtc considers CZs might
+                certificate. Such forks exist since Babylon considers CZs might
                 have
 
                 dishonest majority. Also note that the IBC-Go implementation
@@ -23683,7 +23683,7 @@ definitions:
     description: >-
       QueryChainsInfoResponse is response type for the Query/ChainsInfo RPC
       method.
-  ybtc.zoneconcierge.v1.QueryEpochChainsInfoResponse:
+  babylon.zoneconcierge.v1.QueryEpochChainsInfoResponse:
     type: object
     properties:
       chains_info:
@@ -23722,37 +23722,37 @@ definitions:
                     validators/delegations
 
                     before this timestamp when this header is BTC-finalised
-                ybtc_header_hash:
+                babylon_header_hash:
                   type: string
                   format: byte
                   title: >-
-                    ybtc_header_hash is the hash of the ybtc block that
+                    babylon_header_hash is the hash of the babylon block that
                     includes this CZ
 
                     header
-                ybtc_header_height:
+                babylon_header_height:
                   type: string
                   format: uint64
                   title: >-
-                    ybtc_header_height is the height of the ybtc block
+                    babylon_header_height is the height of the babylon block
                     that includes this CZ
 
                     header
-                ybtc_epoch:
+                babylon_epoch:
                   type: string
                   format: uint64
-                  title: epoch is the epoch number of this header on ybtc ledger
-                ybtc_tx_hash:
+                  title: epoch is the epoch number of this header on Babylon ledger
+                babylon_tx_hash:
                   type: string
                   format: byte
                   title: >-
-                    ybtc_tx_hash is the hash of the tx that includes this
+                    babylon_tx_hash is the hash of the tx that includes this
                     header
 
-                    (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                    (babylon_block_height, babylon_tx_hash) jointly provides the
                     position of
 
-                    the header on ybtc ledger
+                    the header on Babylon ledger
               title: IndexedHeader is the metadata of a CZ header
             latest_forks:
               type: object
@@ -23788,39 +23788,39 @@ definitions:
 
                           before this timestamp when this header is
                           BTC-finalised
-                      ybtc_header_hash:
+                      babylon_header_hash:
                         type: string
                         format: byte
                         title: >-
-                          ybtc_header_hash is the hash of the ybtc block
+                          babylon_header_hash is the hash of the babylon block
                           that includes this CZ
 
                           header
-                      ybtc_header_height:
+                      babylon_header_height:
                         type: string
                         format: uint64
                         title: >-
-                          ybtc_header_height is the height of the ybtc
+                          babylon_header_height is the height of the babylon
                           block that includes this CZ
 
                           header
-                      ybtc_epoch:
+                      babylon_epoch:
                         type: string
                         format: uint64
                         title: >-
-                          epoch is the epoch number of this header on ybtc
+                          epoch is the epoch number of this header on Babylon
                           ledger
-                      ybtc_tx_hash:
+                      babylon_tx_hash:
                         type: string
                         format: byte
                         title: >-
-                          ybtc_tx_hash is the hash of the tx that includes
+                          babylon_tx_hash is the hash of the tx that includes
                           this header
 
-                          (ybtc_block_height, ybtc_tx_hash) jointly
+                          (babylon_block_height, babylon_tx_hash) jointly
                           provides the position of
 
-                          the header on ybtc ledger
+                          the header on Babylon ledger
                     title: IndexedHeader is the metadata of a CZ header
                   title: >-
                     blocks is the list of non-canonical indexed headers at the
@@ -23845,7 +23845,7 @@ definitions:
                 Note that each `IndexedHeader` in the fork should have a valid
                 quorum
 
-                certificate. Such forks exist since ybtc considers CZs might
+                certificate. Such forks exist since Babylon considers CZs might
                 have
 
                 dishonest majority. Also note that the IBC-Go implementation
@@ -23876,7 +23876,7 @@ definitions:
       Query/EpochChainsInfo RPC
 
       method.
-  ybtc.zoneconcierge.v1.QueryFinalizedChainInfoUntilHeightResponse:
+  babylon.zoneconcierge.v1.QueryFinalizedChainInfoUntilHeightResponse:
     type: object
     properties:
       finalized_chain_info:
@@ -23913,37 +23913,37 @@ definitions:
                   validators/delegations
 
                   before this timestamp when this header is BTC-finalised
-              ybtc_header_hash:
+              babylon_header_hash:
                 type: string
                 format: byte
                 title: >-
-                  ybtc_header_hash is the hash of the ybtc block that
+                  babylon_header_hash is the hash of the babylon block that
                   includes this CZ
 
                   header
-              ybtc_header_height:
+              babylon_header_height:
                 type: string
                 format: uint64
                 title: >-
-                  ybtc_header_height is the height of the ybtc block that
+                  babylon_header_height is the height of the babylon block that
                   includes this CZ
 
                   header
-              ybtc_epoch:
+              babylon_epoch:
                 type: string
                 format: uint64
-                title: epoch is the epoch number of this header on ybtc ledger
-              ybtc_tx_hash:
+                title: epoch is the epoch number of this header on Babylon ledger
+              babylon_tx_hash:
                 type: string
                 format: byte
                 title: >-
-                  ybtc_tx_hash is the hash of the tx that includes this
+                  babylon_tx_hash is the hash of the tx that includes this
                   header
 
-                  (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                  (babylon_block_height, babylon_tx_hash) jointly provides the
                   position of
 
-                  the header on ybtc ledger
+                  the header on Babylon ledger
             title: IndexedHeader is the metadata of a CZ header
           latest_forks:
             type: object
@@ -23978,39 +23978,39 @@ definitions:
                         validators/delegations
 
                         before this timestamp when this header is BTC-finalised
-                    ybtc_header_hash:
+                    babylon_header_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_header_hash is the hash of the ybtc block
+                        babylon_header_hash is the hash of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_header_height:
+                    babylon_header_height:
                       type: string
                       format: uint64
                       title: >-
-                        ybtc_header_height is the height of the ybtc block
+                        babylon_header_height is the height of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_epoch:
+                    babylon_epoch:
                       type: string
                       format: uint64
                       title: >-
-                        epoch is the epoch number of this header on ybtc
+                        epoch is the epoch number of this header on Babylon
                         ledger
-                    ybtc_tx_hash:
+                    babylon_tx_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_tx_hash is the hash of the tx that includes this
+                        babylon_tx_hash is the hash of the tx that includes this
                         header
 
-                        (ybtc_block_height, ybtc_tx_hash) jointly provides
+                        (babylon_block_height, babylon_tx_hash) jointly provides
                         the position of
 
-                        the header on ybtc ledger
+                        the header on Babylon ledger
                   title: IndexedHeader is the metadata of a CZ header
                 title: >-
                   blocks is the list of non-canonical indexed headers at the
@@ -24035,7 +24035,7 @@ definitions:
               Note that each `IndexedHeader` in the fork should have a valid
               quorum
 
-              certificate. Such forks exist since ybtc considers CZs might
+              certificate. Such forks exist since Babylon considers CZs might
               have
 
               dishonest majority. Also note that the IBC-Go implementation will
@@ -24084,7 +24084,7 @@ definitions:
             description: >-
               last_block_time is the time of the last block in this epoch.
 
-              ybtc needs to remember the last header's time of each epoch to
+              Babylon needs to remember the last header's time of each epoch to
               complete
 
               unbonding validators/delegations when a previous epoch's
@@ -24351,7 +24351,7 @@ definitions:
     description: |-
       QueryFinalizedChainInfoUntilHeightResponse is response type for the
       Query/FinalizedChainInfoUntilHeight RPC method.
-  ybtc.zoneconcierge.v1.QueryFinalizedChainsInfoResponse:
+  babylon.zoneconcierge.v1.QueryFinalizedChainsInfoResponse:
     type: object
     properties:
       finalized_chains_info:
@@ -24396,39 +24396,39 @@ definitions:
                         validators/delegations
 
                         before this timestamp when this header is BTC-finalised
-                    ybtc_header_hash:
+                    babylon_header_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_header_hash is the hash of the ybtc block
+                        babylon_header_hash is the hash of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_header_height:
+                    babylon_header_height:
                       type: string
                       format: uint64
                       title: >-
-                        ybtc_header_height is the height of the ybtc block
+                        babylon_header_height is the height of the babylon block
                         that includes this CZ
 
                         header
-                    ybtc_epoch:
+                    babylon_epoch:
                       type: string
                       format: uint64
                       title: >-
-                        epoch is the epoch number of this header on ybtc
+                        epoch is the epoch number of this header on Babylon
                         ledger
-                    ybtc_tx_hash:
+                    babylon_tx_hash:
                       type: string
                       format: byte
                       title: >-
-                        ybtc_tx_hash is the hash of the tx that includes this
+                        babylon_tx_hash is the hash of the tx that includes this
                         header
 
-                        (ybtc_block_height, ybtc_tx_hash) jointly provides
+                        (babylon_block_height, babylon_tx_hash) jointly provides
                         the position of
 
-                        the header on ybtc ledger
+                        the header on Babylon ledger
                   title: IndexedHeader is the metadata of a CZ header
                 latest_forks:
                   type: object
@@ -24464,39 +24464,39 @@ definitions:
 
                               before this timestamp when this header is
                               BTC-finalised
-                          ybtc_header_hash:
+                          babylon_header_hash:
                             type: string
                             format: byte
                             title: >-
-                              ybtc_header_hash is the hash of the ybtc
+                              babylon_header_hash is the hash of the babylon
                               block that includes this CZ
 
                               header
-                          ybtc_header_height:
+                          babylon_header_height:
                             type: string
                             format: uint64
                             title: >-
-                              ybtc_header_height is the height of the ybtc
+                              babylon_header_height is the height of the babylon
                               block that includes this CZ
 
                               header
-                          ybtc_epoch:
+                          babylon_epoch:
                             type: string
                             format: uint64
                             title: >-
                               epoch is the epoch number of this header on
-                              ybtc ledger
-                          ybtc_tx_hash:
+                              Babylon ledger
+                          babylon_tx_hash:
                             type: string
                             format: byte
                             title: >-
-                              ybtc_tx_hash is the hash of the tx that
+                              babylon_tx_hash is the hash of the tx that
                               includes this header
 
-                              (ybtc_block_height, ybtc_tx_hash) jointly
+                              (babylon_block_height, babylon_tx_hash) jointly
                               provides the position of
 
-                              the header on ybtc ledger
+                              the header on Babylon ledger
                         title: IndexedHeader is the metadata of a CZ header
                       title: >-
                         blocks is the list of non-canonical indexed headers at
@@ -24521,7 +24521,7 @@ definitions:
                     Note that each `IndexedHeader` in the fork should have a
                     valid quorum
 
-                    certificate. Such forks exist since ybtc considers CZs
+                    certificate. Such forks exist since Babylon considers CZs
                     might have
 
                     dishonest majority. Also note that the IBC-Go implementation
@@ -24572,7 +24572,7 @@ definitions:
                   description: >-
                     last_block_time is the time of the last block in this epoch.
 
-                    ybtc needs to remember the last header's time of each
+                    Babylon needs to remember the last header's time of each
                     epoch to complete
 
                     unbonding validators/delegations when a previous epoch's
@@ -24846,7 +24846,7 @@ definitions:
     description: |-
       QueryFinalizedChainsInfoResponse is response type for the
       Query/FinalizedChainsInfo RPC method.
-  ybtc.zoneconcierge.v1.QueryHeaderResponse:
+  babylon.zoneconcierge.v1.QueryHeaderResponse:
     type: object
     properties:
       header:
@@ -24874,36 +24874,36 @@ definitions:
               time is the timestamp of this header on CZ ledger
               it is needed for CZ to unbond all mature validators/delegations
               before this timestamp when this header is BTC-finalised
-          ybtc_header_hash:
+          babylon_header_hash:
             type: string
             format: byte
             title: >-
-              ybtc_header_hash is the hash of the ybtc block that includes
+              babylon_header_hash is the hash of the babylon block that includes
               this CZ
 
               header
-          ybtc_header_height:
+          babylon_header_height:
             type: string
             format: uint64
             title: >-
-              ybtc_header_height is the height of the ybtc block that
+              babylon_header_height is the height of the babylon block that
               includes this CZ
 
               header
-          ybtc_epoch:
+          babylon_epoch:
             type: string
             format: uint64
-            title: epoch is the epoch number of this header on ybtc ledger
-          ybtc_tx_hash:
+            title: epoch is the epoch number of this header on Babylon ledger
+          babylon_tx_hash:
             type: string
             format: byte
             title: >-
-              ybtc_tx_hash is the hash of the tx that includes this header
+              babylon_tx_hash is the hash of the tx that includes this header
 
-              (ybtc_block_height, ybtc_tx_hash) jointly provides the
+              (babylon_block_height, babylon_tx_hash) jointly provides the
               position of
 
-              the header on ybtc ledger
+              the header on Babylon ledger
         title: IndexedHeader is the metadata of a CZ header
       fork_headers:
         type: object
@@ -24938,37 +24938,37 @@ definitions:
                     validators/delegations
 
                     before this timestamp when this header is BTC-finalised
-                ybtc_header_hash:
+                babylon_header_hash:
                   type: string
                   format: byte
                   title: >-
-                    ybtc_header_hash is the hash of the ybtc block that
+                    babylon_header_hash is the hash of the babylon block that
                     includes this CZ
 
                     header
-                ybtc_header_height:
+                babylon_header_height:
                   type: string
                   format: uint64
                   title: >-
-                    ybtc_header_height is the height of the ybtc block
+                    babylon_header_height is the height of the babylon block
                     that includes this CZ
 
                     header
-                ybtc_epoch:
+                babylon_epoch:
                   type: string
                   format: uint64
-                  title: epoch is the epoch number of this header on ybtc ledger
-                ybtc_tx_hash:
+                  title: epoch is the epoch number of this header on Babylon ledger
+                babylon_tx_hash:
                   type: string
                   format: byte
                   title: >-
-                    ybtc_tx_hash is the hash of the tx that includes this
+                    babylon_tx_hash is the hash of the tx that includes this
                     header
 
-                    (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                    (babylon_block_height, babylon_tx_hash) jointly provides the
                     position of
 
-                    the header on ybtc ledger
+                    the header on Babylon ledger
               title: IndexedHeader is the metadata of a CZ header
             title: >-
               blocks is the list of non-canonical indexed headers at the same
@@ -24991,7 +24991,7 @@ definitions:
 
           Note that each `IndexedHeader` in the fork should have a valid quorum
 
-          certificate. Such forks exist since ybtc considers CZs might have
+          certificate. Such forks exist since Babylon considers CZs might have
 
           dishonest majority. Also note that the IBC-Go implementation will only
 
@@ -25001,7 +25001,7 @@ definitions:
           cannot be verified without knowing the validator set in the previous
           header.
     description: QueryHeaderResponse is response type for the Query/Header RPC method.
-  ybtc.zoneconcierge.v1.QueryListEpochHeadersResponse:
+  babylon.zoneconcierge.v1.QueryListEpochHeadersResponse:
     type: object
     properties:
       headers:
@@ -25031,36 +25031,36 @@ definitions:
                 time is the timestamp of this header on CZ ledger
                 it is needed for CZ to unbond all mature validators/delegations
                 before this timestamp when this header is BTC-finalised
-            ybtc_header_hash:
+            babylon_header_hash:
               type: string
               format: byte
               title: >-
-                ybtc_header_hash is the hash of the ybtc block that
+                babylon_header_hash is the hash of the babylon block that
                 includes this CZ
 
                 header
-            ybtc_header_height:
+            babylon_header_height:
               type: string
               format: uint64
               title: >-
-                ybtc_header_height is the height of the ybtc block that
+                babylon_header_height is the height of the babylon block that
                 includes this CZ
 
                 header
-            ybtc_epoch:
+            babylon_epoch:
               type: string
               format: uint64
-              title: epoch is the epoch number of this header on ybtc ledger
-            ybtc_tx_hash:
+              title: epoch is the epoch number of this header on Babylon ledger
+            babylon_tx_hash:
               type: string
               format: byte
               title: >-
-                ybtc_tx_hash is the hash of the tx that includes this header
+                babylon_tx_hash is the hash of the tx that includes this header
 
-                (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                (babylon_block_height, babylon_tx_hash) jointly provides the
                 position of
 
-                the header on ybtc ledger
+                the header on Babylon ledger
           title: IndexedHeader is the metadata of a CZ header
         title: headers is the list of headers
     description: >-
@@ -25068,7 +25068,7 @@ definitions:
       Query/ListEpochHeaders
 
       RPC method.
-  ybtc.zoneconcierge.v1.QueryListHeadersResponse:
+  babylon.zoneconcierge.v1.QueryListHeadersResponse:
     type: object
     properties:
       headers:
@@ -25098,36 +25098,36 @@ definitions:
                 time is the timestamp of this header on CZ ledger
                 it is needed for CZ to unbond all mature validators/delegations
                 before this timestamp when this header is BTC-finalised
-            ybtc_header_hash:
+            babylon_header_hash:
               type: string
               format: byte
               title: >-
-                ybtc_header_hash is the hash of the ybtc block that
+                babylon_header_hash is the hash of the babylon block that
                 includes this CZ
 
                 header
-            ybtc_header_height:
+            babylon_header_height:
               type: string
               format: uint64
               title: >-
-                ybtc_header_height is the height of the ybtc block that
+                babylon_header_height is the height of the babylon block that
                 includes this CZ
 
                 header
-            ybtc_epoch:
+            babylon_epoch:
               type: string
               format: uint64
-              title: epoch is the epoch number of this header on ybtc ledger
-            ybtc_tx_hash:
+              title: epoch is the epoch number of this header on Babylon ledger
+            babylon_tx_hash:
               type: string
               format: byte
               title: >-
-                ybtc_tx_hash is the hash of the tx that includes this header
+                babylon_tx_hash is the hash of the tx that includes this header
 
-                (ybtc_block_height, ybtc_tx_hash) jointly provides the
+                (babylon_block_height, babylon_tx_hash) jointly provides the
                 position of
 
-                the header on ybtc ledger
+                the header on Babylon ledger
           title: IndexedHeader is the metadata of a CZ header
         title: headers is the list of headers
       pagination:
@@ -25160,7 +25160,7 @@ definitions:
     description: |-
       QueryListHeadersResponse is response type for the Query/ListHeaders RPC
       method.
-  ybtc.zoneconcierge.v1.QueryParamsResponse:
+  babylon.zoneconcierge.v1.QueryParamsResponse:
     type: object
     properties:
       params:

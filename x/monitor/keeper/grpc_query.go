@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/amovidhussaini/ybtcclone/x/monitor/types"
+	"github.com/almovidhussaini/babylonclone/x/monitor/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

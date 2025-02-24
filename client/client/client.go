@@ -3,11 +3,11 @@ package client
 import (
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/client/ybtcclient"
+	"github.com/almovidhussaini/babylonclone/client/babylonclient"
 
-	bbn "github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/client/config"
-	"github.com/amovidhussaini/ybtcclone/client/query"
+	bbn "github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/client/config"
+	"github.com/almovidhussaini/babylonclone/client/query"
 	rpchttp "github.com/cometbft/cometbft/rpc/client/http"
 	"go.uber.org/zap"
 )
@@ -15,17 +15,17 @@ import (
 type Client struct {
 	*query.QueryClient
 
-	provider *ybtcclient.CosmosProvider
+	provider *babylonclient.CosmosProvider
 	timeout  time.Duration
 	logger   *zap.Logger
-	cfg      *config.ybtcConfig
+	cfg      *config.BabylonConfig
 }
 
-func (c *Client) Provider() *ybtcclient.CosmosProvider {
+func (c *Client) Provider() *babylonclient.CosmosProvider {
 	return c.provider
 }
 
-func New(cfg *config.ybtcConfig, logger *zap.Logger) (*Client, error) {
+func New(cfg *config.BabylonConfig, logger *zap.Logger) (*Client, error) {
 	var (
 		zapLogger *zap.Logger
 		err       error
@@ -47,23 +47,23 @@ func New(cfg *config.ybtcConfig, logger *zap.Logger) (*Client, error) {
 
 	provider, err := cfg.ToCosmosProviderConfig().NewProvider(
 		"", // TODO: set home path
-		"ybtc",
+		"babylon",
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	cp := provider.(*ybtcclient.CosmosProvider)
+	cp := provider.(*babylonclient.CosmosProvider)
 	cp.PCfg.KeyDirectory = cfg.KeyDirectory
 
-	// Create tmp ybtc app to retrieve and register codecs
+	// Create tmp Babylon app to retrieve and register codecs
 	// Need to override this manually as otherwise option from config is ignored
 	cp.Cdc = bbn.GetEncodingConfig()
 
 	// initialise Cosmos provider
 	// NOTE: this will create a RPC client. The RPC client will be used for
 	// submitting txs and making ad hoc queries. It won't create WebSocket
-	// connection with ybtc node
+	// connection with Babylon node
 	if err = cp.Init(); err != nil {
 		return nil, err
 	}
@@ -90,6 +90,6 @@ func New(cfg *config.ybtcConfig, logger *zap.Logger) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) GetConfig() *config.ybtcConfig {
+func (c *Client) GetConfig() *config.BabylonConfig {
 	return c.cfg
 }

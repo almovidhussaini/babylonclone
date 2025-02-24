@@ -7,9 +7,9 @@ import (
 
 	"cosmossdk.io/log"
 	"cosmossdk.io/math"
-	"github.com/amovidhussaini/ybtcclone/testutil/helper"
-	"github.com/amovidhussaini/ybtcclone/x/mint"
-	minttypes "github.com/amovidhussaini/ybtcclone/x/mint/types"
+	"github.com/almovidhussaini/babylonclone/testutil/helper"
+	"github.com/almovidhussaini/babylonclone/x/mint"
+	minttypes "github.com/almovidhussaini/babylonclone/x/mint/types"
 	"github.com/cometbft/cometbft/proto/tendermint/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"

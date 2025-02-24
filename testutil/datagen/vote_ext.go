@@ -5,7 +5,7 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 )
 
 func GenRandomVoteExtension(

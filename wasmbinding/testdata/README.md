@@ -1,11 +1,11 @@
 # Stub test contract
 
 This folder contains bogus test contract which just exposes public api from
-example contract from ybtc bindings repo - https://github.com/ybtcchain/bindings/tree/main/contracts/example
+example contract from babylon bindings repo - https://github.com/babylonchain/bindings/tree/main/contracts/example
 
 This approach enables us to specify which branch from bindings library we want to test/use.
 
-Until custom ybtc api is stable this approach enables faster iteration than publishing
+Until custom babylon api is stable this approach enables faster iteration than publishing
 wasm blobs from bindings library directly.
 
 ## Artifacts

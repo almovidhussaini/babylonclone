@@ -11,15 +11,15 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	testutil "github.com/amovidhussaini/ybtcclone/testutil/btcstaking-helper"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testkeeper "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	testutil "github.com/almovidhussaini/babylonclone/testutil/btcstaking-helper"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testkeeper "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/keeper"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 func FuzzActivatedHeight(f *testing.F) {
@@ -173,12 +173,12 @@ func FuzzActiveFinalityProvidersAtHeight(f *testing.F) {
 		}
 
 		// For numFpsWithVotingPower finality providers, generate a random number of BTC delegations
-		ybtcHeight := datagen.RandomInt(r, 10) + 1
+		babylonHeight := datagen.RandomInt(r, 10) + 1
 		fpsWithVotingPowerMap := make(map[string]*bstypes.FinalityProvider)
 		for i := uint64(0); i < numFpsWithVotingPower; i++ {
 			fpBTCPK := fps[i].BtcPk
 			fpsWithVotingPowerMap[fpBTCPK.MarshalHex()] = fps[i]
-			h.FinalityKeeper.SetVotingPower(h.Ctx, fpBTCPK.MustMarshal(), ybtcHeight, 1)
+			h.FinalityKeeper.SetVotingPower(h.Ctx, fpBTCPK.MustMarshal(), babylonHeight, 1)
 		}
 
 		h.BeginBlocker()
@@ -192,7 +192,7 @@ func FuzzActiveFinalityProvidersAtHeight(f *testing.F) {
 		limit := datagen.RandomInt(r, int(numFpsWithVotingPower)) + 1
 		pagination := constructRequestWithLimit(r, limit)
 		// Generate the initial query
-		req := types.QueryActiveFinalityProvidersAtHeightRequest{Height: ybtcHeight, Pagination: pagination}
+		req := types.QueryActiveFinalityProvidersAtHeightRequest{Height: babylonHeight, Pagination: pagination}
 		// Construct a mapping from the finality providers found to a boolean value
 		// Will be used later to evaluate whether all the finality providers were returned
 		fpsFound := make(map[string]bool, 0)
@@ -212,7 +212,7 @@ func FuzzActiveFinalityProvidersAtHeight(f *testing.F) {
 
 			// Construct the next page request
 			pagination = constructRequestWithKeyAndLimit(r, resp.Pagination.NextKey, limit)
-			req = types.QueryActiveFinalityProvidersAtHeightRequest{Height: ybtcHeight, Pagination: pagination}
+			req = types.QueryActiveFinalityProvidersAtHeightRequest{Height: babylonHeight, Pagination: pagination}
 		}
 
 		require.Equal(t, len(fpsFound), len(fpsWithVotingPowerMap), "some finality providers were missed, got %d while %d were expected", len(fpsFound), len(fpsWithVotingPowerMap))
@@ -351,7 +351,7 @@ func FuzzVotesAtHeight(f *testing.F) {
 		ctx = sdk.UnwrapSDKContext(ctx)
 
 		// Add random number of voted finality providers to the store
-		ybtcHeight := datagen.RandomInt(r, 10) + 1
+		babylonHeight := datagen.RandomInt(r, 10) + 1
 		numVotedFps := datagen.RandomInt(r, 10) + 1
 		votedFpsMap := make(map[string]bool, numVotedFps)
 		for i := uint64(0); i < numVotedFps; i++ {
@@ -359,13 +359,13 @@ func FuzzVotesAtHeight(f *testing.F) {
 			require.NoError(t, err)
 			votedSig, err := bbn.NewSchnorrEOTSSig(datagen.GenRandomByteArray(r, 32))
 			require.NoError(t, err)
-			keeper.SetSig(ctx, ybtcHeight, votedFpPK, votedSig)
+			keeper.SetSig(ctx, babylonHeight, votedFpPK, votedSig)
 
 			votedFpsMap[votedFpPK.MarshalHex()] = true
 		}
 
 		resp, err := keeper.VotesAtHeight(ctx, &types.QueryVotesAtHeightRequest{
-			Height: ybtcHeight,
+			Height: babylonHeight,
 		})
 		require.NoError(t, err)
 

@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 var _ types.QueryServer = Keeper{}

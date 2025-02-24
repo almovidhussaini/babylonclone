@@ -3,12 +3,12 @@ package query
 import (
 	"context"
 
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	sdkquerytypes "github.com/cosmos/cosmos-sdk/types/query"
 )
 
-// QueryEpoching queries the Epoching module of the ybtc node
+// QueryEpoching queries the Epoching module of the Babylon node
 // according to the given function
 func (c *QueryClient) QueryEpoching(f func(ctx context.Context, queryClient epochingtypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()

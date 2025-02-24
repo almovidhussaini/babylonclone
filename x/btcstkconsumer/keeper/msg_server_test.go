@@ -7,12 +7,12 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	wasmtest "github.com/amovidhussaini/ybtcclone/wasmbinding/test"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	wasmtest "github.com/almovidhussaini/babylonclone/wasmbinding/test"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/keeper"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	ibctmtypes "github.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint"
@@ -36,8 +36,8 @@ func FuzzRegisterConsumer(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp, ctx := wasmtest.SetupAppWithContext(t)
-		bscKeeper := ybtcApp.BTCStkConsumerKeeper
+		babylonApp, ctx := wasmtest.SetupAppWithContext(t)
+		bscKeeper := babylonApp.BTCStkConsumerKeeper
 		msgServer := keeper.NewMsgServerImpl(bscKeeper)
 
 		/*
@@ -70,7 +70,7 @@ func FuzzRegisterConsumer(f *testing.F) {
 		// generate a random consumer register
 		consumerRegister = datagen.GenRandomCosmosConsumerRegister(r)
 		// mock IBC light client
-		ybtcApp.IBCKeeper.ClientKeeper.SetClientState(ctx, consumerRegister.ConsumerId, &ibctmtypes.ClientState{})
+		babylonApp.IBCKeeper.ClientKeeper.SetClientState(ctx, consumerRegister.ConsumerId, &ibctmtypes.ClientState{})
 		// Register the consumer
 		_, err = msgServer.RegisterConsumer(ctx, &types.MsgRegisterConsumer{
 			ConsumerId:          consumerRegister.ConsumerId,
@@ -87,7 +87,7 @@ func FuzzRegisterConsumer(f *testing.F) {
 			Test registering ETH L2 consumer
 		*/
 		// mock the wasm contract
-		contractAddr := mockSmartContract(t, ctx, ybtcApp)
+		contractAddr := mockSmartContract(t, ctx, babylonApp)
 		// generate a random consumer register
 		consumerRegister = datagen.GenRandomETHL2Register(r, contractAddr.String())
 		// Register the consumer
@@ -106,6 +106,6 @@ func FuzzRegisterConsumer(f *testing.F) {
 	})
 }
 
-func mockSmartContract(t *testing.T, ctx sdk.Context, ybtcApp *app.ybtcApp) sdk.AccAddress {
-	return wasmtest.DeployTestContract(t, ctx, ybtcApp, sdk.AccAddress{}, "../../../wasmbinding/testdata/artifacts/testdata.wasm")
+func mockSmartContract(t *testing.T, ctx sdk.Context, babylonApp *app.BabylonApp) sdk.AccAddress {
+	return wasmtest.DeployTestContract(t, ctx, babylonApp, sdk.AccAddress{}, "../../../wasmbinding/testdata/artifacts/testdata.wasm")
 }

@@ -3,12 +3,12 @@ package query
 import (
 	"context"
 
-	btcstakingtypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	btcstakingtypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	sdkquerytypes "github.com/cosmos/cosmos-sdk/types/query"
 )
 
-// QueryBTCStaking queries the BTCStaking module of the ybtc node according to the given function
+// QueryBTCStaking queries the BTCStaking module of the Babylon node according to the given function
 func (c *QueryClient) QueryBTCStaking(f func(ctx context.Context, queryClient btcstakingtypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()
 	defer cancel()

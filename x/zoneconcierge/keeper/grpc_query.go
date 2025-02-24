@@ -3,8 +3,8 @@ package keeper
 import (
 	"context"
 
-	bbntypes "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	bbntypes "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
@@ -268,8 +268,8 @@ func (k Keeper) FinalizedChainsInfo(c context.Context, req *types.QueryFinalized
 		// e.g., when there is no relayer for many epochs
 		// NOTE: if an epoch is finalised then all of its previous epochs are also finalised
 		finalizedEpoch := lastFinalizedEpoch
-		if chainInfo.LatestHeader.ybtcEpoch < finalizedEpoch {
-			finalizedEpoch = chainInfo.LatestHeader.ybtcEpoch
+		if chainInfo.LatestHeader.BabylonEpoch < finalizedEpoch {
+			finalizedEpoch = chainInfo.LatestHeader.BabylonEpoch
 		}
 
 		data.FinalizedChainInfo = chainInfo
@@ -333,8 +333,8 @@ func (k Keeper) FinalizedChainInfoUntilHeight(c context.Context, req *types.Quer
 	// e.g., when there is no relayer for many epochs
 	// NOTE: if an epoch is finalised then all of its previous epochs are also finalised
 	finalizedEpoch := lastFinalizedEpoch
-	if chainInfo.LatestHeader.ybtcEpoch < finalizedEpoch {
-		finalizedEpoch = chainInfo.LatestHeader.ybtcEpoch
+	if chainInfo.LatestHeader.BabylonEpoch < finalizedEpoch {
+		finalizedEpoch = chainInfo.LatestHeader.BabylonEpoch
 	}
 
 	resp.FinalizedChainInfo = chainInfo
@@ -366,7 +366,7 @@ func (k Keeper) FinalizedChainInfoUntilHeight(c context.Context, req *types.Quer
 			return nil, err
 		}
 		// assign the finalizedEpoch, and retrieve epoch info, raw ckpt and submission key
-		finalizedEpoch = closestHeader.ybtcEpoch
+		finalizedEpoch = closestHeader.BabylonEpoch
 		chainInfoWithProof, err := k.GetEpochChainInfo(ctx, req.ConsumerId, finalizedEpoch)
 		if err != nil {
 			return nil, err

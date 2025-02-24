@@ -2,7 +2,8 @@ package keeper
 
 import (
 	"context"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 // SetParams sets the x/epoching module parameters.

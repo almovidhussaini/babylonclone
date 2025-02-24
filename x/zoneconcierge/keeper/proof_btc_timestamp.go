@@ -6,10 +6,10 @@ import (
 
 	cmtcrypto "github.com/cometbft/cometbft/proto/tendermint/crypto"
 
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 func (k Keeper) ProveCZHeaderInEpoch(_ context.Context, header *types.IndexedHeader, epoch *epochingtypes.Epoch) (*cmtcrypto.ProofOps, error) {
@@ -90,7 +90,7 @@ func (k Keeper) ProveEpochSubmitted(ctx context.Context, sk *btcctypes.Submissio
 
 // proveFinalizedChainInfo generates proofs that a chainInfo has been finalised by the given epoch with epochInfo
 // It includes proofTxInBlock, proofHeaderInEpoch, proofEpochSealed and proofEpochSubmitted
-// The proofs can be verified by a verifier with access to a BTC and ybtc light client
+// The proofs can be verified by a verifier with access to a BTC and Babylon light client
 // CONTRACT: this is only a private helper function for simplifying the implementation of RPC calls
 func (k Keeper) proveFinalizedChainInfo(
 	ctx context.Context,

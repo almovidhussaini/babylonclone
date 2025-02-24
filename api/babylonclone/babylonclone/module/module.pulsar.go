@@ -19,8 +19,8 @@ var (
 )
 
 func init() {
-	file_ybtcclone_ybtcclone_module_module_proto_init()
-	md_Module = File_ybtcclone_ybtcclone_module_module_proto.Messages().ByName("Module")
+	file_babylonclone_babylonclone_module_module_proto_init()
+	md_Module = File_babylonclone_babylonclone_module_module_proto.Messages().ByName("Module")
 	fd_Module_authority = md_Module.Fields().ByName("authority")
 }
 
@@ -33,7 +33,7 @@ func (x *Module) ProtoReflect() protoreflect.Message {
 }
 
 func (x *Module) slowProtoReflect() protoreflect.Message {
-	mi := &file_ybtcclone_ybtcclone_module_module_proto_msgTypes[0]
+	mi := &file_babylonclone_babylonclone_module_module_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -110,13 +110,13 @@ func (x *fastReflection_Module) Range(f func(protoreflect.FieldDescriptor, proto
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_Module) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "ybtcclone.ybtcclone.module.Module.authority":
+	case "babylonclone.babylonclone.module.Module.authority":
 		return x.Authority != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: ybtcclone.ybtcclone.module.Module"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: babylonclone.babylonclone.module.Module"))
 		}
-		panic(fmt.Errorf("message ybtcclone.ybtcclone.module.Module does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message babylonclone.babylonclone.module.Module does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -128,13 +128,13 @@ func (x *fastReflection_Module) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Module) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "ybtcclone.ybtcclone.module.Module.authority":
+	case "babylonclone.babylonclone.module.Module.authority":
 		x.Authority = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: ybtcclone.ybtcclone.module.Module"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: babylonclone.babylonclone.module.Module"))
 		}
-		panic(fmt.Errorf("message ybtcclone.ybtcclone.module.Module does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message babylonclone.babylonclone.module.Module does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -146,14 +146,14 @@ func (x *fastReflection_Module) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_Module) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "ybtcclone.ybtcclone.module.Module.authority":
+	case "babylonclone.babylonclone.module.Module.authority":
 		value := x.Authority
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: ybtcclone.ybtcclone.module.Module"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: babylonclone.babylonclone.module.Module"))
 		}
-		panic(fmt.Errorf("message ybtcclone.ybtcclone.module.Module does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message babylonclone.babylonclone.module.Module does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -169,13 +169,13 @@ func (x *fastReflection_Module) Get(descriptor protoreflect.FieldDescriptor) pro
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Module) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "ybtcclone.ybtcclone.module.Module.authority":
+	case "babylonclone.babylonclone.module.Module.authority":
 		x.Authority = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: ybtcclone.ybtcclone.module.Module"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: babylonclone.babylonclone.module.Module"))
 		}
-		panic(fmt.Errorf("message ybtcclone.ybtcclone.module.Module does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message babylonclone.babylonclone.module.Module does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -191,13 +191,13 @@ func (x *fastReflection_Module) Set(fd protoreflect.FieldDescriptor, value proto
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Module) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "ybtcclone.ybtcclone.module.Module.authority":
-		panic(fmt.Errorf("field authority of message ybtcclone.ybtcclone.module.Module is not mutable"))
+	case "babylonclone.babylonclone.module.Module.authority":
+		panic(fmt.Errorf("field authority of message babylonclone.babylonclone.module.Module is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: ybtcclone.ybtcclone.module.Module"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: babylonclone.babylonclone.module.Module"))
 		}
-		panic(fmt.Errorf("message ybtcclone.ybtcclone.module.Module does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message babylonclone.babylonclone.module.Module does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -206,13 +206,13 @@ func (x *fastReflection_Module) Mutable(fd protoreflect.FieldDescriptor) protore
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_Module) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "ybtcclone.ybtcclone.module.Module.authority":
+	case "babylonclone.babylonclone.module.Module.authority":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: ybtcclone.ybtcclone.module.Module"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: babylonclone.babylonclone.module.Module"))
 		}
-		panic(fmt.Errorf("message ybtcclone.ybtcclone.module.Module does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message babylonclone.babylonclone.module.Module does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -222,7 +222,7 @@ func (x *fastReflection_Module) NewField(fd protoreflect.FieldDescriptor) protor
 func (x *fastReflection_Module) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in ybtcclone.ybtcclone.module.Module", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in babylonclone.babylonclone.module.Module", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -437,7 +437,7 @@ func (x *fastReflection_Module) ProtoMethods() *protoiface.Methods {
 // versions:
 // 	protoc-gen-go v1.27.0
 // 	protoc        (unknown)
-// source: ybtcclone/ybtcclone/module/module.proto
+// source: babylonclone/babylonclone/module/module.proto
 
 const (
 	// Verify that this generated code is sufficiently up-to-date.
@@ -459,7 +459,7 @@ type Module struct {
 func (x *Module) Reset() {
 	*x = Module{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_ybtcclone_ybtcclone_module_module_proto_msgTypes[0]
+		mi := &file_babylonclone_babylonclone_module_module_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -473,7 +473,7 @@ func (*Module) ProtoMessage() {}
 
 // Deprecated: Use Module.ProtoReflect.Descriptor instead.
 func (*Module) Descriptor() ([]byte, []int) {
-	return file_ybtcclone_ybtcclone_module_module_proto_rawDescGZIP(), []int{0}
+	return file_babylonclone_babylonclone_module_module_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Module) GetAuthority() string {
@@ -483,9 +483,9 @@ func (x *Module) GetAuthority() string {
 	return ""
 }
 
-var File_ybtcclone_ybtcclone_module_module_proto protoreflect.FileDescriptor
+var File_babylonclone_babylonclone_module_module_proto protoreflect.FileDescriptor
 
-var file_ybtcclone_ybtcclone_module_module_proto_rawDesc = []byte{
+var file_babylonclone_babylonclone_module_module_proto_rawDesc = []byte{
 	0x0a, 0x2d, 0x62, 0x61, 0x62, 0x79, 0x6c, 0x6f, 0x6e, 0x63, 0x6c, 0x6f, 0x6e, 0x65, 0x2f, 0x62,
 	0x61, 0x62, 0x79, 0x6c, 0x6f, 0x6e, 0x63, 0x6c, 0x6f, 0x6e, 0x65, 0x2f, 0x6d, 0x6f, 0x64, 0x75,
 	0x6c, 0x65, 0x2f, 0x6d, 0x6f, 0x64, 0x75, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
@@ -522,22 +522,22 @@ var file_ybtcclone_ybtcclone_module_module_proto_rawDesc = []byte{
 }
 
 var (
-	file_ybtcclone_ybtcclone_module_module_proto_rawDescOnce sync.Once
-	file_ybtcclone_ybtcclone_module_module_proto_rawDescData = file_ybtcclone_ybtcclone_module_module_proto_rawDesc
+	file_babylonclone_babylonclone_module_module_proto_rawDescOnce sync.Once
+	file_babylonclone_babylonclone_module_module_proto_rawDescData = file_babylonclone_babylonclone_module_module_proto_rawDesc
 )
 
-func file_ybtcclone_ybtcclone_module_module_proto_rawDescGZIP() []byte {
-	file_ybtcclone_ybtcclone_module_module_proto_rawDescOnce.Do(func() {
-		file_ybtcclone_ybtcclone_module_module_proto_rawDescData = protoimpl.X.CompressGZIP(file_ybtcclone_ybtcclone_module_module_proto_rawDescData)
+func file_babylonclone_babylonclone_module_module_proto_rawDescGZIP() []byte {
+	file_babylonclone_babylonclone_module_module_proto_rawDescOnce.Do(func() {
+		file_babylonclone_babylonclone_module_module_proto_rawDescData = protoimpl.X.CompressGZIP(file_babylonclone_babylonclone_module_module_proto_rawDescData)
 	})
-	return file_ybtcclone_ybtcclone_module_module_proto_rawDescData
+	return file_babylonclone_babylonclone_module_module_proto_rawDescData
 }
 
-var file_ybtcclone_ybtcclone_module_module_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_ybtcclone_ybtcclone_module_module_proto_goTypes = []interface{}{
-	(*Module)(nil), // 0: ybtcclone.ybtcclone.module.Module
+var file_babylonclone_babylonclone_module_module_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_babylonclone_babylonclone_module_module_proto_goTypes = []interface{}{
+	(*Module)(nil), // 0: babylonclone.babylonclone.module.Module
 }
-var file_ybtcclone_ybtcclone_module_module_proto_depIdxs = []int32{
+var file_babylonclone_babylonclone_module_module_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -545,13 +545,13 @@ var file_ybtcclone_ybtcclone_module_module_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_ybtcclone_ybtcclone_module_module_proto_init() }
-func file_ybtcclone_ybtcclone_module_module_proto_init() {
-	if File_ybtcclone_ybtcclone_module_module_proto != nil {
+func init() { file_babylonclone_babylonclone_module_module_proto_init() }
+func file_babylonclone_babylonclone_module_module_proto_init() {
+	if File_babylonclone_babylonclone_module_module_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_ybtcclone_ybtcclone_module_module_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_babylonclone_babylonclone_module_module_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Module); i {
 			case 0:
 				return &v.state
@@ -568,18 +568,18 @@ func file_ybtcclone_ybtcclone_module_module_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_ybtcclone_ybtcclone_module_module_proto_rawDesc,
+			RawDescriptor: file_babylonclone_babylonclone_module_module_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_ybtcclone_ybtcclone_module_module_proto_goTypes,
-		DependencyIndexes: file_ybtcclone_ybtcclone_module_module_proto_depIdxs,
-		MessageInfos:      file_ybtcclone_ybtcclone_module_module_proto_msgTypes,
+		GoTypes:           file_babylonclone_babylonclone_module_module_proto_goTypes,
+		DependencyIndexes: file_babylonclone_babylonclone_module_module_proto_depIdxs,
+		MessageInfos:      file_babylonclone_babylonclone_module_module_proto_msgTypes,
 	}.Build()
-	File_ybtcclone_ybtcclone_module_module_proto = out.File
-	file_ybtcclone_ybtcclone_module_module_proto_rawDesc = nil
-	file_ybtcclone_ybtcclone_module_module_proto_goTypes = nil
-	file_ybtcclone_ybtcclone_module_module_proto_depIdxs = nil
+	File_babylonclone_babylonclone_module_module_proto = out.File
+	file_babylonclone_babylonclone_module_module_proto_rawDesc = nil
+	file_babylonclone_babylonclone_module_module_proto_goTypes = nil
+	file_babylonclone_babylonclone_module_module_proto_depIdxs = nil
 }

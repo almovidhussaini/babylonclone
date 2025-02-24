@@ -15,11 +15,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcckpttypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcckpttypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 // testStakingParams generates valid staking parameters with randomized

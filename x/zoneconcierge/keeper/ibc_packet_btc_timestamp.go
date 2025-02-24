@@ -7,12 +7,12 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	channeltypes "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 // finalizedInfo is a private struct that stores metadata and proofs
@@ -97,7 +97,7 @@ func (k Keeper) createBTCTimestamp(
 	channel channeltypes.IdentifiedChannel,
 	finalizedInfo *finalizedInfo,
 ) (*types.BTCTimestamp, error) {
-	// if the ybtc contract in this channel has not been initialised, get headers from
+	// if the Babylon contract in this channel has not been initialised, get headers from
 	// the tip to (w+1+len(finalizedInfo.BTCHeaders))-deep header
 	var btcHeaders []*btclctypes.BTCHeaderInfo
 	if k.isChannelUninitialized(ctx, channel) {
@@ -139,7 +139,7 @@ func (k Keeper) createBTCTimestamp(
 
 	// if there is a CZ header checkpointed in this finalised epoch,
 	// add this CZ header and corresponding proofs to the BTC timestamp
-	epochOfHeader := epochChainInfo.ChainInfo.LatestHeader.ybtcEpoch
+	epochOfHeader := epochChainInfo.ChainInfo.LatestHeader.BabylonEpoch
 	if epochOfHeader == epochNum {
 		btcTimestamp.Header = epochChainInfo.ChainInfo.LatestHeader
 		btcTimestamp.Proof.ProofCzHeaderInEpoch = epochChainInfo.ProofHeaderInEpoch
@@ -167,8 +167,8 @@ func (k Keeper) getHeadersToBroadcast(ctx context.Context) []*btclctypes.BTCHead
 
 	if lastSegment == nil {
 		// we did not send any headers yet, so we need to send the last w+1 BTC headers
-		// where w+1 is imposed by ybtc contract. This ensures that the first BTC header
-		// in ybtc contract will be w-deep
+		// where w+1 is imposed by Babylon contract. This ensures that the first BTC header
+		// in Babylon contract will be w-deep
 		return k.getDeepEnoughBTCHeaders(ctx)
 	}
 
@@ -203,9 +203,9 @@ func (k Keeper) BroadcastBTCTimestamps(
 	headersToBroadcast []*btclctypes.BTCHeaderInfo,
 ) {
 	sdkCtx := sdk.UnwrapSDKContext(ctx)
-	// ybtc does not broadcast BTC timestamps until finalising epoch 1
+	// Babylon does not broadcast BTC timestamps until finalising epoch 1
 	if epochNum < 1 {
-		k.Logger(sdkCtx).Info("ybtc does not finalize epoch 1 yet, skip broadcasting BTC timestamps")
+		k.Logger(sdkCtx).Info("Babylon does not finalize epoch 1 yet, skip broadcasting BTC timestamps")
 		return
 	}
 

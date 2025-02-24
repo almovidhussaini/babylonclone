@@ -6,8 +6,8 @@ import (
 	"github.com/btcsuite/btcd/btcutil"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	btcckpttypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	btcckpttypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 type DelegationTimeRangeInfo struct {

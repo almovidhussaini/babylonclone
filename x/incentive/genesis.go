@@ -3,8 +3,8 @@ package incentive
 import (
 	"context"
 
-	"github.com/amovidhussaini/ybtcclone/x/incentive/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/x/incentive/keeper"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

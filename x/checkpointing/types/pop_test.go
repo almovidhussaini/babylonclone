@@ -1,12 +1,13 @@
 package types_test
 
 import (
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/privval"
+	"testing"
+
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/privval"
 	"github.com/cometbft/cometbft/crypto/ed25519"
 	"github.com/cosmos/cosmos-sdk/crypto/codec"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestProofOfPossession_IsValid(t *testing.T) {

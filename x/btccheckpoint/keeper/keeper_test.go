@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 	"github.com/stretchr/testify/require"
 )
 

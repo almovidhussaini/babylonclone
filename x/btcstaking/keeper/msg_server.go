@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	btcckpttypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	btcckpttypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 
 	errorsmod "cosmossdk.io/errors"
 	sdkmath "cosmossdk.io/math"
@@ -20,9 +20,9 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 type msgServer struct {
@@ -120,9 +120,9 @@ func (ms msgServer) EditFinalityProvider(goCtx context.Context, req *types.MsgEd
 		return nil, status.Errorf(codes.InvalidArgument, "invalid address %s: %v", req.Addr, err)
 	}
 
-	// ensure the signer corresponds to the finality provider's ybtc address
+	// ensure the signer corresponds to the finality provider's Babylon address
 	if !strings.EqualFold(fpAddr.String(), fp.Addr) {
-		return nil, status.Errorf(codes.PermissionDenied, "the signer does not correspond to the finality provider's ybtc address")
+		return nil, status.Errorf(codes.PermissionDenied, "the signer does not correspond to the finality provider's Babylon address")
 	}
 
 	// all good, update the finality provider and set back
@@ -221,8 +221,8 @@ func (ms msgServer) CreateBTCDelegation(goCtx context.Context, req *types.MsgCre
 	}
 
 	// Ensure all finality providers
-	// - are known to ybtc,
-	// - at least 1 one of them is a ybtc finality provider,
+	// - are known to Babylon,
+	// - at least 1 one of them is a Babylon finality provider,
 	// - are not slashed, and
 	// - their registered epochs are finalised
 	// and then check whether the BTC stake is restaked to FPs of consumers
@@ -591,7 +591,7 @@ func containsInput(tx *wire.MsgTx, inputHash *chainhash.Hash, inputIdx uint32) b
 }
 
 // BTCUndelegate adds a signature on the unbonding tx from the BTC delegator
-// this effectively proves that the BTC delegator wants to unbond and ybtc
+// this effectively proves that the BTC delegator wants to unbond and Babylon
 // will consider its BTC delegation unbonded
 func (ms msgServer) BTCUndelegate(goCtx context.Context, req *types.MsgBTCUndelegate) (*types.MsgBTCUndelegateResponse, error) {
 	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), types.MetricsKeyBTCUndelegate)

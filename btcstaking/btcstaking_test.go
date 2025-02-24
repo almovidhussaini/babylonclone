@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	btctest "github.com/amovidhussaini/ybtcclone/testutil/bitcoin"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	btctest "github.com/almovidhussaini/babylonclone/testutil/bitcoin"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/btcsuite/btcd/btcutil"

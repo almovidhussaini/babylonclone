@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 // HandleCoinsInFeeCollector intercepts a portion of coins in fee collector, and distributes

@@ -7,11 +7,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/configurer/chain"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/containers"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btclighttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/test/e2e/configurer/chain"
+	"github.com/almovidhussaini/babylonclone/test/e2e/containers"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btclighttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 )
 
 type Configurer interface {
@@ -48,7 +48,7 @@ var (
 		{
 			// this is a node that is used to state-sync from so its snapshot-interval
 			// is frequent.
-			Name:               "ybtc-default-a-1",
+			Name:               "babylon-default-a-1",
 			Pruning:            "default",
 			PruningKeepRecent:  "0",
 			PruningInterval:    "0",
@@ -58,7 +58,7 @@ var (
 			BtcNetwork:         btcNetworkStr,
 		},
 		{
-			Name:               "ybtc-default-a-2",
+			Name:               "babylon-default-a-2",
 			Pruning:            "nothing",
 			PruningKeepRecent:  "0",
 			PruningInterval:    "0",
@@ -68,7 +68,7 @@ var (
 			BtcNetwork:         btcNetworkStr,
 		},
 		{
-			Name:               "ybtc-default-a-3",
+			Name:               "babylon-default-a-3",
 			Pruning:            "nothing",
 			PruningKeepRecent:  "0",
 			PruningInterval:    "0",
@@ -80,7 +80,7 @@ var (
 	}
 	validatorConfigsChainB = []*initialization.NodeConfig{
 		{
-			Name:               "ybtc-default-b-1",
+			Name:               "babylon-default-b-1",
 			Pruning:            "default",
 			PruningKeepRecent:  "0",
 			PruningInterval:    "0",
@@ -90,7 +90,7 @@ var (
 			BtcNetwork:         btcNetworkStr,
 		},
 		{
-			Name:               "ybtc-default-b-2",
+			Name:               "babylon-default-b-2",
 			Pruning:            "nothing",
 			PruningKeepRecent:  "0",
 			PruningInterval:    "0",
@@ -100,7 +100,7 @@ var (
 			BtcNetwork:         btcNetworkStr,
 		},
 		{
-			Name:               "ybtc-default-b-3",
+			Name:               "babylon-default-b-3",
 			Pruning:            "nothing",
 			PruningKeepRecent:  "0",
 			PruningInterval:    "0",

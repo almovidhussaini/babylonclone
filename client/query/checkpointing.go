@@ -3,12 +3,12 @@ package query
 import (
 	"context"
 
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	sdkquerytypes "github.com/cosmos/cosmos-sdk/types/query"
 )
 
-// QueryCheckpointing queries the Checkpointing module of the ybtc node
+// QueryCheckpointing queries the Checkpointing module of the Babylon node
 // according to the given function
 func (c *QueryClient) QueryCheckpointing(f func(ctx context.Context, queryClient checkpointingtypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()

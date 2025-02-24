@@ -5,9 +5,9 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/bip322"
-	"github.com/amovidhussaini/ybtcclone/crypto/ecdsa"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	"github.com/almovidhussaini/babylonclone/crypto/bip322"
+	"github.com/almovidhussaini/babylonclone/crypto/ecdsa"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/btcsuite/btcd/btcutil"
@@ -54,7 +54,7 @@ func NewPoPBTCWithECDSABTCSig(addr sdk.AccAddress, btcSK *btcec.PrivateKey) (*Pr
 		BtcSigType: BTCSigType_ECDSA,
 	}
 
-	// generate pop.BtcSig = ecdsa_sign(sk_BTC, pop.ybtcSig)
+	// generate pop.BtcSig = ecdsa_sign(sk_BTC, pop.BabylonSig)
 	// NOTE: ecdsa.Sign has to take the message as string.
 	// So we have to hex addr before signing
 	addrHex := hex.EncodeToString(addr.Bytes())
@@ -170,7 +170,7 @@ func VerifyBIP340(sigType BTCSigType, btcSigRaw []byte, bip340PK *bbn.BIP340PubK
 	}
 
 	// NOTE: btcSig.Verify has to take hash of the message.
-	// So we have to hash ybtcSig before verifying the signature
+	// So we have to hash babylonSig before verifying the signature
 	hash := tmhash.Sum(msg)
 	if !btcSig.Verify(hash, btcPK) {
 		return fmt.Errorf("failed to verify pop.BtcSig")
@@ -357,12 +357,12 @@ func VerifyBIP322(sigType BTCSigType, btcSigRaw []byte, bip340PK *bbn.BIP340PubK
 
 // VerifyBIP322 verifies the validity of PoP where Bitcoin signature is in BIP-322
 // after decoding pop.BtcSig to bip322Sig which contains sig and address,
-// 1. verify whether bip322 pop signature where msg=pop.ybtcSig
-// 2. verify(sig=pop.ybtcSig, pubkey=ybtcPK, msg=bip340PK)?
+// 1. verify whether bip322 pop signature where msg=pop.BabylonSig
+// 2. verify(sig=pop.BabylonSig, pubkey=babylonPK, msg=bip340PK)?
 func (pop *ProofOfPossessionBTC) VerifyBIP322(addr sdk.AccAddress, bip340PK *bbn.BIP340PubKey, net *chaincfg.Params) error {
 	msg := tmhash.Sum(addr.Bytes())
 	if err := VerifyBIP322(pop.BtcSigType, pop.BtcSig, bip340PK, msg, net); err != nil {
-		return fmt.Errorf("failed to verify possession of ybtc sig by the BTC key: %w", err)
+		return fmt.Errorf("failed to verify possession of babylon sig by the BTC key: %w", err)
 	}
 	return nil
 }
@@ -380,7 +380,7 @@ func VerifyECDSA(sigType BTCSigType, btcSigRaw []byte, bip340PK *bbn.BIP340PubKe
 		return err
 	}
 	// NOTE: ecdsa.Verify has to take message as a string
-	// So we have to hex ybtcSig before verifying the signature
+	// So we have to hex BabylonSig before verifying the signature
 	bbnSigHex := hex.EncodeToString(msg)
 	if err := ecdsa.Verify(btcPK, bbnSigHex, btcSigRaw); err != nil {
 		return fmt.Errorf("failed to verify btcSigRaw")

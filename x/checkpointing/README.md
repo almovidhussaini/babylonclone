@@ -1,11 +1,11 @@
 # Checkpointing
 
 The Checkpointing module is responsible for generating and maintaining
-the status of ybtc's Bitcoin checkpoints. The technical core
+the status of Babylon's Bitcoin checkpoints. The technical core
 of the Checkpointing module is the [BLS signature](https://en.wikipedia.org/wiki/BLS_digital_signature)
 scheme, around which this module provides the following functionalities:
 
-- handling requests for registering ybtc validators with their BLS keys,
+- handling requests for registering Babylon validators with their BLS keys,
 - signing, verifying, and aggregating BLS signatures,
 - constructing checkpoints out of the BLS signatures, and
 - maintaining the status of the checkpoints.
@@ -31,15 +31,15 @@ scheme, around which this module provides the following functionalities:
 
 ## Concepts
 
-ybtc checkpoints record the state of the ybtc chain at
+Babylon checkpoints record the state of the Babylon chain at
 the end of a particular [epoch](../../x/epoching/README.md).
 They are created with the intention to be included in
-the Bitcoin ledger to protect ybtc and
+the Bitcoin ledger to protect Babylon and
 the chains that connect with it against long range attacks.
-The confirmation of a ybtc checkpoint on Bitcoin
-serves as an immutable record of ybtc's state
+The confirmation of a Babylon checkpoint on Bitcoin
+serves as an immutable record of Babylon's state
 up to the checkpointed epoch and
-determines the canonical branch of the ybtc chain.
+determines the canonical branch of the Babylon chain.
 
 At their core, checkpoints contain a unique identifier
 of the state they commit to and BLS signatures
@@ -47,7 +47,7 @@ from the validator set that corresponds to that state.
 The BLS signature scheme is chosen to keep the checkpoints
 verifiable and succinct, as it enables the aggregation of signatures.
 To that end, each validator needs to maintain a BLS key pair
-and register the BLS public key on ybtc.
+and register the BLS public key on Babylon.
 Validators use their BLS private key to sign over
 the block ID of the last block of the epoch and
 submit their signature through an ABCI++ vote extension interface.
@@ -57,7 +57,7 @@ that is included in the next block proposal.
 Once a valid checkpoint is generated,
 it is checkpointed into the Bitcoin ledger through
 an off-chain program
-[Vigilante Submitter](https://docs.ybtcchain.io/docs/developer-guides/modules/submitter).
+[Vigilante Submitter](https://docs.babylonchain.io/docs/developer-guides/modules/submitter).
 It is responsible for constructing Bitcoin transactions that
 contain outputs utilizing the
 [`OP_RETURN`](https://en.bitcoin.it/wiki/OP_RETURN) script code
@@ -67,14 +67,14 @@ two such transactions are constructed to contain
 the whole checkpoint data.
 After their inclusion,
 an off-chain program called the
-[Vigilante Reporter](https://docs.ybtcchain.io/docs/developer-guides/modules/reporter)
+[Vigilante Reporter](https://docs.babylonchain.io/docs/developer-guides/modules/reporter)
 submits inclusion proofs to the
 [BTC Checkpoint module](../../x/btccheckpoint/README.md),
 which is responsible for monitoring their confirmation status and
 reporting it to the Checkpointing module.
 The observation of two conflicting checkpoints with a valid BLS multi-signature
 means that a fork exists and an alarm will be raised.
-In this case, the ybtc chain's canonical chain is represented by
+In this case, the Babylon chain's canonical chain is represented by
 the state of the checkpoint that has been included first in the Bitcoin ledger.
 
 ## States
@@ -85,7 +85,7 @@ The Checkpointing module maintains the following KV stores.
 
 The [checkpoint state](./keeper/ckpt_state.go) maintains all the checkpoints. 
 The key is the epoch number and the value is a `RawCheckpointWithMeta`
-[object](../../proto/ybtc/checkpointing/v1/checkpoint.proto) representing a
+[object](../../proto/babylon/checkpointing/v1/checkpoint.proto) representing a
 raw checkpoint along with some metadata.
 
 ```protobuf
@@ -102,7 +102,7 @@ message RawCheckpoint {
   // sigs
   bytes bls_multi_sig = 4
   [ (gogoproto.customtype) =
-    "github.com/amovidhussaini/ybtcclone/crypto/bls12381.Signature" ];
+    "github.com/almovidhussaini/babylonclone/crypto/bls12381.Signature" ];
 }
 
 // RawCheckpointWithMeta wraps the raw checkpoint with metadata.
@@ -115,7 +115,7 @@ message RawCheckpointWithMeta {
   // bls_aggr_pk defines the aggregated BLS public key
   bytes bls_aggr_pk = 3
   [ (gogoproto.customtype) =
-    "github.com/amovidhussaini/ybtcclone/crypto/bls12381.PublicKey" ];
+    "github.com/almovidhussaini/babylonclone/crypto/bls12381.PublicKey" ];
   // power_sum defines the accumulated voting power for the checkpoint
   uint64 power_sum = 4;
   // lifecycle defines the lifecycle of this checkpoint, i.e., each state
@@ -130,7 +130,7 @@ message RawCheckpointWithMeta {
 The [registration state](./keeper/registration_state.go) maintains
 a two-way mapping between the validator address and its BLS public key.
 
-The Checkpoint module also stores the [validator set](../../proto/ybtc/checkpointing/v1/bls_key.proto)
+The Checkpoint module also stores the [validator set](../../proto/babylon/checkpointing/v1/bls_key.proto)
 of every epoch with their public BLS keys. The key of the storage is the epoch 
 number.
 
@@ -175,9 +175,9 @@ message GenesisKey {
 
 ## Messages
 
-The Checkpointing module handles requests of registering ybtc validators.
+The Checkpointing module handles requests of registering Babylon validators.
 The request message type is defined at
-[proto/ybtc/checkpointing/v1/tx.proto](../../proto/ybtc/checkpointing/v1/tx.proto).
+[proto/babylon/checkpointing/v1/tx.proto](../../proto/babylon/checkpointing/v1/tx.proto).
 The message handler is defined at
 [x/checkpointing/keeper/msg_server.go](./keeper/msg_server.go).
 
@@ -199,7 +199,7 @@ message MsgWrappedCreateValidator {
 }
 ```
 
-Upon `MsgWrappedCreateValidator`, a ybtc node will execute as follows:
+Upon `MsgWrappedCreateValidator`, a Babylon node will execute as follows:
 
 1. Extract `MsgCreateValidator` and check its validity.
 2. Extract the BLS public key and save it to the `address->key` and
@@ -242,7 +242,7 @@ insufficient valid BLS signatures) and the proposer should panic.
 
 The checkpoint is encoded as a special transaction and injected as the first
 transaction of the proposed block. The format of the injected checkpoint is
-defined in [x/proto/ybtc/checkpointing/checkpoint.proto](../../proto/ybtc/checkpointing/checkpoint.proto).
+defined in [x/proto/babylon/checkpointing/checkpoint.proto](../../proto/babylon/checkpointing/checkpoint.proto).
 Note that the extended commit info that contains previous vote extensions is
 also part of the injected checkpoint, which is used for re-constructing the
 checkpoint in `ProcessProposal`.
@@ -282,7 +282,7 @@ validator votes for the last block of an epoch. It is invoked at the final
 voting phase of a consensus round. It signs the block ID of the proposal and
 constructs a vote extension which will be attached to the pre-commit vote as
 opaque bytes. The format of the vote extension is defined in
-[x/proto/ybtc/checkpointing/bls_key.proto](../../proto/ybtc/checkpointing/bls_key.proto).
+[x/proto/babylon/checkpointing/bls_key.proto](../../proto/babylon/checkpointing/bls_key.proto).
 
 ```protobuf
 // VoteExtension defines the structure used to create a BLS vote extension.
@@ -300,7 +300,7 @@ message VoteExtension {
   // bls_sig is the BLS signature
   bytes bls_sig = 6
   [ (gogoproto.customtype) =
-    "github.com/amovidhussaini/ybtcclone/crypto/bls12381.Signature" ];
+    "github.com/almovidhussaini/babylonclone/crypto/bls12381.Signature" ];
 }
 ```
 
@@ -335,7 +335,7 @@ at [x/checkpointing/abci.go]((./abci.go)).
 
 The Checkpointing module emits events when the status of checkpoints is
 changed or a conflicting checkpoint is found. The events are
-defined at [proto/ybtc/checkpointing/v1/events.proto](../../proto/ybtc/checkpointing/v1/events.proto).
+defined at [proto/babylon/checkpointing/v1/events.proto](../../proto/babylon/checkpointing/v1/events.proto).
 
 ```protobuf
 // EventCheckpointAccumulating is emitted when a checkpoint reaches the
@@ -368,4 +368,4 @@ message EventConflictingCheckpoint {
 
 The Checkpointing module provides a set of queries about BLS keys the status of
 checkpoints, listed at
-[docs.ybtcchain.io](https://docs.ybtcchain.io/docs/developer-guides/grpcrestapi#tag/Checkpointing).
+[docs.babylonchain.io](https://docs.babylonchain.io/docs/developer-guides/grpcrestapi#tag/Checkpointing).

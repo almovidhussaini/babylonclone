@@ -1,6 +1,6 @@
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 COMMIT := $(shell git log -1 --format='%H')
-APPNAME := ybtcclone
+APPNAME := babylonclone
 
 # don't override user values
 ifeq (,$(VERSION))

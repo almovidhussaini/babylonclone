@@ -7,7 +7,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 )
 
-// QueryStaking queries the Staking module of the ybtc node
+// QueryStaking queries the Staking module of the Babylon node
 // according to the given function
 func (c *QueryClient) QueryStaking(f func(ctx context.Context, queryClient stakingtypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()

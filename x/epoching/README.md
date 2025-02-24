@@ -1,10 +1,10 @@
 # Epoching
 
-ybtc implements [epoched
+Babylon implements [epoched
 staking](https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-039-epoched-staking.md)
 to reduce and parameterize the frequency of updating the validator set in
-ybtc. This reduces the frequency of ybtc sending checkpoints to Bitcoin,
-thereby reducing ybtc's operation cost and its footprint on Bitcoin.
+Babylon. This reduces the frequency of Babylon sending checkpoints to Bitcoin,
+thereby reducing Babylon's operation cost and its footprint on Bitcoin.
 
 In the epoched staking design, the blockchain is divided into epochs, each of
 which contains a fixed number of consecutive blocks. Messages that affect the
@@ -25,7 +25,7 @@ including:
 - [Table of contents](#table-of-contents)
 - [Concepts](#concepts)
   - [Problem statement](#problem-statement)
-  - [ybtc's Epoching module design](#ybtcs-epoching-module-design)
+  - [Babylon's Epoching module design](#babylons-epoching-module-design)
 - [States](#states)
   - [Parameters](#parameters)
   - [Epochs](#epochs)
@@ -54,7 +54,7 @@ stake distribution through various staking-related actions (e.g., bond/unbond,
 delegate/undelegate/redelegate, slash). This frequent updating poses challenges,
 as
 
-1. ybtc's Bitcoin Timestamping protocol requires checkpointing the validator
+1. Babylon's Bitcoin Timestamping protocol requires checkpointing the validator
    set to Bitcoin upon every validator set update;
 2. Bitcoin's 10-minute block interval makes checkpointing every new block
    impractical; and
@@ -72,15 +72,15 @@ has been pursued by multiple efforts (e.g.,
 [here](https://github.com/cosmos/cosmos-sdk/pull/8829),
 [here](https://github.com/cosmos/cosmos-sdk/pull/10132), and
 [here](https://github.com/cosmos/cosmos-sdk/pull/10173)) but was not fully
-implemented. ybtc has implemented the Epoching module, catering to specific
-design goals such as checkpointing epochs. In addition, ybtc implements
+implemented. Babylon has implemented the Epoching module, catering to specific
+design goals such as checkpointing epochs. In addition, Babylon implements
 *Bitcoin-assisted unbonding*, where unbonding requests in an epoch will be
 finished when the epoch they were created in is checkpointed on Bitcoin with
 sufficient confirmations.
 
-### ybtc's Epoching module design
+### Babylon's Epoching module design
 
-ybtc implements the Epoching module in order to reduce the frequency of
+Babylon implements the Epoching module in order to reduce the frequency of
 validator set updates, and thus the frequency of checkpointing to Bitcoin.
 Specifically, the Epoching module is responsible for the following tasks:
 
@@ -95,26 +95,26 @@ concept of epochs. The blockchain is divided into epochs, each consisting of a
 fixed number of consecutive blocks. The number of blocks in an epoch is called
 epoch interval, which is a system parameter.
 
-**Disabling functionalities of the Staking module.** ybtc disables two
+**Disabling functionalities of the Staking module.** Babylon disables two
 functionalities of the Staking module, namely the validator set update mechanism
 and the 21-day unbonding mechanism.
 
 In Cosmos SDK, the Staking module handles staking-related messages and updates
 the validator set upon every block. Consequently, the Staking module updates the
 validator set upon every block. In order to reduce the frequency of validator
-set updates to once per epoch, ybtc disables the validator set update
+set updates to once per epoch, Babylon disables the validator set update
 mechanism of the Staking module.
 
 In addition, the Staking module enforces the "21-day unbonding rule": unbonding
 validators and delegations will become unbonded after 21 days (in the default
 case). The long unbonding period aims to circumvent the [long-range
-attack](https://medium.com/ybtcchain-io/why-are-unbonding-periods-so-long-on-proof-of-stake-d44e863c5cb8),
-at the cost of capital efficiency. ybtc departs from Cosmos SDK by employing
+attack](https://medium.com/babylonchain-io/why-are-unbonding-periods-so-long-on-proof-of-stake-d44e863c5cb8),
+at the cost of capital efficiency. Babylon departs from Cosmos SDK by employing
 Bitcoin-assisted unbonding, where unbonding validators and delegations become
-unbonded once the corresponding epoch has been checkpointed on Bitcoin. ybtc
+unbonded once the corresponding epoch has been checkpointed on Bitcoin. Babylon
 disables the 21-day unbonding mechanism to this end.
 
-In order to disable the two functionalities, ybtc disables Staking module's
+In order to disable the two functionalities, Babylon disables Staking module's
 `EndBlocker` function that updates validator sets and unbonds mature validators
 upon a block ends. Instead, upon an epoch that has ended, the Epoching module
 will invoke the Staking module's functionality that updates the validator set.
@@ -154,12 +154,12 @@ message queue. When the epoch ends, the Epoching module will forward queued
 messages to the Staking module. Consequently, the Staking module receives and
 handles staking-related messages, and performs validator set updates.
 
-**Bitcoin-assisted Unbonding.** ybtc implements the Bitcoin-assisted
+**Bitcoin-assisted Unbonding.** Babylon implements the Bitcoin-assisted
 unbonding mechanism by invoking the Staking module upon a checkpointed epoch .
 Specifically, the Staking module's `BlockValidatorUpdates`
 [function](https://github.com/cosmos/cosmos-sdk/blob/7e6948f50cd4838a0161838a099f74e0b5b0213c/x/staking/keeper/val_state_change.go#L36-L102)
 is responsible for identifying and unbonding mature validators and delegations
-that have been unbonding for 21 days, and is invoked upon every block. ybtc
+that have been unbonding for 21 days, and is invoked upon every block. Babylon
 has disabled the invocation of `BlockValidatorUpdates` per block, and implements
 the state management for epochs. When an epoch has a checkpoint that is
 sufficiently deep in Bitcoin, the Epoching module will invoke
@@ -173,7 +173,7 @@ The Epoching module maintains the following KV stores.
 
 The [parameter storage](./keeper/params.go) maintains the Epoching module's
 parameters. The Epoching module's parameters are represented as a `Params`
-[object](../../proto/ybtc/epoching/v1/params.proto) defined as follows:
+[object](../../proto/babylon/epoching/v1/params.proto) defined as follows:
 
 ```protobuf
 // Params defines the parameters for the module.
@@ -190,7 +190,7 @@ message Params {
 
 The [epoch storage](./keeper/params.go) maintains the metadata of each epoch.
 The key is the epoch number, and the value is an `Epoch`
-[object](../../proto/ybtc/epoching/v1/epoching.proto) representing the epoch
+[object](../../proto/babylon/epoching/v1/epoching.proto) representing the epoch
 metadata.
 
 ```protobuf
@@ -203,7 +203,7 @@ message Epoch {
   // first_block_height is the height of the first block in this epoch
   uint64 first_block_height = 3;
   // last_block_time is the time of the last block in this epoch.
-  // ybtc needs to remember the last header's time of each epoch to complete
+  // Babylon needs to remember the last header's time of each epoch to complete
   // unbonding validators/delegations when a previous epoch's checkpoint is
   // finalised. The last_block_time field is nil in the epoch's beginning, and
   // is set upon the end of this epoch.
@@ -231,7 +231,7 @@ will remain unchanged, except for slashed validators. The [epoch message queue
 storage](./keeper/epoch_msg_queue.go) maintains the queue of these
 staking-related messages. The key is the epoch number concatenated with the
 index of the queued message, and the value is a `QueuedMessage`
-[object](../../proto/ybtc/epoching/v1/epoching.proto) representing this
+[object](../../proto/babylon/epoching/v1/epoching.proto) representing this
 queued message.
 
 ```protobuf
@@ -242,9 +242,9 @@ message QueuedMessage {
   bytes tx_id = 1;
   // msg_id is the original message ID, i.e., hash of the marshaled message
   bytes msg_id = 2;
-  // block_height is the height when this msg is submitted to ybtc
+  // block_height is the height when this msg is submitted to Babylon
   uint64 block_height = 3;
-  // block_time is the timestamp when this msg is submitted to ybtc
+  // block_time is the timestamp when this msg is submitted to Babylon
   google.protobuf.Timestamp block_time = 4 [ (gogoproto.stdtime) = true ];
   // msg is the actual message that is sent by a user and is queued by the
   // Epoching module
@@ -299,7 +299,7 @@ include `MsgCreateValidator`, `MsgDelegate`, `MsgUndelegate`,
 ### Epoched staking messages
 
 The epoched staking messages in the Epoching module are defined at
-[proto/ybtc/epoching/v1/tx.proto](../../proto/ybtc/epoching/v1/tx.proto).
+[proto/babylon/epoching/v1/tx.proto](../../proto/babylon/epoching/v1/tx.proto).
 They are simply wrappers of the corresponding messages in Cosmos SDK's Staking
 module.
 
@@ -372,7 +372,7 @@ message MsgUpdateParams {
 
 ## BeginBlocker and EndBlocker
 
-ybtc disables the Staking module's EndBlocker to avoid validator set updates
+Babylon disables the Staking module's EndBlocker to avoid validator set updates
 upon each block. The Epoching module implements `BeginBlocker` to initialize an
 epoch upon the beginning of an epoch, and implements `EndBlocker` to execute all
 messages and update the validator set upon the end of an epoch.
@@ -382,17 +382,17 @@ messages and update the validator set upon the end of an epoch.
 Cosmos SDK's Staking module [updates the validator
 set](https://github.com/cosmos/cosmos-sdk/blob/v0.50.3/x/staking/keeper/abci.go#L23C1-L24C1)
 upon `EndBlocker` of every block. In order to implement the epoching mechanism,
-ybtc disables the Staking module's `EndBlocker` [as
+Babylon disables the Staking module's `EndBlocker` [as
 follows](../../app/app.go).
 
 ```go
-// ybtc does not want EndBlock processing in staking
+// Babylon does not want EndBlock processing in staking
 app.ModuleManager.OrderEndBlockers = append(app.ModuleManager.OrderEndBlockers[:2], app.ModuleManager.OrderEndBlockers[2+1:]...) // remove stakingtypes.ModuleName
 ```
 
 ## BeginBlocker
 
-Upon `BeginBlocker`, the Epoching module of each ybtc node will [execute the
+Upon `BeginBlocker`, the Epoching module of each Babylon node will [execute the
 following](./abci.go):
 
 1. If at the first block of the next epoch, then do the following:
@@ -411,7 +411,7 @@ following](./abci.go):
 
 ## EndBlocker
 
-Upon `EndBlocker`, the Epoching module of each ybtc node will [execute the
+Upon `EndBlocker`, the Epoching module of each Babylon node will [execute the
 following](./abci.go) *if at the last block of the current epoch*:
 
 1. Get all queued messages of this epoch in the epoch message queue storage.
@@ -447,7 +447,7 @@ Bitcoin-assisted unbonding. The `AfterRawCheckpointFinalized` hook is triggered
 upon a checkpoint becoming *finalized*, i.e., Bitcoin transactions of the
 checkpoint become `w`-deep in Bitcoin's canonical chain, where `w` is the
 `checkpoint_finalization_timeout`
-[parameter](../../proto/ybtc/btccheckpoint/v1/params.proto) in the
+[parameter](../../proto/babylon/btccheckpoint/v1/params.proto) in the
 BTCCheckpoint module. Upon `AfterRawCheckpointFinalized`, the Epoching module
 will finish all unbonding validators and delegations till the epoch associated
 with the finalized checkpoint, including [the following](./keeper/hooks.go):
@@ -526,5 +526,5 @@ message EventWrappedCancelUnbondingDelegation {
 
 The Epoching module provides a set of queries about epochs, validators and
 delegations, listed at
-[docs.ybtcchain.io](https://docs.ybtcchain.io/docs/developer-guides/grpcrestapi#tag/Epoching).
-<!-- TODO: update ybtc doc website -->
+[docs.babylonchain.io](https://docs.babylonchain.io/docs/developer-guides/grpcrestapi#tag/Epoching).
+<!-- TODO: update Babylon doc website -->

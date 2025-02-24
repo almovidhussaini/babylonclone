@@ -17,9 +17,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint/keeper"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint/keeper"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 )
 
 func NewBTCCheckpointKeeper(

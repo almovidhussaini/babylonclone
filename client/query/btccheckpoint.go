@@ -3,12 +3,12 @@ package query
 import (
 	"context"
 
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	sdkquerytypes "github.com/cosmos/cosmos-sdk/types/query"
 )
 
-// QueryBTCCheckpoint queries the BTCCheckpoint module of the ybtc node
+// QueryBTCCheckpoint queries the BTCCheckpoint module of the Babylon node
 // according to the given function
 func (c *QueryClient) QueryBTCCheckpoint(f func(ctx context.Context, queryClient btcctypes.QueryClient) error) error {
 	ctx, cancel := c.getQueryContext()

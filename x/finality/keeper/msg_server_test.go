@@ -14,17 +14,17 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testutil "github.com/amovidhussaini/ybtcclone/testutil/incentives-helper"
-	keepertest "github.com/amovidhussaini/ybtcclone/testutil/keeper"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
-	ictvtypes "github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testutil "github.com/almovidhussaini/babylonclone/testutil/incentives-helper"
+	keepertest "github.com/almovidhussaini/babylonclone/testutil/keeper"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/keeper"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
+	ictvtypes "github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 func setupMsgServer(t testing.TB) (*keeper.Keeper, types.MsgServer, context.Context) {
@@ -242,7 +242,7 @@ func FuzzAddFinalitySig(f *testing.F) {
 		require.Equal(t, btcSK.PubKey().SerializeCompressed()[1:], btcSK2.PubKey().SerializeCompressed()[1:])
 
 		// Case 6: slashed finality provider cannot vote
-		fp.SlashedybtcHeight = blockHeight
+		fp.SlashedBabylonHeight = blockHeight
 		bsKeeper.EXPECT().GetFinalityProvider(gomock.Any(), gomock.Eq(fpBTCPKBytes)).Return(fp, nil).Times(1)
 		cKeeper.EXPECT().GetEpochByHeight(gomock.Any(), msg.BlockHeight).Return(uint64(1)).Times(1)
 		_, err = ms.AddFinalitySig(ctx, msg)
@@ -250,7 +250,7 @@ func FuzzAddFinalitySig(f *testing.F) {
 
 		// Case 7: jailed finality provider cannot vote
 		fp.Jailed = true
-		fp.SlashedybtcHeight = 0
+		fp.SlashedBabylonHeight = 0
 		bsKeeper.EXPECT().GetFinalityProvider(gomock.Any(), gomock.Eq(fpBTCPKBytes)).Return(fp, nil).Times(1)
 		cKeeper.EXPECT().GetEpochByHeight(gomock.Any(), msg.BlockHeight).Return(uint64(1)).Times(1)
 		_, err = ms.AddFinalitySig(ctx, msg)

@@ -7,10 +7,10 @@ import (
 	"testing"
 
 	"cosmossdk.io/core/header"
-	"github.com/amovidhussaini/ybtcclone/app/signer"
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/app/signer"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 	abci "github.com/cometbft/cometbft/abci/types"
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
@@ -26,12 +26,12 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcstakingtypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcstakingtypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/epoching/keeper"
+	"github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 // Helper is a structure which wraps the entire app and exposes functionalities for testing the epoching module
@@ -39,7 +39,7 @@ type Helper struct {
 	t *testing.T
 
 	Ctx         sdk.Context
-	App         *app.ybtcApp
+	App         *app.BabylonApp
 	MsgSrvr     types.MsgServer
 	QueryClient types.QueryClient
 

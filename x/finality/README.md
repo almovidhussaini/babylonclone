@@ -1,6 +1,6 @@
 # Finality
 
-ybtc's BTC Staking protocol introduces an additional consensus round on
+Babylon's BTC Staking protocol introduces an additional consensus round on
 blocks produced by CometBFT, called the finality round. The participants of this
 round are referred to as finality providers and their voting power stems from
 staked bitcoins delegated to them.
@@ -40,14 +40,14 @@ providers;
 ## Concepts
 
 <!-- summary of BTC staking protocol and BTC staking module -->
-**ybtc Bitcoin Staking.** ybtc's Bitcoin Staking protocol allows bitcoin
+**Babylon Bitcoin Staking.** Babylon's Bitcoin Staking protocol allows bitcoin
 holders to *trustlessly* stake their bitcoins, in order to provide economic
-security to the ybtc chain and other Proof-of-Stake (PoS) blockchains. The
+security to the Babylon chain and other Proof-of-Stake (PoS) blockchains. The
 protocol composes a PoS blockchain with an off-the-shelf *finality voting round*
 run by a set of [finality
-providers](https://github.com/ybtcchain/finality-provider) who receive *BTC
-delegations* from [BTC stakers](https://github.com/ybtcchain/btc-staker). The
-finality providers and BTC delegations are maintained by ybtc's [BTC Staking
+providers](https://github.com/babylonchain/finality-provider) who receive *BTC
+delegations* from [BTC stakers](https://github.com/babylonchain/btc-staker). The
+finality providers and BTC delegations are maintained by Babylon's [BTC Staking
 module](../btcstaking/README.md), and the Finality module is responsible for
 maintaining the finality voting round.
 
@@ -56,18 +56,18 @@ maintaining the finality voting round.
 the CometBFT ledger receives *finality votes* from a set of finality providers.
 A finality vote is a signature under the [*Extractable One-Time Signature
 (EOTS)*
-primitive](https://docs.ybtcchain.io/assets/files/btc_staking_litepaper-32bfea0c243773f0bfac63e148387aef.pdf).
+primitive](https://docs.babylonchain.io/assets/files/btc_staking_litepaper-32bfea0c243773f0bfac63e148387aef.pdf).
 A block is considered finalized if it receives a quorum, i.e., votes from
 finality providers with more than 2/3 voting power at its height.
 
-<!-- ybtc BTC staking security guarantee, i.e., slashable safety -->
+<!-- Babylon BTC staking security guarantee, i.e., slashable safety -->
 **Slashable safety guarantee.** The finality voting round ensures the *slashable
 safety* property of finalized blocks: upon a safety violation where a
 conflicting block also receives a valid quorum, adversarial finality providers
 with more than 1/3 total voting power will be provably identified by the
 protocol and be slashed. The formal definition of slashable safety can be found
 at [the S&P'23 paper](https://arxiv.org/pdf/2207.08392.pdf) and [the CCS'23
-paper](https://arxiv.org/pdf/2305.07830.pdf). In ybtc's Bitcoin Staking
+paper](https://arxiv.org/pdf/2305.07830.pdf). In Babylon's Bitcoin Staking
 protocol, if a finality provider is slashed, then
 
 - the secret key of the finality provider is revealed to the public,
@@ -83,7 +83,7 @@ adversarial finality providers.
 **Interaction between finality providers and the Finality module.** In order to
 participate in the finality voting round, an active finality provider with BTC
 delegations (as specified in the [BTC Staking module](../btcstaking/README.md))
-needs to interact with ybtc as follows:
+needs to interact with Babylon as follows:
 
 - **Committing EOTS public randomness.** The finality provider proactively sends
   a merkle-tree-based commit of a list of *EOTS public randomness* for future
@@ -100,8 +100,8 @@ needs to interact with ybtc as follows:
   the equivocation evidence, such that anyone can extract the finality
   provider's secret key and slash it.
 
-ybtc has implemented a [BTC staking
-tracker](https://github.com/ybtcchain/vigilante) daemon program that
+Babylon has implemented a [BTC staking
+tracker](https://github.com/babylonchain/vigilante) daemon program that
 subscribes to equivocation evidences in the Finality module, and slashes BTC
 delegations under equivocating finality providers by sending their slashing
 transactions to the Bitcoin network.
@@ -114,7 +114,7 @@ The Finality module maintains the following KV stores.
 
 The [parameter storage](./keeper/params.go) maintains the Finality module's
 parameters. The Finality module's parameters are represented as a `Params`
-[object](../../proto/ybtc/finality/v1/params.proto) defined as follows:
+[object](../../proto/babylon/finality/v1/params.proto) defined as follows:
 
 ```protobuf
 // Params defines the parameters for the module.
@@ -142,7 +142,7 @@ message Params {
 ### Voting power table
 
 The [voting power table management](./keeper/voting_power_table.go) maintains
-the voting power table of all finality providers at each height of the ybtc
+the voting power table of all finality providers at each height of the Babylon
 chain. The key is the block height concatenated with the finality provider's
 Bitcoin secp256k1 public key in BIP-340 format, and the value is the finality
 provider's voting power quantified in Satoshis. Voting power is assigned to top
@@ -152,11 +152,11 @@ randomness for the height, ranked by the total delegated value.
 ### Public randomness
 
 The [public randomness storage](./keeper/public_randomness.go) maintains the
-EOTS public randomness commit that each finality provider commits to ybtc.
+EOTS public randomness commit that each finality provider commits to Babylon.
 The key is the finality provider's Bitcoin secp256k1 public key concatenated
 with the block height, and the value is a merkle tree constructed by the list of
 public randomness with starting height, and the number of public randomness. It
-also stores the epoch number at which ybtc receives the commit.
+also stores the epoch number at which Babylon receives the commit.
 
 ```protobuf
 // PubRandCommit is a commitment to a series of public randomness
@@ -197,7 +197,7 @@ const SchnorrEOTSSigLen = 32
 The [indexed block storage](./keeper/indexed_blocks.go) maintains the necessary
 metadata and finalization status of blocks. The key is the block height and the
 value is an `IndexedBlock` object
-[defined](../../proto/ybtc/finality/v1/finality.proto) as follows.
+[defined](../../proto/babylon/finality/v1/finality.proto) as follows.
 
 ```protobuf
 // IndexedBlock is the necessary metadata and finalization status of a block
@@ -218,17 +218,17 @@ The [equivocation evidence storage](./keeper/evidence.go) maintains evidences of
 equivocation offences committed by finality providers. The key is a finality
 provider's Bitcoin secp256k1 public key concatenated with the block height, and
 the value is an `Evidence`
-[object](../../proto/ybtc/finality/v1/finality.proto) representing the
+[object](../../proto/babylon/finality/v1/finality.proto) representing the
 evidence that this finality provider has equivocated at this height. Anyone
 observing the `Evidence` object can extract the finality provider's Bitcoin
 secp256k1 secret key, as per EOTS's extractability property.
 
 ```protobuf
 // Evidence is the evidence that a finality provider has signed finality
-// signatures with correct public randomness on two conflicting ybtc headers
+// signatures with correct public randomness on two conflicting Babylon headers
 message Evidence {
     // fp_btc_pk is the BTC PK of the finality provider that casts this vote
-    bytes fp_btc_pk = 1 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+    bytes fp_btc_pk = 1 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
     // block_height is the height of the conflicting blocks
     uint64 block_height = 2;
     // master_pub_rand is the master public randomness the finality provider has committed to
@@ -242,10 +242,10 @@ message Evidence {
     // where finality signature is an EOTS signature, i.e.,
     // the `s` in a Schnorr signature `(r, s)`
     // `r` is the public randomness that is already committed by the finality provider
-    bytes canonical_finality_sig = 6 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.SchnorrEOTSSig" ];
+    bytes canonical_finality_sig = 6 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.SchnorrEOTSSig" ];
     // fork_finality_sig is the finality signature to the fork block
     // where finality signature is an EOTS signature
-    bytes fork_finality_sig = 7 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.SchnorrEOTSSig" ];
+    bytes fork_finality_sig = 7 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.SchnorrEOTSSig" ];
 }
 ```
 
@@ -282,7 +282,7 @@ The information stored for tracking finality provider liveness is as follows:
 message FinalityProviderSigningInfo {
   // fp_btc_pk is the BTC PK of the finality provider that casts this finality
   // signature
-  bytes fp_btc_pk = 1 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+  bytes fp_btc_pk = 1 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
   // start_height is the block height at which finality provider become active
   int64 start_height = 2;
   // missed_blocks_counter defines a counter to avoid unnecessary array reads.
@@ -304,7 +304,7 @@ later section.
 
 The Finality module handles the following messages from finality providers. The
 message formats are defined at
-[proto/ybtc/finality/v1/tx.proto](../../proto/ybtc/finality/v1/tx.proto).
+[proto/babylon/finality/v1/tx.proto](../../proto/babylon/finality/v1/tx.proto).
 The message handlers are defined at
 [x/finality/keeper/msg_server.go](./keeper/msg_server.go).
 
@@ -313,7 +313,7 @@ The message handlers are defined at
 The `MsgCommitPubRandList` message is used for committing a merkle tree
 constructed by a list of EOTS public randomness that will be used by a finality
 provider in the future. It is typically submitted by a finality provider via the
-[finality provider](https://github.com/ybtcchain/finality-provider) program.
+[finality provider](https://github.com/babylonchain/finality-provider) program.
 
 ```protobuf
 // MsgCommitPubRandList defines a message for committing a list of public randomness for EOTS
@@ -321,7 +321,7 @@ message MsgCommitPubRandList {
   option (cosmos.msg.v1.signer) = "signer";
   string signer = 1;
   // fp_btc_pk is the BTC PK of the finality provider that commits the public randomness
-  bytes fp_btc_pk = 2 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+  bytes fp_btc_pk = 2 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
   // start_height is the start block height of the list of public randomness
   uint64 start_height = 3;
   // num_pub_rand is the number of public randomness committed
@@ -332,15 +332,15 @@ message MsgCommitPubRandList {
   // sig is the signature on (start_height || num_pub_rand || commitment) signed by 
   // SK corresponding to fp_btc_pk. This prevents others to commit public
   // randomness on behalf of fp_btc_pk
-  bytes sig = 6 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340Signature" ];
+  bytes sig = 6 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340Signature" ];
 }
 ```
 
-Upon `MsgCommitPubRandList`, a ybtc node will execute as follows:
+Upon `MsgCommitPubRandList`, a Babylon node will execute as follows:
 
 1. Ensure the message contains at least `MinPubRand` number of EOTS public
    randomness, where `MinPubRand` is defined in the module parameters.
-2. Ensure the finality provider has been registered in ybtc.
+2. Ensure the finality provider has been registered in Babylon.
 3. Ensure the list of EOTS public randomness does not overlap with existing EOTS
    public randomness that this finality provider previously committed before.
 4. Verify the Schnorr signature over the list of public randomness signed by the
@@ -353,7 +353,7 @@ Upon `MsgCommitPubRandList`, a ybtc node will execute as follows:
 The `MsgAddFinalitySig` message is used for submitting a finality vote, i.e., an
 EOTS signature over a block signed by a finality provider. It is typically
 submitted by a finality provider via the [finality
-provider](https://github.com/ybtcchain/finality-provider) program.
+provider](https://github.com/babylonchain/finality-provider) program.
 
 ```protobuf
 // MsgAddFinalitySig defines a message for adding a finality vote
@@ -362,7 +362,7 @@ message MsgAddFinalitySig {
 
     string signer = 1;
     // fp_btc_pk is the BTC PK of the finality provider that casts this vote
-    bytes fp_btc_pk = 2 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.BIP340PubKey" ];
+    bytes fp_btc_pk = 2 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.BIP340PubKey" ];
     // block_height is the height of the voted block
     uint64 block_height = 3;
     // block_app_hash is the AppHash of the voted block
@@ -371,13 +371,13 @@ message MsgAddFinalitySig {
     // where finality signature is an EOTS signature, i.e.,
     // the `s` in a Schnorr signature `(r, s)`
     // `r` is the public randomness that is already committed by the finality provider
-    bytes finality_sig = 5 [ (gogoproto.customtype) = "github.com/amovidhussaini/ybtcclone/types.SchnorrEOTSSig" ];
+    bytes finality_sig = 5 [ (gogoproto.customtype) = "github.com/almovidhussaini/babylonclone/types.SchnorrEOTSSig" ];
 }
 ```
 
-Upon `MsgAddFinalitySig`, a ybtc node will execute as follows:
+Upon `MsgAddFinalitySig`, a Babylon node will execute as follows:
 
-1. Ensure the finality provider has been registered in ybtc and is not
+1. Ensure the finality provider has been registered in Babylon and is not
    slashed.
 2. Ensure the epoch that the finality provider is registered has been finalized
    by BTC timestamping.
@@ -387,14 +387,14 @@ Upon `MsgAddFinalitySig`, a ybtc node will execute as follows:
    randomness and the block height.
 6. Verify the EOTS signature w.r.t. the derived EOTS public randomness.
 7. If the voted block's `AppHash` is different from the canonical block at the
-   same height known by the ybtc node, then this means the finality provider
-   has voted for a fork. ybtc node buffers this finality vote to the evidence
+   same height known by the Babylon node, then this means the finality provider
+   has voted for a fork. Babylon node buffers this finality vote to the evidence
    storage. If the finality provider has also voted for the block at the same
    height, then this finality provider is slashed, i.e., its voting power is
    removed, equivocation evidence is recorded, and a slashing event is emitted.
 8. If the voted block's `AppHash` is same as that of the canonical block at the
    same height, then this means the finality provider has voted for the
-   canonical block, and the ybtc node will store this finality vote to the
+   canonical block, and the Babylon node will store this finality vote to the
    finality vote storage. If the finality provider has also voted for a fork
    block at the same height, then this finality provider will be slashed.
 
@@ -446,7 +446,7 @@ message MsgResumeFinalityProposal {
 
 ## BeginBlocker
 
-Upon `BeginBlocker`, the Finality module of each ybtc node will [execute the
+Upon `BeginBlocker`, the Finality module of each Babylon node will [execute the
 following](./abci.go):
 
 1. Record the voting power table at the current height, by reconciling the
@@ -461,21 +461,21 @@ following](./abci.go):
 
 ## EndBlocker
 
-Upon `EndBlocker`, the Finality module of each ybtc node will [execute the
+Upon `EndBlocker`, the Finality module of each Babylon node will [execute the
 following](./abci.go) *if the BTC staking protocol is activated (i.e., there has
 been >=1 active BTC delegations)*:
 
 1. Index the current block, i.e., extract its height and `AppHash`, construct an
    `IndexedBlock` object, and save it to the indexed block storage.
 2. Tally all non-finalized blocks as follows:
-   1. Find the starting height that the ybtc node should start to finalize.
+   1. Find the starting height that the Babylon node should start to finalize.
       This is the earliest height that is not finalize yet since the activation
       of BTC staking.
    2. For each `IndexedBlock` between the starting height and the current
       height, tally this block as follows:
       1. Find the set of active finality providers at this height.
       2. If the finality provider set is empty, then this block is not
-         finalizable and the ybtc node will skip this block.
+         finalizable and the Babylon node will skip this block.
       3. If the finality provider set is not empty, then find all finality votes
          on this `IndexedBlock`, and check whether this `IndexedBlock` has
          received votes of more than 2/3 voting power from the active finality
@@ -519,5 +519,5 @@ string public_key = 1;
 
 The Finality module provides a set of queries about finality signatures on each
 block, listed at
-[docs.ybtcchain.io](https://docs.ybtcchain.io/docs/developer-guides/grpcrestapi#tag/Finality).
-<!-- TODO: update ybtc doc website -->
+[docs.babylonchain.io](https://docs.babylonchain.io/docs/developer-guides/grpcrestapi#tag/Finality).
+<!-- TODO: update Babylon doc website -->

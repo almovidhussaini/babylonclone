@@ -13,7 +13,7 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/btcsuite/btcd/wire"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -177,7 +177,7 @@ func (t *taprootScriptHolder) taprootPkScript(net *chaincfg.Params) ([]byte, err
 	)
 }
 
-// Package responsible for different kinds of btc scripts used by ybtc
+// Package responsible for different kinds of btc scripts used by babylon
 // Staking script has 3 spending paths:
 // 1. Staker can spend after relative time lock - staking
 // 2. Staker can spend with covenant cooperation any time
@@ -251,9 +251,9 @@ func aggregateScripts(scripts ...[]byte) []byte {
 	return finalScript
 }
 
-// ybtcScriptPaths contains all possible ybtc script paths
-// not every ybtc output will contain all of those paths
-type ybtcScriptPaths struct {
+// babylonScriptPaths contains all possible babylon script paths
+// not every babylon output will contain all of those paths
+type babylonScriptPaths struct {
 	// timeLockPathScript is the script path for normal unbonding
 	// <Staker_PK> OP_CHECKSIGVERIFY  <Staking_Time_Blocks> OP_CHECKSEQUENCEVERIFY
 	timeLockPathScript []byte
@@ -304,13 +304,13 @@ func checkForDuplicateKeys(
 	return nil
 }
 
-func newybtcScriptPaths(
+func newBabylonScriptPaths(
 	stakerKey *btcec.PublicKey,
 	fpKeys []*btcec.PublicKey,
 	covenantKeys []*btcec.PublicKey,
 	covenantQuorum uint32,
 	lockTime uint16,
-) (*ybtcScriptPaths, error) {
+) (*babylonScriptPaths, error) {
 	if stakerKey == nil {
 		return nil, fmt.Errorf("staker key is nil")
 	}
@@ -367,19 +367,19 @@ func newybtcScriptPaths(
 		covenantMultisigScript,
 	)
 
-	return &ybtcScriptPaths{
+	return &babylonScriptPaths{
 		timeLockPathScript:  timeLockPathScript,
 		unbondingPathScript: unbondingPathScript,
 		slashingPathScript:  slashingPathScript,
 	}, nil
 }
 
-// BuildStakingInfo builds all ybtc specific BTC scripts that must
+// BuildStakingInfo builds all Babylon specific BTC scripts that must
 // be committed to in the staking output.
 // Returned `StakingInfo` object exposes methods to build spend info for each
 // of the script spending paths which later must be included in the witness.
 // It is up to the caller to verify whether parameters provided to this function
-// obey parameters expected by ybtc chain.
+// obey parameters expected by Babylon chain.
 func BuildStakingInfo(
 	stakerKey *btcec.PublicKey,
 	fpKeys []*btcec.PublicKey,
@@ -391,7 +391,7 @@ func BuildStakingInfo(
 ) (*StakingInfo, error) {
 	unspendableKeyPathKey := unspendableKeyPathInternalPubKey()
 
-	ybtcScripts, err := newybtcScriptPaths(
+	babylonScripts, err := newBabylonScriptPaths(
 		stakerKey,
 		fpKeys,
 		covenantKeys,
@@ -404,13 +404,13 @@ func BuildStakingInfo(
 	}
 
 	var unbondingPaths [][]byte
-	unbondingPaths = append(unbondingPaths, ybtcScripts.timeLockPathScript)
-	unbondingPaths = append(unbondingPaths, ybtcScripts.unbondingPathScript)
-	unbondingPaths = append(unbondingPaths, ybtcScripts.slashingPathScript)
+	unbondingPaths = append(unbondingPaths, babylonScripts.timeLockPathScript)
+	unbondingPaths = append(unbondingPaths, babylonScripts.unbondingPathScript)
+	unbondingPaths = append(unbondingPaths, babylonScripts.slashingPathScript)
 
-	timeLockLeafHash := txscript.NewBaseTapLeaf(ybtcScripts.timeLockPathScript).TapHash()
-	unbondingPathLeafHash := txscript.NewBaseTapLeaf(ybtcScripts.unbondingPathScript).TapHash()
-	slashingLeafHash := txscript.NewBaseTapLeaf(ybtcScripts.slashingPathScript).TapHash()
+	timeLockLeafHash := txscript.NewBaseTapLeaf(babylonScripts.timeLockPathScript).TapHash()
+	unbondingPathLeafHash := txscript.NewBaseTapLeaf(babylonScripts.unbondingPathScript).TapHash()
+	slashingLeafHash := txscript.NewBaseTapLeaf(babylonScripts.slashingPathScript).TapHash()
 
 	sh, err := newTaprootScriptHolder(
 		&unspendableKeyPathKey,
@@ -460,12 +460,12 @@ type UnbondingInfo struct {
 	slashingPathLeafHash chainhash.Hash
 }
 
-// BuildUnbondingInfo builds all ybtc specific BTC scripts that must
+// BuildUnbondingInfo builds all Babylon specific BTC scripts that must
 // be committed to in the unbonding output.
 // Returned `UnbondingInfo` object exposes methods to build spend info for each
 // of the script spending paths which later must be included in the witness.
 // It is up to the caller to verify whether parameters provided to this function
-// obey parameters expected by ybtc chain.
+// obey parameters expected by Babylon chain.
 func BuildUnbondingInfo(
 	stakerKey *btcec.PublicKey,
 	fpKeys []*btcec.PublicKey,
@@ -477,7 +477,7 @@ func BuildUnbondingInfo(
 ) (*UnbondingInfo, error) {
 	unspendableKeyPathKey := unspendableKeyPathInternalPubKey()
 
-	ybtcScripts, err := newybtcScriptPaths(
+	babylonScripts, err := newBabylonScriptPaths(
 		stakerKey,
 		fpKeys,
 		covenantKeys,
@@ -490,11 +490,11 @@ func BuildUnbondingInfo(
 	}
 
 	var unbondingPaths [][]byte
-	unbondingPaths = append(unbondingPaths, ybtcScripts.timeLockPathScript)
-	unbondingPaths = append(unbondingPaths, ybtcScripts.slashingPathScript)
+	unbondingPaths = append(unbondingPaths, babylonScripts.timeLockPathScript)
+	unbondingPaths = append(unbondingPaths, babylonScripts.slashingPathScript)
 
-	timeLockLeafHash := txscript.NewBaseTapLeaf(ybtcScripts.timeLockPathScript).TapHash()
-	slashingLeafHash := txscript.NewBaseTapLeaf(ybtcScripts.slashingPathScript).TapHash()
+	timeLockLeafHash := txscript.NewBaseTapLeaf(babylonScripts.timeLockPathScript).TapHash()
+	slashingLeafHash := txscript.NewBaseTapLeaf(babylonScripts.slashingPathScript).TapHash()
 
 	sh, err := newTaprootScriptHolder(
 		&unspendableKeyPathKey,

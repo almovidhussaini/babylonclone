@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bsctypes "github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
-	finalitytypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bsctypes "github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
+	finalitytypes "github.com/almovidhussaini/babylonclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -136,7 +136,7 @@ func (k Keeper) HandleConsumerSlashing(
 	}
 
 	// Update the consumer finality provider's slashed height and
-	// send power distribution update event so the affected ybtc FP's voting power can be adjusted
+	// send power distribution update event so the affected Babylon FP's voting power can be adjusted
 	if err := k.bsKeeper.SlashConsumerFinalityProvider(ctx, consumerID, slashedFpBTCPK); err != nil {
 		return fmt.Errorf("failed to slash consumer finality provider: %w", err)
 	}

@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/amovidhussaini/ybtcclone/client/ybtcclient"
+	"github.com/almovidhussaini/babylonclone/client/babylonclient"
 
 	signingv1beta1 "cosmossdk.io/api/cosmos/tx/signing/v1beta1"
 	"cosmossdk.io/errors"
 	txsigning "cosmossdk.io/x/tx/signing"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/avast/retry-go/v4"
 	abci "github.com/cometbft/cometbft/abci/types"
 	coretypes "github.com/cometbft/cometbft/rpc/core/types"
@@ -27,10 +27,10 @@ import (
 )
 
 // ToProviderMsgs converts a list of sdk.Msg to a list of provider.RelayerMessage
-func ToProviderMsgs(msgs []sdk.Msg) []ybtcclient.RelayerMessage {
-	relayerMsgs := make([]ybtcclient.RelayerMessage, 0, len(msgs))
+func ToProviderMsgs(msgs []sdk.Msg) []babylonclient.RelayerMessage {
+	relayerMsgs := make([]babylonclient.RelayerMessage, 0, len(msgs))
 	for _, m := range msgs {
-		relayerMsgs = append(relayerMsgs, ybtcclient.NewCosmosMessage(m, func(signer string) {}))
+		relayerMsgs = append(relayerMsgs, babylonclient.NewCosmosMessage(m, func(signer string) {}))
 	}
 	return relayerMsgs
 }
@@ -48,7 +48,7 @@ func (c *Client) SendMsgsToMempool(ctx context.Context, msgs []sdk.Msg) error {
 	if err := retry.Do(func() error {
 		var sendMsgErr error
 		krErr := c.accessKeyWithLock(func() {
-			sendMsgErr = c.provider.SendMessagesToMempool(ctx, relayerMsgs, "", ctx, []func(*ybtcclient.RelayerTxResponse, error){})
+			sendMsgErr = c.provider.SendMessagesToMempool(ctx, relayerMsgs, "", ctx, []func(*babylonclient.RelayerTxResponse, error){})
 		})
 		if krErr != nil {
 			c.logger.Error("unrecoverable err when submitting the tx, skip retrying", zap.Error(krErr))
@@ -67,21 +67,21 @@ func (c *Client) SendMsgsToMempool(ctx context.Context, msgs []sdk.Msg) error {
 // ReliablySendMsg reliable sends a message to the chain.
 // It utilizes a file lock as well as a keyring lock to ensure atomic access.
 // TODO: needs tests
-func (c *Client) ReliablySendMsg(ctx context.Context, msg sdk.Msg, expectedErrors []*errors.Error, unrecoverableErrors []*errors.Error) (*ybtcclient.RelayerTxResponse, error) {
+func (c *Client) ReliablySendMsg(ctx context.Context, msg sdk.Msg, expectedErrors []*errors.Error, unrecoverableErrors []*errors.Error) (*babylonclient.RelayerTxResponse, error) {
 	return c.ReliablySendMsgs(ctx, []sdk.Msg{msg}, expectedErrors, unrecoverableErrors)
 }
 
 // ReliablySendMsgs reliably sends a list of messages to the chain.
 // It utilizes a file lock as well as a keyring lock to ensure atomic access.
 // TODO: needs tests
-func (c *Client) ReliablySendMsgs(ctx context.Context, msgs []sdk.Msg, expectedErrors []*errors.Error, unrecoverableErrors []*errors.Error) (*ybtcclient.RelayerTxResponse, error) {
+func (c *Client) ReliablySendMsgs(ctx context.Context, msgs []sdk.Msg, expectedErrors []*errors.Error, unrecoverableErrors []*errors.Error) (*babylonclient.RelayerTxResponse, error) {
 	var (
-		rlyResp     *ybtcclient.RelayerTxResponse
+		rlyResp     *babylonclient.RelayerTxResponse
 		callbackErr error
 		wg          sync.WaitGroup
 	)
 
-	callback := func(rtr *ybtcclient.RelayerTxResponse, err error) {
+	callback := func(rtr *babylonclient.RelayerTxResponse, err error) {
 		rlyResp = rtr
 		callbackErr = err
 		wg.Done()
@@ -92,11 +92,11 @@ func (c *Client) ReliablySendMsgs(ctx context.Context, msgs []sdk.Msg, expectedE
 	// convert message type
 	relayerMsgs := ToProviderMsgs(msgs)
 
-	// TODO: consider using ybtc's retry package
+	// TODO: consider using Babylon's retry package
 	if err := retry.Do(func() error {
 		var sendMsgErr error
 		krErr := c.accessKeyWithLock(func() {
-			sendMsgErr = c.provider.SendMessagesToMempool(ctx, relayerMsgs, "", ctx, []func(*ybtcclient.RelayerTxResponse, error){callback})
+			sendMsgErr = c.provider.SendMessagesToMempool(ctx, relayerMsgs, "", ctx, []func(*babylonclient.RelayerTxResponse, error){callback})
 		})
 		if krErr != nil {
 			c.logger.Error("unrecoverable err when submitting the tx, skip retrying", zap.Error(krErr))
@@ -147,9 +147,9 @@ func (c *Client) ReliablySendMsgs(ctx context.Context, msgs []sdk.Msg, expectedE
 
 // ReliablySendMsgsWithSigner reliably sends a list of messages to the chain.
 // It utilizes the signer private key to sign all msgs
-func (c *Client) ReliablySendMsgsWithSigner(ctx context.Context, signerAddr sdk.AccAddress, signerPvKey *secp256k1.PrivKey, msgs []sdk.Msg, expectedErrors []*errors.Error, unrecoverableErrors []*errors.Error) (*ybtcclient.RelayerTxResponse, error) {
+func (c *Client) ReliablySendMsgsWithSigner(ctx context.Context, signerAddr sdk.AccAddress, signerPvKey *secp256k1.PrivKey, msgs []sdk.Msg, expectedErrors []*errors.Error, unrecoverableErrors []*errors.Error) (*babylonclient.RelayerTxResponse, error) {
 	var (
-		rlyResp     *ybtcclient.RelayerTxResponse
+		rlyResp     *babylonclient.RelayerTxResponse
 		callbackErr error
 		wg          sync.WaitGroup
 	)
@@ -158,7 +158,7 @@ func (c *Client) ReliablySendMsgsWithSigner(ctx context.Context, signerAddr sdk.
 	// convert message type
 	relayerMsgs := ToProviderMsgs(msgs)
 
-	// TODO: consider using ybtc's retry package
+	// TODO: consider using Babylon's retry package
 	if err := retry.Do(func() error {
 		_, sendMsgErr := c.SendMessageWithSigner(ctx, signerAddr, signerPvKey, relayerMsgs)
 		if sendMsgErr != nil {
@@ -209,9 +209,9 @@ func (c *Client) SendMessageWithSigner(
 	ctx context.Context,
 	signerAddr sdk.AccAddress,
 	signerPvKey *secp256k1.PrivKey,
-	relayerMsgs []ybtcclient.RelayerMessage,
+	relayerMsgs []babylonclient.RelayerMessage,
 ) (result *coretypes.ResultBroadcastTx, err error) {
-	cMsgs := ybtcclient.CosmosMsgs(relayerMsgs...)
+	cMsgs := babylonclient.CosmosMsgs(relayerMsgs...)
 	var (
 		num, seq uint64
 	)
@@ -482,11 +482,11 @@ func Sign(
 // - we do not support cancellation of submitting messages
 // - the only timeout is the block inclusion timeout i.e block-timeout
 // TODO: To properly support cancellation we need to expose ctx in our client calls
-func (c *Client) InsertBTCSpvProof(ctx context.Context, msg *btcctypes.MsgInsertBTCSpvProof) (*ybtcclient.RelayerTxResponse, error) {
+func (c *Client) InsertBTCSpvProof(ctx context.Context, msg *btcctypes.MsgInsertBTCSpvProof) (*babylonclient.RelayerTxResponse, error) {
 	return c.ReliablySendMsg(ctx, msg, []*errors.Error{}, []*errors.Error{})
 }
 
-func (c *Client) InsertHeaders(ctx context.Context, msg *btclctypes.MsgInsertHeaders) (*ybtcclient.RelayerTxResponse, error) {
+func (c *Client) InsertHeaders(ctx context.Context, msg *btclctypes.MsgInsertHeaders) (*babylonclient.RelayerTxResponse, error) {
 	return c.ReliablySendMsg(ctx, msg, []*errors.Error{}, []*errors.Error{})
 }
 

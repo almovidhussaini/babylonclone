@@ -2,7 +2,8 @@ package keeper
 
 import (
 	"context"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+
+	"github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

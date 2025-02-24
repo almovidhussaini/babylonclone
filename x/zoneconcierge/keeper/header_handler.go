@@ -6,22 +6,22 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 // HandleHeaderWithValidCommit handles a CZ header with a valid QC
 func (k Keeper) HandleHeaderWithValidCommit(ctx context.Context, txHash []byte, header *types.HeaderInfo, isOnFork bool) {
 	sdkCtx := sdk.UnwrapSDKContext(ctx)
-	ybtcHeader := sdkCtx.HeaderInfo()
+	babylonHeader := sdkCtx.HeaderInfo()
 	indexedHeader := types.IndexedHeader{
 		ConsumerId:          header.ClientId,
 		Hash:                header.AppHash,
 		Height:              header.Height,
 		Time:                &header.Time,
-		ybtcHeaderHash:   ybtcHeader.AppHash,
-		ybtcHeaderHeight: uint64(ybtcHeader.Height),
-		ybtcEpoch:        k.GetEpoch(ctx).EpochNumber,
-		ybtcTxHash:       txHash,
+		BabylonHeaderHash:   babylonHeader.AppHash,
+		BabylonHeaderHeight: uint64(babylonHeader.Height),
+		BabylonEpoch:        k.GetEpoch(ctx).EpochNumber,
+		BabylonTxHash:       txHash,
 	}
 
 	k.Logger(sdkCtx).Debug("found new IBC header", "header", indexedHeader)
@@ -56,7 +56,7 @@ func (k Keeper) HandleHeaderWithValidCommit(ctx context.Context, txHash []byte, 
 	} else {
 		// ensure the header is the latest one, otherwise ignore it
 		// NOTE: while an old header is considered acceptable in IBC-Go (see Case_valid_past_update), but
-		// ZoneConcierge should not checkpoint it since ybtc requires monotonic checkpointing
+		// ZoneConcierge should not checkpoint it since Babylon requires monotonic checkpointing
 		if !chainInfo.IsLatestHeader(&indexedHeader) {
 			return
 		}

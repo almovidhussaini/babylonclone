@@ -1,6 +1,6 @@
-# ybtc Upgrades
+# Babylon Upgrades
 
-This folder contains sub-folders for every ybtc upgrade. (Both state
+This folder contains sub-folders for every babylon upgrade. (Both state
 migrations, and hard forks) It also defines upgrade & hard fork structs,
 that each upgrade implements. These then get included in the application
 app.go to run the upgrade.
@@ -18,7 +18,7 @@ defines an upgrade that is to be acted upon by state migrations from the
 SDK `x/upgrade` module. A `Fork` defines a hard fork that changes some
 logic at a block height. If the goal is to have a new binary be
 compatible with the old binary prior to the upgrade height, as is the
-case for all ybtc `Fork`s, then all logic changes must be
+case for all babylon `Fork`s, then all logic changes must be
 height-gated or in the `BeginForkLogic` code.
 
 ```go

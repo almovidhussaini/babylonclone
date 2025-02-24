@@ -11,9 +11,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 type msgServer struct {
@@ -95,18 +95,18 @@ func (ms msgServer) AddFinalitySig(goCtx context.Context, req *types.MsgAddFinal
 	// ensure the finality provider is not slashed at this time point
 	// NOTE: it's possible that the finality provider equivocates for height h, and the signature is processed at
 	// height h' > h. In this case:
-	// - ybtc should reject any new signature from this finality provider, since it's known to be adversarial
-	// - ybtc should set its voting power since height h'+1 to be zero, due to the same reason
-	// - ybtc should NOT set its voting power between [h, h'] to be zero, since
-	//   - ybtc BTC staking ensures safety upon 2f+1 votes, *even if* f of them are adversarial. This is
+	// - Babylon should reject any new signature from this finality provider, since it's known to be adversarial
+	// - Babylon should set its voting power since height h'+1 to be zero, due to the same reason
+	// - Babylon should NOT set its voting power between [h, h'] to be zero, since
+	//   - Babylon BTC staking ensures safety upon 2f+1 votes, *even if* f of them are adversarial. This is
 	//     because as long as a block gets 2f+1 votes, any other block with 2f+1 votes has a f+1 quorum
 	//     intersection with this block, contradicting to the assumption and leading to the safety proof.
-	//     This ensures slashable safety together with EOTS, thus does not undermine ybtc's security guarantee.
-	//   - Due to this reason, when tallying a block, ybtc finalises this block upon 2f+1 votes. If we
+	//     This ensures slashable safety together with EOTS, thus does not undermine Babylon's security guarantee.
+	//   - Due to this reason, when tallying a block, Babylon finalises this block upon 2f+1 votes. If we
 	//     modify voting power table in the history, some finality decisions might be contradicting to the
 	//     signature set and voting power table.
-	//   - To fix the above issue, ybtc has to allow finalise and unfinalise blocks. However, this means
-	//     ybtc will lose safety under an adaptive adversary corrupting even 1 finality provider. It can simply
+	//   - To fix the above issue, Babylon has to allow finalise and unfinalise blocks. However, this means
+	//     Babylon will lose safety under an adaptive adversary corrupting even 1 finality provider. It can simply
 	//     corrupt a new finality provider and equivocate a historical block over and over again, making a previous block
 	//     unfinalisable forever
 	if fp.IsSlashed() {

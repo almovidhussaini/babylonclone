@@ -11,11 +11,11 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	testutil "github.com/amovidhussaini/ybtcclone/testutil/btcstaking-helper"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	btclctypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
+	testutil "github.com/almovidhussaini/babylonclone/testutil/btcstaking-helper"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	btclctypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
 )
 
 func FuzzVotingPowerTable(f *testing.F) {
@@ -73,8 +73,8 @@ func FuzzVotingPowerTable(f *testing.F) {
 		/*
 			assert the first numFpsWithVotingPower finality providers have voting power
 		*/
-		ybtcHeight := datagen.RandomInt(r, 10) + 1
-		h.SetCtxHeight(ybtcHeight)
+		babylonHeight := datagen.RandomInt(r, 10) + 1
+		h.SetCtxHeight(babylonHeight)
 		h.BTCLightClientKeeper.EXPECT().GetTipInfo(gomock.Eq(h.Ctx)).Return(&btclctypes.BTCHeaderInfo{Height: 30}).AnyTimes()
 		err := h.BTCStakingKeeper.BeginBlocker(h.Ctx)
 		require.NoError(t, err)
@@ -82,34 +82,34 @@ func FuzzVotingPowerTable(f *testing.F) {
 		require.NoError(t, err)
 
 		for i := uint64(0); i < numFpsWithVotingPower; i++ {
-			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, ybtcHeight)
+			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, babylonHeight)
 			require.Equal(t, numBTCDels*stakingValue, power)
 		}
 		for i := numFpsWithVotingPower; i < numFps; i++ {
-			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, ybtcHeight)
+			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, babylonHeight)
 			require.Zero(t, power)
 		}
 
 		// also, get voting power table and assert consistency
-		powerTable := h.FinalityKeeper.GetVotingPowerTable(h.Ctx, ybtcHeight)
+		powerTable := h.FinalityKeeper.GetVotingPowerTable(h.Ctx, babylonHeight)
 		require.NotNil(t, powerTable)
 		for i := uint64(0); i < numFpsWithVotingPower; i++ {
-			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, ybtcHeight)
+			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, babylonHeight)
 			require.Equal(t, powerTable[fps[i].BtcPk.MarshalHex()], power)
 		}
-		// the activation height should be the current ybtc height as well
+		// the activation height should be the current Babylon height as well
 		activatedHeight, err := h.FinalityKeeper.GetBTCStakingActivatedHeight(h.Ctx)
 		require.NoError(t, err)
-		require.Equal(t, ybtcHeight, activatedHeight)
+		require.Equal(t, babylonHeight, activatedHeight)
 
 		/*
 			slash a random finality provider and move on
 			then assert the slashed finality provider does not have voting power
 		*/
-		// move to next ybtc height
+		// move to next Babylon height
 		h.BTCLightClientKeeper = btclcKeeper
-		ybtcHeight += 1
-		h.SetCtxHeight(ybtcHeight)
+		babylonHeight += 1
+		h.SetCtxHeight(babylonHeight)
 		h.BTCLightClientKeeper.EXPECT().GetTipInfo(gomock.Eq(h.Ctx)).Return(&btclctypes.BTCHeaderInfo{Height: 30}).AnyTimes()
 		// slash a random finality provider
 		slashedIdx := datagen.RandomInt(r, int(numFpsWithVotingPower))
@@ -124,7 +124,7 @@ func FuzzVotingPowerTable(f *testing.F) {
 
 		// check if the slashed finality provider's voting power becomes zero
 		for i := uint64(0); i < numFpsWithVotingPower; i++ {
-			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, ybtcHeight)
+			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, babylonHeight)
 			if i == slashedIdx {
 				require.Zero(t, power)
 			} else {
@@ -132,15 +132,15 @@ func FuzzVotingPowerTable(f *testing.F) {
 			}
 		}
 		for i := numFpsWithVotingPower; i < numFps; i++ {
-			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, ybtcHeight)
+			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, babylonHeight)
 			require.Zero(t, power)
 		}
 
 		// also, get voting power table and assert consistency
-		powerTable = h.FinalityKeeper.GetVotingPowerTable(h.Ctx, ybtcHeight)
+		powerTable = h.FinalityKeeper.GetVotingPowerTable(h.Ctx, babylonHeight)
 		require.NotNil(t, powerTable)
 		for i := uint64(0); i < numFpsWithVotingPower; i++ {
-			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, ybtcHeight)
+			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fps[i].BtcPk, babylonHeight)
 			if i == slashedIdx {
 				require.Zero(t, power)
 			}
@@ -151,14 +151,14 @@ func FuzzVotingPowerTable(f *testing.F) {
 			move to 999th BTC block, then assert none of finality providers has voting power (since end height - w < BTC height)
 		*/
 		// replace the old mocked keeper
-		ybtcHeight += 1
-		h.SetCtxHeight(ybtcHeight)
+		babylonHeight += 1
+		h.SetCtxHeight(babylonHeight)
 		h.BTCLightClientKeeper.EXPECT().GetTipInfo(gomock.Eq(h.Ctx)).Return(&btclctypes.BTCHeaderInfo{Height: 999}).AnyTimes()
 		err = h.BTCStakingKeeper.BeginBlocker(h.Ctx)
 		require.NoError(t, err)
 
 		for _, fp := range fps {
-			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fp.BtcPk, ybtcHeight)
+			power := h.FinalityKeeper.GetVotingPower(h.Ctx, *fp.BtcPk, babylonHeight)
 			require.Zero(t, power)
 		}
 
@@ -226,13 +226,13 @@ func FuzzRecordVotingPowerDistCache(f *testing.F) {
 		}
 
 		// record voting power distribution cache
-		ybtcHeight := datagen.RandomInt(r, 10) + 1
-		h.Ctx = datagen.WithCtxHeight(h.Ctx, ybtcHeight)
+		babylonHeight := datagen.RandomInt(r, 10) + 1
+		h.Ctx = datagen.WithCtxHeight(h.Ctx, babylonHeight)
 		h.BTCLightClientKeeper.EXPECT().GetTipInfo(gomock.Eq(h.Ctx)).Return(&btclctypes.BTCHeaderInfo{Height: 30}).AnyTimes()
 		h.BeginBlocker()
 
 		// assert voting power distribution cache is correct
-		dc := h.FinalityKeeper.GetVotingPowerDistCache(h.Ctx, ybtcHeight)
+		dc := h.FinalityKeeper.GetVotingPowerDistCache(h.Ctx, babylonHeight)
 		require.NotNil(t, dc)
 		require.Equal(t, dc.TotalVotingPower, numFpsWithVotingPower*numBTCDels*stakingValue, dc.String())
 		activeFPs := dc.GetActiveFinalityProviderSet()
@@ -316,14 +316,14 @@ func FuzzVotingPowerTable_ActiveFinalityProviders(f *testing.F) {
 		}
 
 		// record voting power table
-		ybtcHeight := datagen.RandomInt(r, 10) + 1
-		h.SetCtxHeight(ybtcHeight)
+		babylonHeight := datagen.RandomInt(r, 10) + 1
+		h.SetCtxHeight(babylonHeight)
 		h.BTCLightClientKeeper.EXPECT().GetTipInfo(gomock.Eq(h.Ctx)).Return(&btclctypes.BTCHeaderInfo{Height: 30}).AnyTimes()
 		h.BeginBlocker()
 
 		// only finality providers in expectedActiveFpsMap have voting power
 		for _, fp := range fpsWithMeta {
-			power := h.FinalityKeeper.GetVotingPower(h.Ctx, fp.BtcPk.MustMarshal(), ybtcHeight)
+			power := h.FinalityKeeper.GetVotingPower(h.Ctx, fp.BtcPk.MustMarshal(), babylonHeight)
 			if expectedPower, ok := expectedActiveFpsMap[fp.BtcPk.MarshalHex()]; ok {
 				require.Equal(t, expectedPower, power)
 			} else {
@@ -333,7 +333,7 @@ func FuzzVotingPowerTable_ActiveFinalityProviders(f *testing.F) {
 
 		// also, get voting power table and assert there is
 		// min(len(expectedActiveFps), MaxActiveFinalityProviders) active finality providers
-		powerTable := h.FinalityKeeper.GetVotingPowerTable(h.Ctx, ybtcHeight)
+		powerTable := h.FinalityKeeper.GetVotingPowerTable(h.Ctx, babylonHeight)
 		expectedNumActiveFps := len(expectedActiveFpsMap)
 		if expectedNumActiveFps > int(maxActiveFpsParam) {
 			expectedNumActiveFps = int(maxActiveFpsParam)
@@ -413,8 +413,8 @@ func FuzzVotingPowerTable_ActiveFinalityProviderRotation(f *testing.F) {
 		}
 
 		// record voting power table
-		ybtcHeight := datagen.RandomInt(r, 10) + 1
-		h.Ctx = datagen.WithCtxHeight(h.Ctx, ybtcHeight)
+		babylonHeight := datagen.RandomInt(r, 10) + 1
+		h.Ctx = datagen.WithCtxHeight(h.Ctx, babylonHeight)
 		h.BTCLightClientKeeper.EXPECT().GetTipInfo(gomock.Eq(h.Ctx)).Return(&btclctypes.BTCHeaderInfo{Height: 30})
 		h.BeginBlocker()
 
@@ -423,11 +423,11 @@ func FuzzVotingPowerTable_ActiveFinalityProviderRotation(f *testing.F) {
 			return fpsWithMeta[i].VotingPower > fpsWithMeta[j].VotingPower
 		})
 		for i := 0; i < numActiveFPs; i++ {
-			votingPower := h.FinalityKeeper.GetVotingPower(h.Ctx, *fpsWithMeta[i].BtcPk, ybtcHeight)
+			votingPower := h.FinalityKeeper.GetVotingPower(h.Ctx, *fpsWithMeta[i].BtcPk, babylonHeight)
 			require.Equal(t, fpsWithMeta[i].VotingPower, votingPower)
 		}
 		for i := numActiveFPs; i < int(numFps); i++ {
-			votingPower := h.FinalityKeeper.GetVotingPower(h.Ctx, *fpsWithMeta[i].BtcPk, ybtcHeight)
+			votingPower := h.FinalityKeeper.GetVotingPower(h.Ctx, *fpsWithMeta[i].BtcPk, babylonHeight)
 			require.Zero(t, votingPower)
 		}
 
@@ -507,8 +507,8 @@ func FuzzVotingPowerTable_ActiveFinalityProviderRotation(f *testing.F) {
 		}
 
 		// record voting power table
-		ybtcHeight += 1
-		h.Ctx = datagen.WithCtxHeight(h.Ctx, ybtcHeight)
+		babylonHeight += 1
+		h.Ctx = datagen.WithCtxHeight(h.Ctx, babylonHeight)
 		h.BTCLightClientKeeper.EXPECT().GetTipInfo(gomock.Eq(h.Ctx)).Return(&btclctypes.BTCHeaderInfo{Height: 30}).AnyTimes()
 		h.BeginBlocker()
 
@@ -517,11 +517,11 @@ func FuzzVotingPowerTable_ActiveFinalityProviderRotation(f *testing.F) {
 			return fpsWithMeta[i].VotingPower > fpsWithMeta[j].VotingPower
 		})
 		for i := 0; i < numActiveFPs; i++ {
-			votingPower := h.FinalityKeeper.GetVotingPower(h.Ctx, *fpsWithMeta[i].BtcPk, ybtcHeight)
+			votingPower := h.FinalityKeeper.GetVotingPower(h.Ctx, *fpsWithMeta[i].BtcPk, babylonHeight)
 			require.Equal(t, fmt.Sprintf("%d", fpsWithMeta[i].VotingPower), fmt.Sprintf("%d", votingPower))
 		}
 		for i := numActiveFPs; i < int(numFps); i++ {
-			votingPower := h.FinalityKeeper.GetVotingPower(h.Ctx, *fpsWithMeta[i].BtcPk, ybtcHeight)
+			votingPower := h.FinalityKeeper.GetVotingPower(h.Ctx, *fpsWithMeta[i].BtcPk, babylonHeight)
 			require.Zero(t, votingPower)
 		}
 	})

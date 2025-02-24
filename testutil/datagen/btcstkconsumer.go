@@ -3,7 +3,7 @@ package datagen
 import (
 	"math/rand"
 
-	bsctypes "github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
+	bsctypes "github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
 )
 
 func GenRandomCosmosConsumerRegister(r *rand.Rand) *bsctypes.ConsumerRegister {

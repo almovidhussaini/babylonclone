@@ -6,7 +6,7 @@ FROM golang:1.23-alpine AS build-env
 ARG TARGETPLATFORM="linux/amd64"
 # Version to build. Default is empty
 ARG VERSION
-ARG ybtc_BUILD_OPTIONS=""
+ARG BABYLON_BUILD_OPTIONS=""
 ARG COSMOS_BUILD_OPTIONS=""
 
 # Use muslc for static libs
@@ -19,12 +19,12 @@ ARG LEDGER_ENABLED="false"
 RUN apk add --update --no-cache make git bash gcc linux-headers eudev-dev ncurses-dev openssh curl jq musl-dev && rm -rf /var/cache/apk/\*
 
 # Build
-WORKDIR /go/src/github.com/amovidhussaini/ybtcclone
+WORKDIR /go/src/github.com/almovidhussaini/babylonclone
 # First cache dependencies
-COPY go.mod go.sum /go/src/github.com/amovidhussaini/ybtcclone/
+COPY go.mod go.sum /go/src/github.com/almovidhussaini/babylonclone/
 RUN go mod download
 # Then copy everything else
-COPY ./ /go/src/github.com/amovidhussaini/ybtcclone/
+COPY ./ /go/src/github.com/almovidhussaini/babylonclone/
 # If version is set, then checkout this version
 RUN if [ -n "${VERSION}" ]; then \
     git fetch origin tag ${VERSION} --no-tags ; \
@@ -41,7 +41,7 @@ RUN WASMVM_VERSION=$(go list -m github.com/CosmWasm/wasmvm/v2 | cut -d ' ' -f 2)
     sha256sum /lib/libwasmvm_muslc."$(uname -m)".a | grep $(cat /tmp/checksums.txt | grep libwasmvm_muslc."$(uname -m)" | cut -d ' ' -f 1)
 
 RUN LEDGER_ENABLED=$LEDGER_ENABLED \
-    ybtc_BUILD_OPTIONS=$ybtc_BUILD_OPTIONS \
+    BABYLON_BUILD_OPTIONS=$BABYLON_BUILD_OPTIONS \
     COSMOS_BUILD_OPTIONS=$COSMOS_BUILD_OPTIONS \
     BUILD_TAGS=$BUILD_TAGS \
     LINK_STATICALLY=true \
@@ -49,21 +49,21 @@ RUN LEDGER_ENABLED=$LEDGER_ENABLED \
 
 FROM alpine:3.14 AS run
 # Create a user
-RUN addgroup --gid 1137 -S ybtc && adduser --uid 1137 -S ybtc -G ybtc
+RUN addgroup --gid 1137 -S babylon && adduser --uid 1137 -S babylon -G babylon
 # hadolint ignore=DL3018
 RUN apk --no-cache add bash curl jq && rm -rf /var/cache/apk/\*
 
 # Label should match your github repo
 ARG VERSION
-LABEL org.opencontainers.image.source="https://github.com/amovidhussaini/ybtccloned:${VERSION}"
+LABEL org.opencontainers.image.source="https://github.com/almovidhussaini/babyloncloned:${VERSION}"
 
 # Install Libraries
 # COPY --from=build-env /usr/lib/libgcc_s.so.1 /lib/
 # COPY --from=build-env /lib/ld-musl*.so.1* /lib
 
-COPY --from=build-env /go/src/github.com/amovidhussaini/ybtcclone/build/ybtcd /bin/ybtcd
+COPY --from=build-env /go/src/github.com/almovidhussaini/babylonclone/build/babylond /bin/babylond
 
 # Set home directory and user
-WORKDIR /home/ybtc
-RUN chown -R ybtc /home/ybtc
-USER ybtc
+WORKDIR /home/babylon
+RUN chown -R babylon /home/babylon
+USER babylon

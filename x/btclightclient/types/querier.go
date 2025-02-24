@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/amovidhussaini/ybtcclone/types"
+	"github.com/almovidhussaini/babylonclone/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 )
 

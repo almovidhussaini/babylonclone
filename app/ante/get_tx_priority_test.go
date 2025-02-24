@@ -3,7 +3,7 @@ package ante
 import (
 	"testing"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"
 )

@@ -10,9 +10,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 // AddBTCDelegation adds a BTC delegation post verification to the system, including
@@ -158,7 +158,7 @@ func (k Keeper) addCovenantSigsToBTCDelegation(
 }
 
 func (k Keeper) notifyConsumersOnActiveBTCDel(ctx context.Context, btcDel *types.BTCDelegation) {
-	// get consumer ids of only non-ybtc finality providers
+	// get consumer ids of only non-Babylon finality providers
 	restakedFPConsumerIDs, err := k.restakedFPConsumerIDs(ctx, btcDel.FpBtcPkList)
 	if err != nil {
 		panic(fmt.Errorf("failed to get consumer ids for the restaked BTC delegation: %w", err))
@@ -201,7 +201,7 @@ func (k Keeper) btcUndelegate(
 	btcTip := k.btclcKeeper.GetTipInfo(ctx)
 	k.addPowerDistUpdateEvent(ctx, btcTip.Height, unbondedEvent)
 
-	// get consumer ids of only non-ybtc finality providers
+	// get consumer ids of only non-Babylon finality providers
 	restakedFPConsumerIDs, err := k.restakedFPConsumerIDs(ctx, btcDel.FpBtcPkList)
 	if err != nil {
 		panic(fmt.Errorf("failed to get consumer ids for the restaked BTC delegation: %w", err))
@@ -225,23 +225,23 @@ func (k Keeper) setBTCDelegation(ctx context.Context, btcDel *types.BTCDelegatio
 	store.Set(stakingTxHash[:], btcDelBytes)
 }
 
-// validateRestakedFPs ensures all finality providers are known to ybtc and at least
-// one of them is a ybtc finality provider. It also checks whether the BTC stake is
+// validateRestakedFPs ensures all finality providers are known to Babylon and at least
+// one of them is a Babylon finality provider. It also checks whether the BTC stake is
 // restaked to FPs of consumer chains
 func (k Keeper) validateRestakedFPs(ctx context.Context, fpBTCPKs []bbn.BIP340PubKey) (bool, error) {
-	restakedToybtc := false
+	restakedToBabylon := false
 	restakedToConsumers := false
 
 	for i := range fpBTCPKs {
 		fpBTCPK := fpBTCPKs[i]
 
-		// find the fp and determine whether it's ybtc fp or consumer chain fp
+		// find the fp and determine whether it's Babylon fp or consumer chain fp
 		if fp, err := k.GetFinalityProvider(ctx, fpBTCPK); err == nil {
 			// ensure the finality provider is not slashed
 			if fp.IsSlashed() {
 				return false, types.ErrFpAlreadySlashed
 			}
-			restakedToybtc = true
+			restakedToBabylon = true
 			continue
 		} else if consumerID, err := k.BscKeeper.GetConsumerOfFinalityProvider(ctx, &fpBTCPK); err == nil {
 			fp, err := k.BscKeeper.GetConsumerFinalityProvider(ctx, consumerID, &fpBTCPK)
@@ -258,14 +258,14 @@ func (k Keeper) validateRestakedFPs(ctx context.Context, fpBTCPKs []bbn.BIP340Pu
 			return false, types.ErrFpNotFound.Wrapf("finality provider pk %s is not found", fpBTCPK.MarshalHex())
 		}
 	}
-	if !restakedToybtc {
-		// a BTC delegation has to stake to at least 1 ybtc finality provider
-		return false, types.ErrNoybtcFPRestaked
+	if !restakedToBabylon {
+		// a BTC delegation has to stake to at least 1 Babylon finality provider
+		return false, types.ErrNoBabylonFPRestaked
 	}
 	return restakedToConsumers, nil
 }
 
-// restakedFPConsumerIDs returns the unique consumer IDs of non-ybtc finality providers
+// restakedFPConsumerIDs returns the unique consumer IDs of non-Babylon finality providers
 // The returned list is sorted in order to make sure the function is deterministic
 func (k Keeper) restakedFPConsumerIDs(ctx context.Context, fpBTCPKs []bbn.BIP340PubKey) ([]string, error) {
 	consumerIDMap := make(map[string]struct{})

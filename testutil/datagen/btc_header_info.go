@@ -8,9 +8,9 @@ import (
 	"time"
 
 	sdkmath "cosmossdk.io/math"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btclightclientk "github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	btclightclienttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btclightclientk "github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	btclightclienttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 	"github.com/btcsuite/btcd/blockchain"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"

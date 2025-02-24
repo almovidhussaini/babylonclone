@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
 
 	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/btcsuite/btcd/btcutil"
@@ -13,7 +13,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 )
 
 func generateTxFromOutputs(r *rand.Rand, info *btcstaking.IdentifiableStakingInfo) (*wire.MsgTx, int, int) {

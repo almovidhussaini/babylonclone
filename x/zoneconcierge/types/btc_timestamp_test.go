@@ -10,13 +10,13 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/stretchr/testify/require"
 
-	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	testhelper "github.com/amovidhussaini/ybtcclone/testutil/helper"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	txformat "github.com/almovidhussaini/babylonclone/btctxformatter"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	testhelper "github.com/almovidhussaini/babylonclone/testutil/helper"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 )
 
 func signBLSWithBitmap(blsSKs []bls12381.PrivateKey, bm bitmap.Bitmap, msg []byte) (bls12381.Signature, error) {
@@ -78,7 +78,7 @@ func FuzzBTCTimestamp(f *testing.F) {
 		h.Ctx, err = h.ApplyEmptyBlockWithVoteExtension(r)
 		h.NoError(err)
 
-		epochWithHeader, err := ek.GetHistoricalEpoch(h.Ctx, indexedHeader.ybtcEpoch)
+		epochWithHeader, err := ek.GetHistoricalEpoch(h.Ctx, indexedHeader.BabylonEpoch)
 		h.NoError(err)
 
 		// generate inclusion proof
@@ -157,10 +157,10 @@ func FuzzBTCTimestamp(f *testing.F) {
 			btcBlocks[1].HeaderBytes.ToBlockHeader(),
 		}
 
-		// net param, ybtcTag
+		// net param, babylonTag
 		powLimit := chaincfg.SimNetParams.PowLimit
-		ybtcTag := btcctypes.DefaultCheckpointTag
-		tagAsBytes, _ := hex.DecodeString(ybtcTag)
+		babylonTag := btcctypes.DefaultCheckpointTag
+		tagAsBytes, _ := hex.DecodeString(babylonTag)
 
 		err = btcTs.VerifyStateless(btcHeaders, powLimit, tagAsBytes)
 		h.NoError(err)

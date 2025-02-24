@@ -13,15 +13,15 @@ import (
 	"time"
 
 	govv1 "cosmossdk.io/api/cosmos/gov/v1"
-	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/containers"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/initialization"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btccheckpointtypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	blc "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	cttypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
+	txformat "github.com/almovidhussaini/babylonclone/btctxformatter"
+	"github.com/almovidhussaini/babylonclone/test/e2e/containers"
+	"github.com/almovidhussaini/babylonclone/test/e2e/initialization"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btccheckpointtypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	blc "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	cttypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/bech32"
 	sdkquerytypes "github.com/cosmos/cosmos-sdk/types/query"
@@ -34,7 +34,7 @@ const (
 
 func (n *NodeConfig) GetWallet(walletName string) string {
 	n.LogActionF("retrieving wallet %s", walletName)
-	cmd := []string{"ybtcd", "keys", "show", walletName, flagKeyringTest, containers.FlagHome}
+	cmd := []string{"babylond", "keys", "show", walletName, flagKeyringTest, containers.FlagHome}
 	outBuf, _, err := n.containerManager.ExecCmd(n.t, n.Name, cmd, "")
 	require.NoError(n.t, err)
 	re := regexp.MustCompile("bbn(.{39})")
@@ -47,7 +47,7 @@ func (n *NodeConfig) GetWallet(walletName string) string {
 // KeysAdd creates a new key in the keyring
 func (n *NodeConfig) KeysAdd(walletName string, overallFlags ...string) string {
 	n.LogActionF("adding new wallet %s", walletName)
-	cmd := []string{"ybtcd", "keys", "add", walletName, flagKeyringTest, containers.FlagHome}
+	cmd := []string{"babylond", "keys", "add", walletName, flagKeyringTest, containers.FlagHome}
 	outBuf, _, err := n.containerManager.ExecCmd(n.t, n.Name, append(cmd, overallFlags...), "")
 	require.NoError(n.t, err)
 	re := regexp.MustCompile("bbn(.{39})")
@@ -61,7 +61,7 @@ func (n *NodeConfig) KeysAdd(walletName string, overallFlags ...string) string {
 // specify the QueryParamResponse type (which may not exist for all params).
 // TODO for now all commands are not used and left here as an example
 func (n *NodeConfig) QueryParams(subspace, key string, result any) {
-	cmd := []string{"ybtcd", "query", "params", "subspace", subspace, key, "--output=json"}
+	cmd := []string{"babylond", "query", "params", "subspace", subspace, key, "--output=json"}
 
 	out, _, err := n.containerManager.ExecCmd(n.t, n.Name, cmd, "")
 	require.NoError(n.t, err)
@@ -73,7 +73,7 @@ func (n *NodeConfig) QueryParams(subspace, key string, result any) {
 func (n *NodeConfig) SendIBCTransfer(from, recipient, memo string, token sdk.Coin) {
 	n.LogActionF("IBC sending %s from %s to %s. memo: %s", token.Amount.String(), from, recipient, memo)
 
-	cmd := []string{"ybtcd", "tx", "ibc-transfer", "transfer", "transfer", "channel-0", recipient, token.String(), fmt.Sprintf("--from=%s", from), "--memo", memo}
+	cmd := []string{"babylond", "tx", "ibc-transfer", "transfer", "transfer", "channel-0", recipient, token.String(), fmt.Sprintf("--from=%s", from), "--memo", memo}
 	_, _, err := n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
 
@@ -83,7 +83,7 @@ func (n *NodeConfig) SendIBCTransfer(from, recipient, memo string, token sdk.Coi
 func (n *NodeConfig) FailIBCTransfer(from, recipient, amount string) {
 	n.LogActionF("IBC sending %s from %s to %s", amount, from, recipient)
 
-	cmd := []string{"ybtcd", "tx", "ibc-transfer", "transfer", "transfer", "channel-0", recipient, amount, fmt.Sprintf("--from=%s", from)}
+	cmd := []string{"babylond", "tx", "ibc-transfer", "transfer", "transfer", "channel-0", recipient, amount, fmt.Sprintf("--from=%s", from)}
 
 	_, _, err := n.containerManager.ExecTxCmdWithSuccessString(n.t, n.chainId, n.Name, cmd, "rate limit exceeded")
 	require.NoError(n.t, err)
@@ -102,7 +102,7 @@ func (n *NodeConfig) BankMultiSendFromNode(addresses []string, amount string) {
 func (n *NodeConfig) BankSend(fromWallet, to, amount string, overallFlags ...string) {
 	fromAddr := n.GetWallet(fromWallet)
 	n.LogActionF("bank sending %s from wallet %s to %s", amount, fromWallet, to)
-	cmd := []string{"ybtcd", "tx", "bank", "send", fromAddr, to, amount, fmt.Sprintf("--from=%s", fromWallet)}
+	cmd := []string{"babylond", "tx", "bank", "send", fromAddr, to, amount, fmt.Sprintf("--from=%s", fromWallet)}
 	_, _, err := n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, append(cmd, overallFlags...))
 	require.NoError(n.t, err)
 	n.LogActionF("successfully sent bank sent %s from address %s to %s", amount, fromWallet, to)
@@ -116,7 +116,7 @@ func (n *NodeConfig) BankMultiSend(fromWallet string, receivers []string, amount
 	fromAddr := n.GetWallet(fromWallet)
 	n.LogActionF("bank multi-send sending %s from wallet %s to %+v", amount, fromWallet, receivers)
 
-	cmd := []string{"ybtcd", "tx", "bank", "multi-send", fromAddr} // starts the initial flags
+	cmd := []string{"babylond", "tx", "bank", "multi-send", fromAddr} // starts the initial flags
 	cmd = append(cmd, receivers...)                                   // appends all the receivers
 	cmd = append(cmd, amount, fmt.Sprintf("--from=%s", fromWallet))   // set amounts and overall
 
@@ -129,15 +129,15 @@ func (n *NodeConfig) BankSendOutput(fromWallet, to, amount string, overallFlags 
 	fromAddr := n.GetWallet(fromWallet)
 	n.LogActionF("bank sending %s from wallet %s to %s", amount, fromWallet, to)
 	cmd := []string{
-		"ybtcd", "tx", "bank", "send", fromAddr, to, amount, fmt.Sprintf("--from=%s", fromWallet),
-		n.FlagChainID(), "-b=sync", "--yes", "--keyring-backend=test", "--log_format=json", "--home=/home/ybtc/ybtcdata",
+		"babylond", "tx", "bank", "send", fromAddr, to, amount, fmt.Sprintf("--from=%s", fromWallet),
+		n.FlagChainID(), "-b=sync", "--yes", "--keyring-backend=test", "--log_format=json", "--home=/home/babylon/babylondata",
 	}
 	return n.containerManager.ExecCmd(n.t, n.Name, append(cmd, overallFlags...), "")
 }
 
 func (n *NodeConfig) SendHeaderHex(headerHex string) {
 	n.LogActionF("btclightclient sending header %s", headerHex)
-	cmd := []string{"ybtcd", "tx", "btclightclient", "insert-headers", headerHex, "--from=val", "--gas=500000"}
+	cmd := []string{"babylond", "tx", "btclightclient", "insert-headers", headerHex, "--from=val", "--gas=500000"}
 	_, _, err := n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
 	n.LogActionF("successfully inserted header %s", headerHex)
@@ -176,7 +176,7 @@ func (n *NodeConfig) InsertProofs(p1 *btccheckpointtypes.BTCSpvProof, p2 *btcche
 	p1HexBytes := hex.EncodeToString(p1bytes)
 	p2HexBytes := hex.EncodeToString(p2bytes)
 
-	cmd := []string{"ybtcd", "tx", "btccheckpoint", "insert-proofs", p1HexBytes, p2HexBytes, "--from=val"}
+	cmd := []string{"babylond", "tx", "btccheckpoint", "insert-proofs", p1HexBytes, p2HexBytes, "--from=val"}
 	_, _, err = n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
 	n.LogActionF("successfully inserted btc spv proofs")
@@ -214,11 +214,11 @@ func (n *NodeConfig) FinalizeSealedEpochs(startEpoch uint64, lastEpoch uint64) {
 		btcCheckpoint, err := cttypes.FromRawCkptToBTCCkpt(rawCheckpoint, submitterAddr)
 		require.NoError(n.t, err)
 
-		ybtcTagBytes, err := hex.DecodeString(initialization.ybtcOpReturnTag)
+		babylonTagBytes, err := hex.DecodeString(initialization.BabylonOpReturnTag)
 		require.NoError(n.t, err)
 
 		p1, p2, err := txformat.EncodeCheckpointData(
-			ybtcTagBytes,
+			babylonTagBytes,
 			txformat.CurrentVersion,
 			btcCheckpoint,
 		)
@@ -254,7 +254,7 @@ func (n *NodeConfig) FinalizeSealedEpochs(startEpoch uint64, lastEpoch uint64) {
 		// valid op return header, by finalizing it, we will also finalize all older
 		// checkpoints
 
-		for i := 0; i < initialization.ybtcBtcFinalizationPeriod; i++ {
+		for i := 0; i < initialization.BabylonBtcFinalizationPeriod; i++ {
 			n.InsertNewEmptyBtcHeader(r)
 		}
 	}
@@ -262,7 +262,7 @@ func (n *NodeConfig) FinalizeSealedEpochs(startEpoch uint64, lastEpoch uint64) {
 
 func (n *NodeConfig) StoreWasmCode(wasmFile, from string) {
 	n.LogActionF("storing wasm code from file %s", wasmFile)
-	cmd := []string{"ybtcd", "tx", "wasm", "store", wasmFile, fmt.Sprintf("--from=%s", from), "--gas=auto", "--gas-adjustment=1.3"}
+	cmd := []string{"babylond", "tx", "wasm", "store", wasmFile, fmt.Sprintf("--from=%s", from), "--gas=auto", "--gas-adjustment=1.3"}
 	n.LogActionF("Executing command: %s", strings.Join(cmd, " "))
 	_, _, err := n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
@@ -271,7 +271,7 @@ func (n *NodeConfig) StoreWasmCode(wasmFile, from string) {
 
 func (n *NodeConfig) InstantiateWasmContract(codeId, initMsg, from string) {
 	n.LogActionF("instantiating wasm contract %s with %s", codeId, initMsg)
-	cmd := []string{"ybtcd", "tx", "wasm", "instantiate", codeId, initMsg, fmt.Sprintf("--from=%s", from), "--no-admin", "--label=contract", "--gas=auto", "--gas-adjustment=1.3"}
+	cmd := []string{"babylond", "tx", "wasm", "instantiate", codeId, initMsg, fmt.Sprintf("--from=%s", from), "--no-admin", "--label=contract", "--gas=auto", "--gas-adjustment=1.3"}
 	n.LogActionF("Executing command: %s", strings.Join(cmd, " "))
 	_, _, err := n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
@@ -280,7 +280,7 @@ func (n *NodeConfig) InstantiateWasmContract(codeId, initMsg, from string) {
 
 func (n *NodeConfig) WasmExecute(contract, execMsg, from string) {
 	n.LogActionF("executing %s on wasm contract %s from %s", execMsg, contract, from)
-	cmd := []string{"ybtcd", "tx", "wasm", "execute", contract, execMsg, fmt.Sprintf("--from=%s", from)}
+	cmd := []string{"babylond", "tx", "wasm", "execute", contract, execMsg, fmt.Sprintf("--from=%s", from)}
 	n.LogActionF("Executing command: %s", strings.Join(cmd, " "))
 	_, _, err := n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
@@ -290,7 +290,7 @@ func (n *NodeConfig) WasmExecute(contract, execMsg, from string) {
 // WithdrawReward will withdraw the rewards of the address associated with the tx signer `from`
 func (n *NodeConfig) WithdrawReward(sType, from string) (txHash string) {
 	n.LogActionF("withdraw rewards of type %s for tx signer %s", sType, from)
-	cmd := []string{"ybtcd", "tx", "incentive", "withdraw-reward", sType, fmt.Sprintf("--from=%s", from)}
+	cmd := []string{"babylond", "tx", "incentive", "withdraw-reward", sType, fmt.Sprintf("--from=%s", from)}
 	n.LogActionF("Executing command: %s", strings.Join(cmd, " "))
 	outBuf, _, err := n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, cmd)
 	require.NoError(n.t, err)
@@ -307,7 +307,7 @@ func (n *NodeConfig) TxMultisigSign(walletName, multisigAddr, txFileFullPath, fi
 func (n *NodeConfig) TxSign(walletName, txFileFullPath, fileName string, overallFlags ...string) (fullFilePathInContainer string) {
 	n.LogActionF("wallet %s sign tx file %s", walletName, txFileFullPath)
 	cmd := []string{
-		"ybtcd", "tx", "sign", txFileFullPath,
+		"babylond", "tx", "sign", txFileFullPath,
 		fmt.Sprintf("--from=%s", walletName),
 		n.FlagChainID(), flagKeyringTest, containers.FlagHome,
 	}
@@ -321,7 +321,7 @@ func (n *NodeConfig) TxSign(walletName, txFileFullPath, fileName string, overall
 func (n *NodeConfig) TxMultisign(walletNameMultisig, txFileFullPath, outputFileName string, signedFiles []string, overallFlags ...string) (signedTxFilePath string) {
 	n.LogActionF("%s multisig tx file %s", walletNameMultisig, txFileFullPath)
 	cmd := []string{
-		"ybtcd", "tx", "multisign", txFileFullPath, walletNameMultisig,
+		"babylond", "tx", "multisign", txFileFullPath, walletNameMultisig,
 		n.FlagChainID(),
 		flagKeyringTest, containers.FlagHome,
 	}
@@ -336,7 +336,7 @@ func (n *NodeConfig) TxMultisign(walletNameMultisig, txFileFullPath, outputFileN
 func (n *NodeConfig) TxBroadcast(txSignedFileFullPath string, overallFlags ...string) {
 	n.LogActionF("broadcast tx file %s", txSignedFileFullPath)
 	cmd := []string{
-		"ybtcd", "tx", "broadcast", txSignedFileFullPath,
+		"babylond", "tx", "broadcast", txSignedFileFullPath,
 		n.FlagChainID(),
 	}
 	_, _, err := n.containerManager.ExecCmd(n.t, n.Name, append(cmd, overallFlags...), "")
@@ -348,7 +348,7 @@ func (n *NodeConfig) TxBroadcast(txSignedFileFullPath string, overallFlags ...st
 func (n *NodeConfig) TxFeeGrant(granter, grantee string, overallFlags ...string) {
 	n.LogActionF("tx fee grant, granter: %s - grantee: %s", granter, grantee)
 	cmd := []string{
-		"ybtcd", "tx", "feegrant", "grant", granter, grantee,
+		"babylond", "tx", "feegrant", "grant", granter, grantee,
 		n.FlagChainID(),
 	}
 	_, _, err := n.containerManager.ExecTxCmd(n.t, n.chainId, n.Name, append(cmd, overallFlags...))
@@ -377,7 +377,7 @@ func (n *NodeConfig) TxMultisignBroadcast(walletNameMultisig, txFileFullPath str
 }
 
 // WriteFile writes a new file in the config dir of the node where it is volume mounted to the
-// ybtc home inside the container and returns the full file path inside the container.
+// babylon home inside the container and returns the full file path inside the container.
 func (n *NodeConfig) WriteFile(fileName, content string) (fullFilePathInContainer string) {
 	b := bytes.NewBufferString(content)
 	fileFullPath := filepath.Join(n.ConfigDir, fileName)
@@ -385,7 +385,7 @@ func (n *NodeConfig) WriteFile(fileName, content string) (fullFilePathInContaine
 	err := os.WriteFile(fileFullPath, b.Bytes(), 0644)
 	require.NoError(n.t, err)
 
-	return filepath.Join(containers.ybtcHomePath, fileName)
+	return filepath.Join(containers.BabylonHomePath, fileName)
 }
 
 // FlagChainID returns the flag of the chainID.
@@ -419,7 +419,7 @@ func (n *NodeConfig) TxGovPropSubmitProposal(proposalJsonFilePath, from string, 
 	n.LogActionF("submitting new v1 proposal type %s", proposalJsonFilePath)
 
 	cmd := []string{
-		"ybtcd", "tx", "gov", "submit-proposal", proposalJsonFilePath,
+		"babylond", "tx", "gov", "submit-proposal", proposalJsonFilePath,
 		fmt.Sprintf("--from=%s", from),
 	}
 
@@ -440,7 +440,7 @@ func (n *NodeConfig) TxGovVote(from string, propID int, option govv1.VoteOption,
 	n.LogActionF("submitting vote %s to prop %d", option, propID)
 
 	cmd := []string{
-		"ybtcd", "tx", "gov", "vote", fmt.Sprintf("%d", propID), option.String(),
+		"babylond", "tx", "gov", "vote", fmt.Sprintf("%d", propID), option.String(),
 		fmt.Sprintf("--from=%s", from),
 	}
 

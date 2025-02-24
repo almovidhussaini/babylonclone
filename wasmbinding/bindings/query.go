@@ -1,6 +1,6 @@
 package bindings
 
-type ybtcQuery struct {
+type BabylonQuery struct {
 	Epoch                    *struct{}          `json:"epoch,omitempty"`
 	LatestFinalizedEpochInfo *struct{}          `json:"latest_finalized_epoch_info,omitempty"`
 	BtcTip                   *struct{}          `json:"btc_tip,omitempty"`

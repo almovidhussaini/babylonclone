@@ -17,25 +17,25 @@ import (
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	wasmvm "github.com/CosmWasm/wasmvm/v2"
 	wasmvmtypes "github.com/CosmWasm/wasmvm/v2/types"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/app/upgrades"
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/testutil/sample"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	minttypes "github.com/amovidhussaini/ybtcclone/x/mint/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/app/upgrades"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/sample"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	minttypes "github.com/almovidhussaini/babylonclone/x/mint/types"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	v1 "github.com/amovidhussaini/ybtcclone/app/upgrades/v1"
-	mainnetdata "github.com/amovidhussaini/ybtcclone/app/upgrades/v1/mainnet"
-	testnetdata "github.com/amovidhussaini/ybtcclone/app/upgrades/v1/testnet"
-	"github.com/amovidhussaini/ybtcclone/x/btclightclient"
-	btclighttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/app"
+	v1 "github.com/almovidhussaini/babylonclone/app/upgrades/v1"
+	mainnetdata "github.com/almovidhussaini/babylonclone/app/upgrades/v1/mainnet"
+	testnetdata "github.com/almovidhussaini/babylonclone/app/upgrades/v1/testnet"
+	"github.com/almovidhussaini/babylonclone/x/btclightclient"
+	btclighttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 )
 
 const (
@@ -71,7 +71,7 @@ type UpgradeTestSuite struct {
 	suite.Suite
 
 	ctx       sdk.Context
-	app       *app.ybtcApp
+	app       *app.BabylonApp
 	preModule appmodule.HasPreBlocker
 
 	upgradeDataStr v1.UpgradeDataString
@@ -210,7 +210,7 @@ func (s *UpgradeTestSuite) SetupTest(upgradeDataStr v1.UpgradeDataString, upgrad
 
 	// set up app
 	s.app = app.SetupWithBitcoinConf(s.T(), false, bbn.BtcSignet)
-	s.ctx = s.app.BaseApp.NewContextLegacy(false, tmproto.Header{Height: 1, ChainID: "ybtc-1", Time: time.Now().UTC()})
+	s.ctx = s.app.BaseApp.NewContextLegacy(false, tmproto.Header{Height: 1, ChainID: "babylon-1", Time: time.Now().UTC()})
 	s.preModule = upgrade.NewAppModule(s.app.UpgradeKeeper, s.app.AccountKeeper.AddressCodec())
 
 	// Note: for mainnet upgrade testing a new function needs to be created and

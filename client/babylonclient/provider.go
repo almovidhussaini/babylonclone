@@ -1,7 +1,7 @@
 // This file is derived from the Cosmos Relayer repository (https://github.com/cosmos/relayer),
 // originally licensed under the Apache License, Version 2.0.
 
-package ybtcclient
+package babylonclient
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/amovidhussaini/ybtcclone/app/params"
+	"github.com/almovidhussaini/babylonclone/app/params"
 	"github.com/cometbft/cometbft/rpc/client/http"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"

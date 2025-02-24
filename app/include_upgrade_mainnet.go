@@ -3,9 +3,9 @@
 package app
 
 import (
-	"github.com/amovidhussaini/ybtcclone/app/upgrades"
-	v1 "github.com/amovidhussaini/ybtcclone/app/upgrades/v1"
-	"github.com/amovidhussaini/ybtcclone/app/upgrades/v1/mainnet"
+	"github.com/almovidhussaini/babylonclone/app/upgrades"
+	v1 "github.com/almovidhussaini/babylonclone/app/upgrades/v1"
+	"github.com/almovidhussaini/babylonclone/app/upgrades/v1/mainnet"
 )
 
 // init is used to include v1 upgrade for mainnet data

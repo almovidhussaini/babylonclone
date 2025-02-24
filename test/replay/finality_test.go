@@ -4,9 +4,9 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bstypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bstypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
@@ -21,7 +21,7 @@ func FuzzJailing(f *testing.F) {
 		numDelPerFp := uint32(2)
 		driverTempDir := t.TempDir()
 		replayerTempDir := t.TempDir()
-		driver := NewybtcAppDriver(t, driverTempDir, replayerTempDir)
+		driver := NewBabylonAppDriver(t, driverTempDir, replayerTempDir)
 
 		driver.GenerateNewBlock(t)
 

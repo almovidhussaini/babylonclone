@@ -14,8 +14,8 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"gopkg.in/yaml.v2"
 
-	"github.com/amovidhussaini/ybtcclone/btcstaking"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
+	"github.com/almovidhussaini/babylonclone/btcstaking"
+	bbn "github.com/almovidhussaini/babylonclone/types"
 )
 
 const (

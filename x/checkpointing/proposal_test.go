@@ -22,14 +22,14 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/testutil/helper"
-	"github.com/amovidhussaini/ybtcclone/testutil/mocks"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	et "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/helper"
+	"github.com/almovidhussaini/babylonclone/testutil/mocks"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	et "github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 type TestValidator struct {

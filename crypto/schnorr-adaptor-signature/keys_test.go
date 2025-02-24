@@ -3,7 +3,7 @@ package schnorr_adaptor_signature_test
 import (
 	"testing"
 
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
 	"github.com/stretchr/testify/require"
 )
 

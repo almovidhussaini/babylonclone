@@ -14,4 +14,4 @@ faucet:
   name: bob
   coins: ["5token", "100000stake"]
 genesis:
-  chain_id: "ybtcclone-1"
+  chain_id: "babylonclone-1"

@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	ftypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	ftypes "github.com/almovidhussaini/babylonclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 // RewardBTCStaking distributes rewards to finality providers/delegations at a given height according

@@ -4,8 +4,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/amovidhussaini/ybtcclone/crypto/bls12381"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/crypto/bls12381"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
 )
 
 var (

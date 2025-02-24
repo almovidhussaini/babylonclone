@@ -23,7 +23,7 @@ func FuzzEncodingDecoding(f *testing.F) {
 			t.Skip("Tag should have 4 bytes")
 		}
 
-		ybtcTag := ybtcTag(tag[:TagLength])
+		babylonTag := BabylonTag(tag[:TagLength])
 
 		rawBTCCkpt := &RawBtcCheckpoint{
 			Epoch:            epoch,
@@ -33,7 +33,7 @@ func FuzzEncodingDecoding(f *testing.F) {
 			BlsSig:           address,
 		}
 		firstHalf, secondHalf, err := EncodeCheckpointData(
-			ybtcTag,
+			babylonTag,
 			CurrentVersion,
 			rawBTCCkpt,
 		)
@@ -51,13 +51,13 @@ func FuzzEncodingDecoding(f *testing.F) {
 			t.Errorf("Encoded second half should have %d bytes, have %d", secondPartLength, len(secondHalf))
 		}
 
-		decodedFirst, err := IsybtcCheckpointData(ybtcTag, CurrentVersion, firstHalf)
+		decodedFirst, err := IsBabylonCheckpointData(babylonTag, CurrentVersion, firstHalf)
 
 		if err != nil {
 			t.Errorf("Valid data should be properly decoded")
 		}
 
-		decodedSecond, err := IsybtcCheckpointData(ybtcTag, CurrentVersion, secondHalf)
+		decodedSecond, err := IsBabylonCheckpointData(babylonTag, CurrentVersion, secondHalf)
 
 		if err != nil {
 			t.Errorf("Valid data should be properly decoded")
@@ -98,7 +98,7 @@ func FuzzDecodingWontPanic(f *testing.F) {
 
 	f.Fuzz(func(t *testing.T, bytes []byte, tagIdx uint8) {
 		tag := []byte{0, 1, 2, 3}
-		decoded, err := IsybtcCheckpointData(tag, CurrentVersion, bytes)
+		decoded, err := IsBabylonCheckpointData(tag, CurrentVersion, bytes)
 
 		if err == nil {
 			if decoded.Index != 0 && decoded.Index != 1 {

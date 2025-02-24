@@ -23,36 +23,36 @@ import (
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/amovidhussaini/ybtcclone/app/ante"
-	appkeepers "github.com/amovidhussaini/ybtcclone/app/keepers"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/app/signer"
-	"github.com/amovidhussaini/ybtcclone/app/upgrades"
-	"github.com/amovidhussaini/ybtcclone/client/docs"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btccheckpoint"
-	btccheckpointtypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
-	"github.com/amovidhussaini/ybtcclone/x/btclightclient"
-	btclightclienttypes "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking"
-	btcstakingtypes "github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstkconsumer"
-	bsctypes "github.com/amovidhussaini/ybtcclone/x/btcstkconsumer/types"
-	"github.com/amovidhussaini/ybtcclone/x/checkpointing"
-	checkpointingtypes "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	"github.com/amovidhussaini/ybtcclone/x/epoching"
-	epochingtypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	"github.com/amovidhussaini/ybtcclone/x/finality"
-	finalitytypes "github.com/amovidhussaini/ybtcclone/x/finality/types"
-	"github.com/amovidhussaini/ybtcclone/x/incentive"
-	incentivekeeper "github.com/amovidhussaini/ybtcclone/x/incentive/keeper"
-	incentivetypes "github.com/amovidhussaini/ybtcclone/x/incentive/types"
-	"github.com/amovidhussaini/ybtcclone/x/mint"
-	minttypes "github.com/amovidhussaini/ybtcclone/x/mint/types"
-	"github.com/amovidhussaini/ybtcclone/x/monitor"
-	monitortypes "github.com/amovidhussaini/ybtcclone/x/monitor/types"
-	"github.com/amovidhussaini/ybtcclone/x/zoneconcierge"
-	zctypes "github.com/amovidhussaini/ybtcclone/x/zoneconcierge/types"
+	"github.com/almovidhussaini/babylonclone/app/ante"
+	appkeepers "github.com/almovidhussaini/babylonclone/app/keepers"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/app/signer"
+	"github.com/almovidhussaini/babylonclone/app/upgrades"
+	"github.com/almovidhussaini/babylonclone/client/docs"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btccheckpoint"
+	btccheckpointtypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
+	"github.com/almovidhussaini/babylonclone/x/btclightclient"
+	btclightclienttypes "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking"
+	btcstakingtypes "github.com/almovidhussaini/babylonclone/x/btcstaking/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstkconsumer"
+	bsctypes "github.com/almovidhussaini/babylonclone/x/btcstkconsumer/types"
+	"github.com/almovidhussaini/babylonclone/x/checkpointing"
+	checkpointingtypes "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	"github.com/almovidhussaini/babylonclone/x/epoching"
+	epochingtypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	"github.com/almovidhussaini/babylonclone/x/finality"
+	finalitytypes "github.com/almovidhussaini/babylonclone/x/finality/types"
+	"github.com/almovidhussaini/babylonclone/x/incentive"
+	incentivekeeper "github.com/almovidhussaini/babylonclone/x/incentive/keeper"
+	incentivetypes "github.com/almovidhussaini/babylonclone/x/incentive/types"
+	"github.com/almovidhussaini/babylonclone/x/mint"
+	minttypes "github.com/almovidhussaini/babylonclone/x/mint/types"
+	"github.com/almovidhussaini/babylonclone/x/monitor"
+	monitortypes "github.com/almovidhussaini/babylonclone/x/monitor/types"
+	"github.com/almovidhussaini/babylonclone/x/zoneconcierge"
+	zctypes "github.com/almovidhussaini/babylonclone/x/zoneconcierge/types"
 	abci "github.com/cometbft/cometbft/abci/types"
 	cmtos "github.com/cometbft/cometbft/libs/os"
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
@@ -121,12 +121,12 @@ import (
 )
 
 const (
-	appName = "ybtc"
+	appName = "BabylonApp"
 
 	// Custom prefix for application environmental variables.
 	// From cosmos version 0.46 is is possible to have custom prefix for application
 	// environmental variables - https://github.com/cosmos/cosmos-sdk/pull/10950
-	ybtcAppEnvPrefix = ""
+	BabylonAppEnvPrefix = ""
 
 	// According to https://github.com/CosmWasm/wasmd#genesis-configuration chains
 	// using smart contracts should configure proper gas limits per block.
@@ -168,18 +168,18 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".ybtcd")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".babylond")
 }
 
 var (
-	_ runtime.AppI            = (*ybtcApp)(nil)
-	_ servertypes.Application = (*ybtcApp)(nil)
+	_ runtime.AppI            = (*BabylonApp)(nil)
+	_ servertypes.Application = (*BabylonApp)(nil)
 )
 
-// ybtcApp extends an ABCI application, but with most of its parameters exported.
+// BabylonApp extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
-type ybtcApp struct {
+type BabylonApp struct {
 	*baseapp.BaseApp
 	*appkeepers.AppKeepers
 
@@ -201,8 +201,8 @@ type ybtcApp struct {
 	configurator module.Configurator
 }
 
-// NewybtcApp returns a reference to an initialized ybtcApp.
-func NewybtcApp(
+// NewBabylonApp returns a reference to an initialized BabylonApp.
+func NewBabylonApp(
 	logger log.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
@@ -213,9 +213,9 @@ func NewybtcApp(
 	appOpts servertypes.AppOptions,
 	wasmOpts []wasmkeeper.Option,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) *ybtcApp {
+) *BabylonApp {
 	// we could also take it from global object which should be initialised in rootCmd
-	// but this way it makes ybtc app more testable
+	// but this way it makes babylon app more testable
 	btcConfig := bbn.ParseBtcOptionsFromConfig(appOpts)
 	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
 	if homePath == "" {
@@ -241,7 +241,7 @@ func NewybtcApp(
 		panic(fmt.Sprintf("error while reading wasm config: %s", err))
 	}
 
-	app := &ybtcApp{
+	app := &BabylonApp{
 		AppKeepers:        &appkeepers.AppKeepers{},
 		BaseApp:           bApp,
 		legacyAmino:       legacyAmino,
@@ -306,19 +306,19 @@ func NewybtcApp(
 		ibcfee.NewAppModule(app.IBCFeeKeeper),
 		ibctm.AppModule{},
 		ibcwasm.NewAppModule(app.IBCWasmKeeper),
-		// ybtc modules - btc timestamping
+		// Babylon modules - btc timestamping
 		epoching.NewAppModule(appCodec, app.EpochingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
 		btclightclient.NewAppModule(appCodec, app.BTCLightClientKeeper),
 		btccheckpoint.NewAppModule(appCodec, app.BtcCheckpointKeeper),
 		checkpointing.NewAppModule(appCodec, app.CheckpointingKeeper),
 		monitor.NewAppModule(appCodec, app.MonitorKeeper),
-		// ybtc modules - integration
+		// Babylon modules - integration
 		btcstkconsumer.NewAppModule(appCodec, app.BTCStkConsumerKeeper, app.AccountKeeper, app.BankKeeper),
 		zoneconcierge.NewAppModule(appCodec, app.ZoneConciergeKeeper, app.AccountKeeper, app.BankKeeper),
-		// ybtc modules - btc staking
+		// Babylon modules - btc staking
 		btcstaking.NewAppModule(appCodec, app.BTCStakingKeeper),
 		finality.NewAppModule(appCodec, app.FinalityKeeper),
-		// ybtc modules - tokenomics
+		// Babylon modules - tokenomics
 		incentive.NewAppModule(appCodec, app.IncentiveKeeper, app.AccountKeeper, app.BankKeeper),
 	)
 
@@ -359,7 +359,7 @@ func NewybtcApp(
 		authtypes.ModuleName, banktypes.ModuleName, govtypes.ModuleName, crisistypes.ModuleName, genutiltypes.ModuleName,
 		authz.ModuleName, feegrant.ModuleName,
 		paramstypes.ModuleName, vestingtypes.ModuleName, consensusparamtypes.ModuleName, circuittypes.ModuleName,
-		// ybtc modules
+		// Babylon modules
 		epochingtypes.ModuleName,
 		btclightclienttypes.ModuleName,
 		btccheckpointtypes.ModuleName,
@@ -390,7 +390,7 @@ func NewybtcApp(
 		genutiltypes.ModuleName, evidencetypes.ModuleName, authz.ModuleName,
 		feegrant.ModuleName,
 		paramstypes.ModuleName, upgradetypes.ModuleName, vestingtypes.ModuleName, consensusparamtypes.ModuleName,
-		// ybtc modules
+		// Babylon modules
 		epochingtypes.ModuleName,
 		btclightclienttypes.ModuleName,
 		btccheckpointtypes.ModuleName,
@@ -411,7 +411,7 @@ func NewybtcApp(
 		// tokenomics related modules
 		incentivetypes.ModuleName, // EndBlock of incentive module does not matter
 	)
-	// ybtc does not want EndBlock processing in staking
+	// Babylon does not want EndBlock processing in staking
 	app.ModuleManager.OrderEndBlockers = append(app.ModuleManager.OrderEndBlockers[:2], app.ModuleManager.OrderEndBlockers[2+1:]...) // remove stakingtypes.ModuleName
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -425,7 +425,7 @@ func NewybtcApp(
 		genutiltypes.ModuleName, evidencetypes.ModuleName, authz.ModuleName,
 		feegrant.ModuleName,
 		paramstypes.ModuleName, upgradetypes.ModuleName, vestingtypes.ModuleName, consensusparamtypes.ModuleName, circuittypes.ModuleName,
-		// ybtc modules
+		// Babylon modules
 		btclightclienttypes.ModuleName,
 		epochingtypes.ModuleName,
 		btccheckpointtypes.ModuleName,
@@ -556,7 +556,7 @@ func NewybtcApp(
 
 	// At startup, after all modules have been registered, check that all proto
 	// annotations are correct.
-	// FIXME (https://github.com/amovidhussaini/ybtcclone-private/issues/266): This is a temporary fix
+	// FIXME (https://github.com/almovidhussaini/babylonclone-private/issues/266): This is a temporary fix
 	protoFiles, _ := proto.MergedRegistry()
 	// if err != nil {
 	// 	panic(err)
@@ -588,22 +588,22 @@ func NewybtcApp(
 	return app
 }
 
-// GetBaseApp returns the BaseApp of ybtcApp
+// GetBaseApp returns the BaseApp of BabylonApp
 // required by ibctesting
-func (app *ybtcApp) GetBaseApp() *baseapp.BaseApp {
+func (app *BabylonApp) GetBaseApp() *baseapp.BaseApp {
 	return app.BaseApp
 }
 
 // Name returns the name of the App
-func (app *ybtcApp) Name() string { return app.BaseApp.Name() }
+func (app *BabylonApp) Name() string { return app.BaseApp.Name() }
 
 // PreBlocker application updates every pre block
-func (app *ybtcApp) PreBlocker(ctx sdk.Context, _ *abci.RequestFinalizeBlock) (*sdk.ResponsePreBlock, error) {
+func (app *BabylonApp) PreBlocker(ctx sdk.Context, _ *abci.RequestFinalizeBlock) (*sdk.ResponsePreBlock, error) {
 	return app.ModuleManager.PreBlock(ctx)
 }
 
 // BeginBlockForks is intended to be ran in a chain upgrade.
-func (app *ybtcApp) BeginBlockForks(ctx sdk.Context) {
+func (app *BabylonApp) BeginBlockForks(ctx sdk.Context) {
 	for _, fork := range Forks {
 		if ctx.BlockHeight() == fork.UpgradeHeight {
 			fork.BeginForkLogic(ctx, app.AppKeepers)
@@ -613,18 +613,18 @@ func (app *ybtcApp) BeginBlockForks(ctx sdk.Context) {
 }
 
 // BeginBlocker application updates every begin block
-func (app *ybtcApp) BeginBlocker(ctx sdk.Context) (sdk.BeginBlock, error) {
+func (app *BabylonApp) BeginBlocker(ctx sdk.Context) (sdk.BeginBlock, error) {
 	app.BeginBlockForks(ctx)
 	return app.ModuleManager.BeginBlock(ctx)
 }
 
 // EndBlocker application updates every end block
-func (app *ybtcApp) EndBlocker(ctx sdk.Context) (sdk.EndBlock, error) {
+func (app *BabylonApp) EndBlocker(ctx sdk.Context) (sdk.EndBlock, error) {
 	return app.ModuleManager.EndBlock(ctx)
 }
 
 // InitChainer application update at chain initialization
-func (app *ybtcApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.ResponseInitChain, error) {
+func (app *BabylonApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.ResponseInitChain, error) {
 	var genesisState GenesisState
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
@@ -647,12 +647,12 @@ func (app *ybtcApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*a
 }
 
 // LoadHeight loads a particular height
-func (app *ybtcApp) LoadHeight(height int64) error {
+func (app *BabylonApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height)
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *ybtcApp) ModuleAccountAddrs() map[string]bool {
+func (app *BabylonApp) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		modAccAddrs[authtypes.NewModuleAddress(acc).String()] = true
@@ -661,28 +661,28 @@ func (app *ybtcApp) ModuleAccountAddrs() map[string]bool {
 	return modAccAddrs
 }
 
-// LegacyAmino returns ybtcApp's amino codec.
+// LegacyAmino returns BabylonApp's amino codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *ybtcApp) LegacyAmino() *codec.LegacyAmino {
+func (app *BabylonApp) LegacyAmino() *codec.LegacyAmino {
 	return app.legacyAmino
 }
 
-// AppCodec returns ybtcApp's app codec.
+// AppCodec returns BabylonApp's app codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *ybtcApp) AppCodec() codec.Codec {
+func (app *BabylonApp) AppCodec() codec.Codec {
 	return app.appCodec
 }
 
-// InterfaceRegistry returns ybtcApp's InterfaceRegistry
-func (app *ybtcApp) InterfaceRegistry() types.InterfaceRegistry {
+// InterfaceRegistry returns babylonApp's InterfaceRegistry
+func (app *BabylonApp) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
 }
 
-func (app *ybtcApp) EncodingConfig() *appparams.EncodingConfig {
+func (app *BabylonApp) EncodingConfig() *appparams.EncodingConfig {
 	return &appparams.EncodingConfig{
 		InterfaceRegistry: app.InterfaceRegistry(),
 		Codec:             app.AppCodec(),
@@ -692,13 +692,13 @@ func (app *ybtcApp) EncodingConfig() *appparams.EncodingConfig {
 }
 
 // SimulationManager implements the SimulationApp interface
-func (app *ybtcApp) SimulationManager() *module.SimulationManager {
+func (app *BabylonApp) SimulationManager() *module.SimulationManager {
 	return app.sm
 }
 
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
-func (app *ybtcApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *BabylonApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	clientCtx := apiSvr.ClientCtx
 	// Register new tx routes from grpc-gateway.
 	authtx.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCGatewayRouter)
@@ -719,12 +719,12 @@ func (app *ybtcApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APICo
 }
 
 // RegisterTxService implements the Application.RegisterTxService method.
-func (app *ybtcApp) RegisterTxService(clientCtx client.Context) {
+func (app *BabylonApp) RegisterTxService(clientCtx client.Context) {
 	authtx.RegisterTxService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.BaseApp.Simulate, app.interfaceRegistry)
 }
 
 // RegisterTendermintService implements the Application.RegisterTendermintService method.
-func (app *ybtcApp) RegisterTendermintService(clientCtx client.Context) {
+func (app *BabylonApp) RegisterTendermintService(clientCtx client.Context) {
 	cmtservice.RegisterTendermintService(
 		clientCtx,
 		app.BaseApp.GRPCQueryRouter(),
@@ -733,21 +733,21 @@ func (app *ybtcApp) RegisterTendermintService(clientCtx client.Context) {
 	)
 }
 
-func (app *ybtcApp) RegisterNodeService(clientCtx client.Context, cfg config.Config) {
+func (app *BabylonApp) RegisterNodeService(clientCtx client.Context, cfg config.Config) {
 	nodeservice.RegisterNodeService(clientCtx, app.GRPCQueryRouter(), cfg)
 }
 
 // DefaultGenesis returns a default genesis from the registered AppModuleBasic's.
-func (a *ybtcApp) DefaultGenesis() map[string]json.RawMessage {
+func (a *BabylonApp) DefaultGenesis() map[string]json.RawMessage {
 	return a.BasicModuleManager.DefaultGenesis(a.appCodec)
 }
 
-func (app *ybtcApp) TxConfig() client.TxConfig {
+func (app *BabylonApp) TxConfig() client.TxConfig {
 	return app.txConfig
 }
 
 // AutoCliOpts returns the autocli options for the app.
-func (app *ybtcApp) AutoCliOpts() autocli.AppOptions {
+func (app *BabylonApp) AutoCliOpts() autocli.AppOptions {
 	modules := make(map[string]appmodule.AppModule, 0)
 	for _, m := range app.ModuleManager.Modules {
 		if moduleWithName, ok := m.(module.HasName); ok {
@@ -768,7 +768,7 @@ func (app *ybtcApp) AutoCliOpts() autocli.AppOptions {
 }
 
 // configure store loader that checks if version == upgradeHeight and applies store upgrades
-func (app *ybtcApp) setupUpgradeStoreLoaders() {
+func (app *BabylonApp) setupUpgradeStoreLoaders() {
 	upgradeInfo, err := app.UpgradeKeeper.ReadUpgradeInfoFromDisk()
 	if err != nil {
 		panic(fmt.Sprintf("failed to read upgrade info from disk %s", err))
@@ -786,7 +786,7 @@ func (app *ybtcApp) setupUpgradeStoreLoaders() {
 	}
 }
 
-func (app *ybtcApp) setupUpgradeHandlers() {
+func (app *BabylonApp) setupUpgradeHandlers() {
 	for _, upgrade := range Upgrades {
 		app.UpgradeKeeper.SetUpgradeHandler(
 			upgrade.UpgradeName,

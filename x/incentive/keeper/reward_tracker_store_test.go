@@ -9,10 +9,10 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	"github.com/amovidhussaini/ybtcclone/testutil/store"
-	"github.com/amovidhussaini/ybtcclone/x/incentive/types"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/testutil/store"
+	"github.com/almovidhussaini/babylonclone/x/incentive/types"
 )
 
 func FuzzCheckBtcDelegationActivated(f *testing.F) {

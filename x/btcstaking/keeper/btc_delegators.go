@@ -9,8 +9,8 @@ import (
 
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 // getBTCDelegatorDelegationIndex gets the BTC delegation index with a given BTC PK under a given finality provider
@@ -62,7 +62,7 @@ func (k Keeper) getBTCDelegatorDelegations(ctx context.Context, fpBTCPK *bbn.BIP
 }
 
 // HandleFPBTCDelegations processes all BTC delegations for a given finality provider using a provided handler function.
-// This function works for both ybtc finality providers and consumer finality providers.
+// This function works for both Babylon finality providers and consumer finality providers.
 // It automatically determines and selects the appropriate KV store based on the finality provider type.
 //
 // Parameters:
@@ -77,7 +77,7 @@ func (k Keeper) HandleFPBTCDelegations(ctx context.Context, fpBTCPK *bbn.BIP340P
 	// Determine which store to use based on the finality provider type
 	switch {
 	case k.HasFinalityProvider(ctx, *fpBTCPK):
-		// ybtc finality provider
+		// Babylon finality provider
 		store = k.btcDelegatorFpStore(ctx, fpBTCPK)
 	case k.BscKeeper.HasConsumerFinalityProvider(ctx, fpBTCPK):
 		// Consumer finality provider

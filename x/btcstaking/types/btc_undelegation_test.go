@@ -9,11 +9,11 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/stretchr/testify/require"
 
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
-	btctest "github.com/amovidhussaini/ybtcclone/testutil/bitcoin"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	"github.com/amovidhussaini/ybtcclone/x/btcstaking/types"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
+	btctest "github.com/almovidhussaini/babylonclone/testutil/bitcoin"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	"github.com/almovidhussaini/babylonclone/x/btcstaking/types"
 )
 
 func FuzzBTCUndelegation_SlashingTx(f *testing.F) {

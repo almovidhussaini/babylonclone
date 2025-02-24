@@ -24,11 +24,11 @@ import (
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/test/e2e/util"
-	blc "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
-	ct "github.com/amovidhussaini/ybtcclone/x/checkpointing/types"
-	etypes "github.com/amovidhussaini/ybtcclone/x/epoching/types"
-	mtypes "github.com/amovidhussaini/ybtcclone/x/monitor/types"
+	"github.com/almovidhussaini/babylonclone/test/e2e/util"
+	blc "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
+	ct "github.com/almovidhussaini/babylonclone/x/checkpointing/types"
+	etypes "github.com/almovidhussaini/babylonclone/x/epoching/types"
+	mtypes "github.com/almovidhussaini/babylonclone/x/monitor/types"
 )
 
 func (n *NodeConfig) QueryGRPCGateway(path string, queryParams url.Values) ([]byte, error) {
@@ -204,7 +204,7 @@ func (n *NodeConfig) QueryListSnapshots() ([]*cmtabcitypes.Snapshot, error) {
 }
 
 func (n *NodeConfig) QueryRawCheckpoint(epoch uint64) (*ct.RawCheckpointWithMetaResponse, error) {
-	path := fmt.Sprintf("ybtc/checkpointing/v1/raw_checkpoint/%d", epoch)
+	path := fmt.Sprintf("babylon/checkpointing/v1/raw_checkpoint/%d", epoch)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	if err != nil {
 		return nil, err
@@ -225,7 +225,7 @@ func (n *NodeConfig) QueryRawCheckpoints(pagination *query.PageRequest) (*ct.Que
 		queryParams.Set("pagination.limit", strconv.Itoa(int(pagination.Limit)))
 	}
 
-	bz, err := n.QueryGRPCGateway("ybtc/checkpointing/v1/raw_checkpoints", queryParams)
+	bz, err := n.QueryGRPCGateway("babylon/checkpointing/v1/raw_checkpoints", queryParams)
 	require.NoError(n.t, err)
 
 	var checkpointingResponse ct.QueryRawCheckpointsResponse
@@ -240,7 +240,7 @@ func (n *NodeConfig) QueryLastFinalizedEpoch() (uint64, error) {
 	queryParams := url.Values{}
 	queryParams.Add("status", fmt.Sprintf("%d", ct.Finalized))
 
-	bz, err := n.QueryGRPCGateway(fmt.Sprintf("/ybtc/checkpointing/v1/last_raw_checkpoint/%d", ct.Finalized), queryParams)
+	bz, err := n.QueryGRPCGateway(fmt.Sprintf("/babylon/checkpointing/v1/last_raw_checkpoint/%d", ct.Finalized), queryParams)
 	require.NoError(n.t, err)
 	var res ct.QueryLastCheckpointWithStatusResponse
 	if err := util.Cdc.UnmarshalJSON(bz, &res); err != nil {
@@ -250,7 +250,7 @@ func (n *NodeConfig) QueryLastFinalizedEpoch() (uint64, error) {
 }
 
 func (n *NodeConfig) QueryBtcBaseHeader() (*blc.BTCHeaderInfoResponse, error) {
-	bz, err := n.QueryGRPCGateway("ybtc/btclightclient/v1/baseheader", url.Values{})
+	bz, err := n.QueryGRPCGateway("babylon/btclightclient/v1/baseheader", url.Values{})
 	require.NoError(n.t, err)
 
 	var blcResponse blc.QueryBaseHeaderResponse
@@ -262,7 +262,7 @@ func (n *NodeConfig) QueryBtcBaseHeader() (*blc.BTCHeaderInfoResponse, error) {
 }
 
 func (n *NodeConfig) QueryTip() (*blc.BTCHeaderInfoResponse, error) {
-	bz, err := n.QueryGRPCGateway("ybtc/btclightclient/v1/tip", url.Values{})
+	bz, err := n.QueryGRPCGateway("babylon/btclightclient/v1/tip", url.Values{})
 	require.NoError(n.t, err)
 
 	var blcResponse blc.QueryTipResponse
@@ -274,7 +274,7 @@ func (n *NodeConfig) QueryTip() (*blc.BTCHeaderInfoResponse, error) {
 }
 
 func (n *NodeConfig) QueryHeaderDepth(hash string) (uint32, error) {
-	path := fmt.Sprintf("ybtc/btclightclient/v1/depth/%s", hash)
+	path := fmt.Sprintf("babylon/btclightclient/v1/depth/%s", hash)
 	bz, err := n.QueryGRPCGateway(path, url.Values{})
 	require.NoError(n.t, err)
 
@@ -287,7 +287,7 @@ func (n *NodeConfig) QueryHeaderDepth(hash string) (uint32, error) {
 }
 
 func (n *NodeConfig) QueryCurrentEpoch() (uint64, error) {
-	bz, err := n.QueryGRPCGateway("/ybtc/epoching/v1/current_epoch", url.Values{})
+	bz, err := n.QueryGRPCGateway("/babylon/epoching/v1/current_epoch", url.Values{})
 	require.NoError(n.t, err)
 	var epochResponse etypes.QueryCurrentEpochResponse
 	if err := util.Cdc.UnmarshalJSON(bz, &epochResponse); err != nil {
@@ -297,7 +297,7 @@ func (n *NodeConfig) QueryCurrentEpoch() (uint64, error) {
 }
 
 func (n *NodeConfig) QueryLightClientHeightEpochEnd(epoch uint64) (uint32, error) {
-	monitorPath := fmt.Sprintf("/ybtc/monitor/v1/epochs/%d", epoch)
+	monitorPath := fmt.Sprintf("/babylon/monitor/v1/epochs/%d", epoch)
 	bz, err := n.QueryGRPCGateway(monitorPath, url.Values{})
 	require.NoError(n.t, err)
 	var mResponse mtypes.QueryEndedEpochBtcHeightResponse
@@ -308,7 +308,7 @@ func (n *NodeConfig) QueryLightClientHeightEpochEnd(epoch uint64) (uint32, error
 }
 
 func (n *NodeConfig) QueryLightClientHeightCheckpointReported(ckptHash []byte) (uint32, error) {
-	monitorPath := fmt.Sprintf("/ybtc/monitor/v1/checkpoints/%x", ckptHash)
+	monitorPath := fmt.Sprintf("/babylon/monitor/v1/checkpoints/%x", ckptHash)
 	bz, err := n.QueryGRPCGateway(monitorPath, url.Values{})
 	require.NoError(n.t, err)
 	var mResponse mtypes.QueryReportedCheckpointBtcHeightResponse
@@ -403,7 +403,7 @@ func (n *NodeConfig) QueryAppliedPlan(planName string) upgradetypes.QueryApplied
 
 func (n *NodeConfig) QueryTx(txHash string, overallFlags ...string) (sdk.TxResponse, *sdktx.Tx) {
 	cmd := []string{
-		"ybtcd", "q", "tx", "--type=hash", txHash, "--output=json",
+		"babylond", "q", "tx", "--type=hash", txHash, "--output=json",
 		n.FlagChainID(),
 	}
 

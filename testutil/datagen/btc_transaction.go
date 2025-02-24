@@ -18,9 +18,9 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	txformat "github.com/amovidhussaini/ybtcclone/btctxformatter"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btcctypes "github.com/amovidhussaini/ybtcclone/x/btccheckpoint/types"
+	txformat "github.com/almovidhussaini/babylonclone/btctxformatter"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btcctypes "github.com/almovidhussaini/babylonclone/x/btccheckpoint/types"
 )
 
 var (
@@ -225,9 +225,9 @@ func createSpendOpReturnTx(spend *spendableOut, fee btcutil.Amount, data []byte)
 	return spendTx
 }
 
-func CreatOpReturnTransaction(r *rand.Rand, ybtcData []byte) *wire.MsgTx {
+func CreatOpReturnTransaction(r *rand.Rand, babylonData []byte) *wire.MsgTx {
 	out := makeSpendableOutWithRandOutPoint(r, 1000)
-	tx := createSpendOpReturnTx(&out, lowFee, ybtcData)
+	tx := createSpendOpReturnTx(&out, lowFee, babylonData)
 	return tx
 }
 
@@ -241,11 +241,11 @@ func CreateBlock(
 	r *rand.Rand,
 	height uint32,
 	numTx uint32,
-	ybtcOpReturnIdx uint32,
-	ybtcData []byte,
+	babylonOpReturnIdx uint32,
+	babylonData []byte,
 ) *BlockCreationResult {
-	if ybtcOpReturnIdx > numTx {
-		panic("ybtc tx index should be less than number of transasactions and greater than 0")
+	if babylonOpReturnIdx > numTx {
+		panic("babylon tx index should be less than number of transasactions and greater than 0")
 	}
 
 	var transactions []*wire.MsgTx
@@ -255,9 +255,9 @@ func CreateBlock(
 		case i == 0:
 			tx := createCoinbaseTx(int32(height), &chaincfg.SimNetParams)
 			transactions = append(transactions, tx)
-		case i == ybtcOpReturnIdx:
+		case i == babylonOpReturnIdx:
 			out := makeSpendableOutWithRandOutPoint(r, 1000)
-			tx := createSpendOpReturnTx(&out, lowFee, ybtcData)
+			tx := createSpendOpReturnTx(&out, lowFee, babylonData)
 			transactions = append(transactions, tx)
 		default:
 			out := makeSpendableOutWithRandOutPoint(r, 1000)
@@ -288,7 +288,7 @@ func CreateBlock(
 	res := BlockCreationResult{
 		HeaderBytes:  bbn.NewBTCHeaderBytesFromBlockHeader(btcHeader),
 		Transactions: hexTx,
-		BbnTxIndex:   ybtcOpReturnIdx,
+		BbnTxIndex:   babylonOpReturnIdx,
 	}
 
 	return &res
@@ -391,7 +391,7 @@ func GenRandomTx(r *rand.Rand) *wire.MsgTx {
 	return tx
 }
 
-func GenRandomybtcTxPair(r *rand.Rand) ([]*wire.MsgTx, *txformat.RawBtcCheckpoint) {
+func GenRandomBabylonTxPair(r *rand.Rand) ([]*wire.MsgTx, *txformat.RawBtcCheckpoint) {
 	txs := []*wire.MsgTx{GenRandomTx(r), GenRandomTx(r)}
 	builder := txscript.NewScriptBuilder()
 
@@ -400,7 +400,7 @@ func GenRandomybtcTxPair(r *rand.Rand) ([]*wire.MsgTx, *txformat.RawBtcCheckpoin
 	tag := GenRandomByteArray(r, 4)
 	// encode raw checkpoint to two halves
 	firstHalf, secondHalf, err := txformat.EncodeCheckpointData(
-		txformat.ybtcTag(tag),
+		txformat.BabylonTag(tag),
 		txformat.CurrentVersion,
 		rawBTCCkpt,
 	)
@@ -426,8 +426,8 @@ func GenRandomybtcTxPair(r *rand.Rand) ([]*wire.MsgTx, *txformat.RawBtcCheckpoin
 	return txs, rawBTCCkpt
 }
 
-func GenRandomybtcTx(r *rand.Rand) *wire.MsgTx {
-	txs, _ := GenRandomybtcTxPair(r)
+func GenRandomBabylonTx(r *rand.Rand) *wire.MsgTx {
+	txs, _ := GenRandomBabylonTxPair(r)
 	idx := r.Intn(2)
 	return txs[idx]
 }
@@ -492,7 +492,7 @@ func getRandomCheckpointDataForEpoch(r *rand.Rand, e uint64) testCheckpointData 
 }
 
 // both f and s must be parts retrieved from txformat.Encode
-func getExpectedOpReturn(tag txformat.ybtcTag, f []byte, s []byte) []byte {
+func getExpectedOpReturn(tag txformat.BabylonTag, f []byte, s []byte) []byte {
 	firstPartNoHeader, err := txformat.GetCheckpointData(
 		tag,
 		txformat.CurrentVersion,
@@ -539,13 +539,13 @@ func RandomRawCheckpointDataForEpoch(r *rand.Rand, e uint64) (*TestRawCheckpoint
 func EncodeRawCkptToTestData(rawBTCCkpt *txformat.RawBtcCheckpoint) *TestRawCheckpointData {
 	tag := btcctypes.DefaultCheckpointTag
 	tagAsBytes, _ := hex.DecodeString(tag)
-	ybtcTag := txformat.ybtcTag(tagAsBytes)
+	babylonTag := txformat.BabylonTag(tagAsBytes)
 	data1, data2 := txformat.MustEncodeCheckpointData(
-		ybtcTag,
+		babylonTag,
 		txformat.CurrentVersion,
 		rawBTCCkpt,
 	)
-	opReturn := getExpectedOpReturn(ybtcTag, data1, data2)
+	opReturn := getExpectedOpReturn(babylonTag, data1, data2)
 
 	return &TestRawCheckpointData{
 		Epoch:            rawBTCCkpt.Epoch,

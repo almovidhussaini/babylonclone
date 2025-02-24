@@ -2,8 +2,9 @@ package monitor
 
 import (
 	"context"
-	"github.com/amovidhussaini/ybtcclone/x/monitor/keeper"
-	"github.com/amovidhussaini/ybtcclone/x/monitor/types"
+
+	"github.com/almovidhussaini/babylonclone/x/monitor/keeper"
+	"github.com/almovidhussaini/babylonclone/x/monitor/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

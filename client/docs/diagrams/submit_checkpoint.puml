@@ -21,7 +21,7 @@ User -> CLI : bbnd tx btccheckpoint \n register --key btc-key.pk
 CLI -> Tendermint : Broadcast tx
 Tendermint -> Mempool : Add register tx
 
-... wait for registration tx to be included in a ybtc block ...
+... wait for registration tx to be included in a Babylon block ...
 
 Tendermint -> btccheckpoint ++ : DeliverTx
 btccheckpoint -> btccheckpoint : Verify Proof-of-Possession
@@ -33,7 +33,7 @@ end
 return result or invalid
 
 Events --> User : Observe self registration
-User -> submitter : Start monitoring ybtc
+User -> submitter : Start monitoring Babylon
 User -> submitter : Start monitoring Bitcoin
 
 == Listen For Checkpoint Events ==
@@ -54,7 +54,7 @@ alt Find the previous epoch checkpoint
 else try the RPC
   submitter -> btccheckpoint : Query for previous previous BTC checkpoint
 else wait for notification
-  Events --> submitter : Observe previous BTC checkpoint submitted to ybtc
+  Events --> submitter : Observe previous BTC checkpoint submitted to Babylon
   note left
     Observing Bitcoin would require a full node.
   end note
@@ -65,10 +65,10 @@ Bitcoin --> submitter : Wait for previous checkpoint carrier BTC block to embed
 note right
   Even a light client can do this,
   because the BTC block to observe
-  is part of the Event from ybtc.
+  is part of the Event from Babylon.
 
   Waiting ensures the checkpoint
-  will not be dropped by ybtc.
+  will not be dropped by Babylon.
 end note
 end
 
@@ -91,7 +91,7 @@ alt if not a duplicate
 end
 deactivate Tendermint
 
-... wait for checkpointing tx to be included in a ybtc block ...
+... wait for checkpointing tx to be included in a Babylon block ...
 
 Tendermint -> btccheckpoint ++ : DeliverTx
 btccheckpoint -> btccheckpoint : Verify Proof-of-Inclusion

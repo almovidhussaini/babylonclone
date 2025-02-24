@@ -19,11 +19,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	bapp "github.com/amovidhussaini/ybtcclone/app"
-	appparams "github.com/amovidhussaini/ybtcclone/app/params"
-	bbn "github.com/amovidhussaini/ybtcclone/types"
-	btclightclientk "github.com/amovidhussaini/ybtcclone/x/btclightclient/keeper"
-	btclightclientt "github.com/amovidhussaini/ybtcclone/x/btclightclient/types"
+	bapp "github.com/almovidhussaini/babylonclone/app"
+	appparams "github.com/almovidhussaini/babylonclone/app/params"
+	bbn "github.com/almovidhussaini/babylonclone/types"
+	btclightclientk "github.com/almovidhussaini/babylonclone/x/btclightclient/keeper"
+	btclightclientt "github.com/almovidhussaini/babylonclone/x/btclightclient/types"
 )
 
 type MockIncentiveKeeper struct{}

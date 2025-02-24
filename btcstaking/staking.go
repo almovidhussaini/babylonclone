@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	sdkmath "cosmossdk.io/math"
-	asig "github.com/amovidhussaini/ybtcclone/crypto/schnorr-adaptor-signature"
+	asig "github.com/almovidhussaini/babylonclone/crypto/schnorr-adaptor-signature"
 	"github.com/btcsuite/btcd/blockchain"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcec/v2/schnorr"
@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	// MaxTxVersion is the maximum transaction version allowed in ybtc system.
+	// MaxTxVersion is the maximum transaction version allowed in Babylon system.
 	// Changing that constant will require upgrade in the future, if we ever need
 	// to support v3 transactions.
 	MaxTxVersion = 2
@@ -278,7 +278,7 @@ func CheckPreSignedTxSanity(
 			return fmt.Errorf("pre-signed tx must not be replaceable")
 		}
 
-		// We require this to be 0, as all ybtc pre-signed transactions use
+		// We require this to be 0, as all babylon pre-signed transactions use
 		// witness
 		if len(in.SignatureScript) != 0 {
 			return fmt.Errorf("pre-signed tx must not have signature script")

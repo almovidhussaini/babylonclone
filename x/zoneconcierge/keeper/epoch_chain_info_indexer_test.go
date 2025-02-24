@@ -7,8 +7,8 @@ import (
 	ibctmtypes "github.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amovidhussaini/ybtcclone/app"
-	"github.com/amovidhussaini/ybtcclone/testutil/datagen"
+	"github.com/almovidhussaini/babylonclone/app"
+	"github.com/almovidhussaini/babylonclone/testutil/datagen"
 )
 
 func FuzzEpochChainInfoIndexer(f *testing.F) {
@@ -17,16 +17,16 @@ func FuzzEpochChainInfoIndexer(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		ctx := babylonApp.NewContext(false)
 
 		hooks := zcKeeper.Hooks()
 
 		// enter a random epoch
 		epochNum := datagen.RandomInt(r, 10)
 		for j := uint64(0); j < epochNum; j++ {
-			ybtcApp.EpochingKeeper.IncEpoch(ctx)
+			babylonApp.EpochingKeeper.IncEpoch(ctx)
 		}
 
 		// invoke the hook a random number of times to simulate a random number of blocks
@@ -53,9 +53,9 @@ func FuzzGetEpochHeaders(f *testing.F) {
 	f.Fuzz(func(t *testing.T, seed int64) {
 		r := rand.New(rand.NewSource(seed))
 
-		ybtcApp := app.Setup(t, false)
-		zcKeeper := ybtcApp.ZoneConciergeKeeper
-		ctx := ybtcApp.NewContext(false)
+		babylonApp := app.Setup(t, false)
+		zcKeeper := babylonApp.ZoneConciergeKeeper
+		ctx := babylonApp.NewContext(false)
 
 		hooks := zcKeeper.Hooks()
 
@@ -73,11 +73,11 @@ func FuzzGetEpochHeaders(f *testing.F) {
 			// enter a random epoch
 			if i == 0 {
 				for j := uint64(1); j < epochNum; j++ { // starting from epoch 1
-					ybtcApp.EpochingKeeper.IncEpoch(ctx)
+					babylonApp.EpochingKeeper.IncEpoch(ctx)
 				}
 			} else {
 				for j := uint64(0); j < epochNum-epochNumList[i-1]; j++ {
-					ybtcApp.EpochingKeeper.IncEpoch(ctx)
+					babylonApp.EpochingKeeper.IncEpoch(ctx)
 				}
 			}
 
